@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/05 17:28:07 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:39:30 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ struct s_env;
 typedef struct s_info
 {
 	char			**token;
-	struct t_env	*env;
+	struct s_env	*env;
 }					t_info;
 
 typedef struct s_error
