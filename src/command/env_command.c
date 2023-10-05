@@ -6,11 +6,11 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:56 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/05 15:46:59 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:26:48 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/builtin.h"
 
 int	command_env(char **token, char **envp)
 {

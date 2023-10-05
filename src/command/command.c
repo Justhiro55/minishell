@@ -6,16 +6,18 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/05 16:26:09 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:33:16 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/builtin.h"
 
 void	set_token(t_info *info, char *line)
 {
 	info->token = ft_split(line, ' ');
 }
+
+void 	set_env;
 
 void	parse(char *line, char **envp)
 {

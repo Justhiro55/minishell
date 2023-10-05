@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 18:30:41 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/06/06 18:42:31 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/05/30 17:04:07 by hhagiwar          #+#    #+#             */
+/*   Updated: 2023/06/14 12:55:40 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_putstr_fd(char *s, int fd)
+int	ft_toupper(int c)
 {
-	if (s != NULL)
+	if ('a' <= c && c <= 'z')
 	{
-		while (*s)
-		{
-			write(fd, s, sizeof(*s));
-			s++;
-		}
+		return (c - 'a' + 'A');
+	}
+	else
+	{
+		return (c);
 	}
 }
