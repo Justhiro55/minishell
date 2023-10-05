@@ -6,11 +6,11 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:56:32 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/05 15:44:43 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:27:12 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/builtin.h"
 
 int	command_not_found(char *line)
 {

@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 18:30:41 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/06/06 18:42:31 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
+/*   Updated: 2023/10/05 17:28:14 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-void	ft_putstr_fd(char *s, int fd)
+# include "./minishell.h"
+
+typedef struct s_env
 {
-	if (s != NULL)
-	{
-		while (*s)
-		{
-			write(fd, s, sizeof(*s));
-			s++;
-		}
-	}
-}
+	char			*key;
+	char			*value;
+	struct t_env	*next;
+}					t_env;
+
+int					command_exit(char **token);
+int					command_not_found(char *line);
+int					command_echo(char **token);
+int					command_pwd(char **token);
+int					command_cd(char **token);
+int					command_env(char **token, char **envp);
+
+#endif

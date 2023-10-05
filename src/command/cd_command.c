@@ -6,11 +6,11 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:53:36 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/05 16:04:11 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:27:39 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/builtin.h"
 
 int	command_cd(char **token)
 {
