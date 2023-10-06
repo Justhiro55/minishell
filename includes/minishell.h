@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/05 18:39:30 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/06 15:42:32 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define STDERR 2
 # define MINISHELL "MINISHELL$ "
 
-struct s_env;
+struct	s_env;
 
 typedef struct s_info
 {

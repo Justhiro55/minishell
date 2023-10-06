@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/05 18:42:19 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:02:14 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,17 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
+
+//builtin-command
 int					command_exit(char **token);
 int					command_not_found(char *line);
 int					command_echo(char **token);
 int					command_pwd(char **token);
 int					command_cd(char **token);
-int					command_env(char **token, char **envp);
+int					command_env(char **token, t_info info);
+
+//set
+void	set_env(t_info *info, char **envp);
+
 
 #endif
