@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/06 18:42:00 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/10/07 19:58:52 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,9 @@ LIBFTDIR	=	libft
 LIBFT		=	func/$(LIBFTDIR)/libft.a
 LIB			=	$(LIBFT)
 
-GNLDIR = get_next_line
-GNL_SRC = func/$(GNLDIR)/get_next_line.c func/$(GNLDIR)/get_next_line_utils.c
-GNL = ${GNL_SRC}
+# GNLDIR = get_next_line
+# GNL_SRC = func/$(GNLDIR)/get_next_line.c func/$(GNLDIR)/get_next_line_utils.c
+# GNL = ${GNL_SRC}
 
 all: $(NAME)
 

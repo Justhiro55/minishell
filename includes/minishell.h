@@ -6,14 +6,14 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/07 15:26:22 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/07 19:58:45 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../func/get_next_line/get_next_line.h"
+// # include "../func/get_next_line/get_next_line.h"
 # include "../func/libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -29,6 +29,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <string.h>
 
 # define STDOUT 1
 # define STDERR 2
