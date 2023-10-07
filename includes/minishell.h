@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/06 15:42:32 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/07 15:26:22 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@
 # define STDERR 2
 # define MINISHELL "MINISHELL$ "
 
-struct	s_env;
+# define ERROR 1
+
+struct s_env;
 
 typedef struct s_info
 {
@@ -48,7 +50,7 @@ typedef struct s_error
 }					t_error;
 
 void				minishell(char **envp);
-void				parse(char *line, char **envp);
+void				parse(char *line, t_info info);
 
 //signal
 void				sig_int_input(int signum);

@@ -6,11 +6,12 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/05 16:26:35 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/07 14:59:43 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "../includes/builtin.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -35,18 +36,17 @@ int	main(int argc, char **argv, char **envp)
 void	minishell(char **envp)
 {
 	char	*line;
+	t_info	info;
 
-	// t_info	info;
 	line = NULL;
-	// set_env(&line, envp);
-	(void)envp;
+	set_env(&info, envp);
 	while (1)
 	{
 		line = readline("$> ");
 		if (line == NULL || strlen(line) == 0)
 			free(line);
 		else
-			parse(line, envp);
+			parse(line, info);
 		// if (signal(SIGINT, sig_int_input) == SIG_ERR)
 		// {
 		// 	ft_putstr_fd(strerror(errno), STDERR);

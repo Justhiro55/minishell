@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/06 18:31:55 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/07 15:46:47 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ t_env	*env_lstnew(char *envp)
 	{
 		content = ft_split(envp, '=');
 		new_node->key = content[0];
-		new_node->value = content[1];
+		if (content[1] == NULL)
+			new_node->value = "";
+		else
+			new_node->value = content[1];
 		new_node->next = NULL;
 	}
 	return (new_node);
@@ -37,6 +40,14 @@ t_env	*env_lstlast(t_env *lst)
 		lst = lst->next;
 	}
 	return (lst);
+}
+
+void	env_add_back(t_info *info, t_env *new_node)
+{
+	t_env	*last;
+
+	last = env_lstlast(info->env);
+	last->next = new_node;
 }
 
 void	set_env(t_info *info, char **envp)
@@ -66,8 +77,4 @@ void	set_env(t_info *info, char **envp)
 		last = new_node;
 		envp++;
 	}
-	// printf("%s, %s\n", info->env->key, info->env->value);
-	// printf("%s, %s\n", info->env->next->key, info->env->next->value);
-	// printf("%s, %s\n", info->env->next->next->key,
-	// 		info->env->next->next->value);
 }
