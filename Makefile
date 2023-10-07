@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/05 16:26:06 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/10/07 20:11:26 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,6 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 LIBFTDIR	=	libft
 LIBFT		=	func/$(LIBFTDIR)/libft.a
 LIB			=	$(LIBFT)
-
-GNLDIR = get_next_line
-GNL_SRC = func/$(GNLDIR)/get_next_line.c func/$(GNLDIR)/get_next_line_utils.c
-GNL = ${GNL_SRC}
 
 all: $(NAME)
 
