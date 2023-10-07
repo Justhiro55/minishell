@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/07 15:46:47 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/07 23:07:42 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,14 @@ void	env_add_back(t_info *info, t_env *new_node)
 {
 	t_env	*last;
 
-	last = env_lstlast(info->env);
-	last->next = new_node;
+	if (info->env == NULL)
+		info->env = new_node;
+	else
+	{
+		last = env_lstlast(info->env);
+		if (last)
+			last->next = new_node;
+	}
 }
 
 void	set_env(t_info *info, char **envp)

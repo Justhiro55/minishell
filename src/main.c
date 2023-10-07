@@ -6,12 +6,12 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/07 14:59:43 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/07 23:07:44 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
 #include "../includes/builtin.h"
+#include "../includes/minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -46,7 +46,7 @@ void	minishell(char **envp)
 		if (line == NULL || strlen(line) == 0)
 			free(line);
 		else
-			parse(line, info);
+			parse(line, &info);
 		// if (signal(SIGINT, sig_int_input) == SIG_ERR)
 		// {
 		// 	ft_putstr_fd(strerror(errno), STDERR);

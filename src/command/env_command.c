@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:56 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/07 14:52:38 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/07 22:47:33 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	command_env(char **token, t_info info)
 {
-	(void)info;
 	if (token[1] != NULL)
 	{
 		ft_putstr_fd("env: too many arguments\n", STDERR);
@@ -22,6 +21,10 @@ int	command_env(char **token, t_info info)
 	}
 	if (token[1] == NULL)
 	{
+		if (info.env == NULL)
+		{
+			return (0);
+		}
 		while (info.env != NULL)
 		{
 			printf("%s=%s\n", info.env->key, info.env->value);

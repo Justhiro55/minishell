@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/07 15:46:55 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/07 23:07:35 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,23 +64,26 @@ int	export_node(t_info *info, t_env new_node)
 	return (0);
 }
 
-int	command_export(char **token, t_info info)
+t_env	*command_export(char **token, t_info *info)
 {
 	t_env	*new_node;
+	t_env	*temp_env;
 
 	if (token[1] == NULL)
 	{
 		ft_putstr_fd("export: not enough arguments\n", STDERR);
-		return (1);
+		return (info->env);
 	}
-	if (token[1] != NULL)
+	if (export_error(token) == ERROR)
 	{
-		if (export_error(token) == ERROR)
-			printf("ERROR\n");
-		new_node = env_lstnew(token[1]);
-		if (export_node(&info, *new_node) == 0)
-			env_add_back(&info, new_node);
-		env_lstlast(info.env)->next = NULL;
+		printf("ERROR\n");
+		return (info->env);
 	}
-	return (0);
+	new_node = env_lstnew(token[1]);
+	if (!new_node)
+		return (info->env);
+	temp_env = info->env;
+	if (export_node(info, *new_node) == 0)
+		env_add_back(info, new_node);
+	return (info->env);
 }
