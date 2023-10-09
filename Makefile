@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/07 19:58:52 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/10/09 16:24:08 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC = src/main.c \
 		src/command/pwd_command.c \
 		src/command/not_found_command.c \
 		src/command/set_env.c \
+		src/command/ls_command.c \
 		src/command/export_command.c
 
 OBJ_DIR = obj

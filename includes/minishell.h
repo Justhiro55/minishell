@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/07 23:07:12 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:20:49 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 // # include "../func/get_next_line/get_next_line.h"
 # include "../func/libft/libft.h"
+# include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
@@ -37,7 +38,7 @@
 
 # define ERROR 1
 
-struct	s_env;
+struct s_env;
 
 typedef struct s_info
 {

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/07 23:08:26 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:23:07 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	parse(char *line, t_info *info)
 		command_env(info->token, *info);
 	else if (ft_strcmp(info->token[0], "export") == 0)
 		command_export(info->token, info);
+	else if (ft_strcmp(info->token[0], "ls") == 0)
+		command_ls(getcwd(NULL, 0));
 	else
 		command_not_found(line);
 	add_history(line);
