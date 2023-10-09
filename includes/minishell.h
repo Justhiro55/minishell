@@ -31,6 +31,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <string.h>
 
 # define STDOUT 1
 # define STDERR 2

@@ -36,10 +36,6 @@ LIBFTDIR	=	libft
 LIBFT		=	func/$(LIBFTDIR)/libft.a
 LIB			=	$(LIBFT)
 
-# GNLDIR = get_next_line
-# GNL_SRC = func/$(GNLDIR)/get_next_line.c func/$(GNLDIR)/get_next_line_utils.c
-# GNL = ${GNL_SRC}
-
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: src/%.c
