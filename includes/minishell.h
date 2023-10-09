@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/07 20:10:52 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:20:49 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 // # include "../func/get_next_line/get_next_line.h"
 # include "../func/libft/libft.h"
+# include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
@@ -25,6 +26,7 @@
 # include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -35,12 +37,14 @@
 # define STDERR 2
 # define MINISHELL "MINISHELL$ "
 
+# define ERROR 1
+
 struct s_env;
 
 typedef struct s_info
 {
 	char			**token;
-	struct t_env	*env;
+	struct s_env	*env;
 }					t_info;
 
 typedef struct s_error
@@ -49,7 +53,7 @@ typedef struct s_error
 }					t_error;
 
 void				minishell(char **envp);
-void				parse(char *line, char **envp);
+void				parse(char *line, t_info *info);
 
 //signal
 void				sig_int_input(int signum);

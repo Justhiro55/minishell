@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ls_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/01 15:14:24 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/05 17:44:50 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/10/09 15:48:20 by hhagiwar          #+#    #+#             */
+/*   Updated: 2023/10/09 16:29:08 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/builtin.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void	command_ls(const char *dir_path)
 {
-	size_t		i;
-	char		*strdst;
-	const char	*strsrc;
+	DIR				*dir;
+	struct dirent	*entry;
 
-	if (dst == NULL && src == NULL)
-		return (NULL);
-	strsrc = src;
-	strdst = dst;
-	i = 0;
-	if (strsrc > strdst)
+	dir = opendir(dir_path);
+	if (dir == NULL)
 	{
-		ft_memcpy(dst, src, len);
+		perror("opendir");
+		exit(EXIT_FAILURE);
 	}
-	else
+	entry = readdir(dir);
+	while (entry != NULL)
 	{
-		while (i++ < len)
+		if (entry->d_name[0] != '.')
 		{
-			strdst[len - i] = strsrc[len - i];
+			printf("%s\n", entry->d_name);
 		}
 	}
-	return (dst);
+	closedir(dir);
 }

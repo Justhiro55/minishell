@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "builtin.h": "c"
+        "builtin.h": "c",
+        "minishell.h": "c",
+        "libft.h": "c"
     }
 }
