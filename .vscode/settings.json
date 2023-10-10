@@ -2,6 +2,8 @@
     "files.associations": {
         "builtin.h": "c",
         "minishell.h": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "history.h": "c",
+        "unistd.h": "c"
     }
 }

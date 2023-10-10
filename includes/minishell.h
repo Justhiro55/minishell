@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/09 16:20:49 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/10 21:16:02 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <string.h>
 
 # define STDOUT 1
 # define STDERR 2
@@ -39,7 +38,7 @@
 
 # define ERROR 1
 
-struct s_env;
+struct	s_env;
 
 typedef struct s_info
 {

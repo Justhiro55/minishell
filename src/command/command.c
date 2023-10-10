@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/09 16:23:07 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/10 21:35:50 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	set_token(t_info *info, char *line)
 void	parse(char *line, t_info *info)
 {
 	set_token(info, line);
+	printf("info->token:%s\n", info->token[0]);
 	if (ft_strcmp(info->token[0], "exit") == 0)
 		command_exit(info->token);
 	else if (ft_strcmp(info->token[0], "echo") == 0)
