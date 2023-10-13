@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:50:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/13 22:56:19 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/13 22:58:27 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	child_process(int fd1, int fd2, t_info info, char **envp)
 	ft_exec(info.cmd1, envp, &info);
 }
 
-void	parent_process(int *fd, t_info info, char **envp)
+void	parent_process(int fd1, int fd2, t_info info, char **envp)
 {
 	int	status;
 
-	close(fd[1]);
-	dup2(fd[0], STDIN_FILENO);
-	close(fd[0]);
+	close(fd2);
+	dup2(fd1, STDIN_FILENO);
+	close(fd1);
 	dup2(info.file_fd[1], STDOUT_FILENO);
 	wait(&status); // 子プロセスの終了を待つ
 	ft_exec(info.cmd2, envp, &info);
@@ -52,7 +52,7 @@ int	ft_pipe(char **argv, char **envp, t_info info)
 		child_process(pipefd[0], pipefd[1], info, envp);
 		exit(1);
 	}
-	parent_process(pipefd, info, envp);
+	parent_process(pipefd[0], pipefd[1], info, envp);
 	return (0);
 }
 
