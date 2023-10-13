@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/12 19:38:39 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/13 21:37:44 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ typedef struct s_info
 {
 	char			**token;
 	struct s_env	*env;
+	//pipe
+	int				pipe_fd[2];
+	int				file_fd[2];
+	char			**cmd1;
+	char			**cmd2;
 }					t_info;
 
 typedef struct s_error

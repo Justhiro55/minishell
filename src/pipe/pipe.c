@@ -6,98 +6,93 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:50:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/13 16:13:47 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/13 22:27:00 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
 #include "../../includes/minishell.h"
 
-char	*get_command_path(char *command)
+int	ft_exec(char **command, char **envp, t_info *info)
 {
-	(void)command;
-	printf("access:%d\n", access("/bin/cat", F_OK));
-	while ()
-		return (NULL);
-	// if ((ft_strcmp(command, "cat") == 1) || (ft_strcmp(command, "echo") == 1)
-	// 	|| (ft_strcmp(command, "ls") == 1) || ft_strcmp(command,
-	// 		"norminette") == 1 || ft_strcmp(command, "mkdir") == 1
-	// 	|| ft_strcmp(command, "bash") == 1 || ft_strcmp(command, "rm") == 1
-	// 	|| ft_strcmp(command, "pwd") == 1)
-	// 	return ("/bin/");
-	// else if ((ft_strcmp(command, "man") == 1) || (ft_strcmp(command,
-	// 			"env") == 1) || (ft_strcmp(command, "head") == 1)
-	// 			|| (ft_strcmp(command, "wc") == 1) || (ft_strcmp(command,
-	// 			"make") == 1) || (ft_strcmp(command, "whoami") == 1)
-	// 		|| (ft_strcmp(command, "vim") == 1) || (ft_strcmp(command,
-	// 				"cat") == 1) || (ft_strcmp(command, "cd") == 1)
-	// 		|| (ft_strcmp(command, "env") == 1))
-	// 	return ("/usr/bin/");
-	return (NULL);
-}
-
-char	*ft_parse_args(char **command, char **envp, t_info *info)
-{
+	char	**path;
+	int		i;
+	t_env	*env;
 	char	*command_path;
 
-	if (ft_strcmp(command[0], "pwd") == 0)
-		command_pwd(command);
-	else if (ft_strcmp(command[0], "exit") == 0)
-		command_exit(command);
-	else if (ft_strcmp(command[0], "wc") == 0)
-		execve("/usr/bin/wc", command, envp);
-	else if (ft_strcmp(command[0], "pwd") == 0)
-		command_pwd(command);
-	else if (ft_strcmp(command[0], "export") == 0)
-		command_export(command, info);
-	else if (ft_strcmp(command[0], "ls") == 0)
+	i = 0;
+	env = info->env;
+	while (ft_strcmp(env->key, "PATH") != 0 && i++ < 20)
+		env = env->next;
+	path = ft_split(env->value, ':');
+	i = 0;
+	while (path[i] != NULL)
 	{
-		printf("%s\n", getcwd(NULL, 0));
-		command_ls(getcwd(NULL, 0));
+		command_path = ft_strjoin(ft_strjoin(path[i], "/"), command[0]);
+		if (access(command_path, F_OK) == 0)
+		{
+			execve(command_path, command, envp);
+			return (0);
+		}
+		free(command_path);
+		i++;
 	}
-	command_path = ft_strjoin(get_command_path(command[0]), command[0]);
-	printf("command_path:%s\n", command_path);
-	execve(command_path, command, envp);
-	return (NULL);
+	return (1);
 }
 
-// char	*ft_parse_args(char **command, char **envp, t_info *info)
-// {
-// 	if (ft_strcmp(command[0], "cat") == 0)
-// 		execve("/bin/cat", command, envp);
-// 	else if (ft_strcmp(command[0], "head") == 0)
-// 		execve("/usr/bin/head", command, envp);
-// 	else if (ft_strcmp(command[0], "wc") == 0)
-// 		execve("/usr/bin/wc", command, envp);
-// 	else if (ft_strcmp(command[0], "ls") == 0)
-// 		execve("/bin/ls", command, envp);
-// 	else if (ft_strcmp(command[0], "pwd") == 0)
-// 		command_pwd(command);
-// 	else if (ft_strcmp(command[0], "exit") == 0)
-// 		command_exit(command);
-// 	else if (ft_strcmp(command[0], "echo") == 0)
-// 		command_echo(command);
-// 	else if (ft_strcmp(command[0], "pwd") == 0)
-// 		command_pwd(command);
-// 	else if (ft_strcmp(command[0], "cd") == 0)
-// 		command_cd(command);
-// 	else if (ft_strcmp(command[0], "env") == 0)
-// 		execve("/usr/bin/env", command, envp);
-// 	else if (ft_strcmp(command[0], "export") == 0)
-// 		command_export(command, info);
-// 	else if (ft_strcmp(command[0], "ls") == 0)
-// 		command_ls(getcwd(NULL, 0));
-// 	return (NULL);
-// }
+void	set_var(t_info *info, char **argv)
+{
+	info->cmd1 = ft_split(argv[2], ' ');
+	info->cmd2 = ft_split(argv[3], ' ');
+	info->file_fd[0] = open(argv[1], O_RDONLY);
+	info->file_fd[1] = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (info->file_fd[0] < 0 || info->file_fd[1] < 0)
+		exit(EXIT_FAILURE);
+}
+
+void	child_process(int fd1, int fd2, t_info info, char **envp)
+{
+	close(fd1);
+	dup2(fd2, STDOUT_FILENO);
+	close(fd2);
+	ft_exec(info.cmd1, envp, &info);
+}
+
+void	parent_process(int *fd, t_info info, char **envp)
+{
+	int	status;
+
+	close(fd[1]);
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]);
+	wait(&status); // 子プロセスの終了を待つ
+	ft_exec(info.cmd2, envp, &info);
+}
+
+int	ft_pipe(char **argv, char **envp, t_info info)
+{
+	pid_t	parent;
+	int		pipefd[2];
+
+	if (pipe(pipefd) == -1)
+	{
+		perror("pipe");
+		return (1);
+	}
+	parent = fork();
+	if (!parent)
+	{
+		child_process(pipefd[0], pipefd[1], info, envp);
+		exit(1);
+	}
+	parent_process(pipefd, info, envp);
+	return (0);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
 	pid_t	pid;
 	t_info	info;
-	int		pipefd[2];
-	char	**command1;
-	char	**command2;
-	char	*file[2];
 
 	if (argc != 5)
 	{
@@ -106,36 +101,8 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	set_env(&info, envp);
-	file[0] = strdup(argv[1]);
-	file[1] = strdup(argv[4]);
-	command1 = ft_split(argv[2], ' ');
-	command2 = ft_split(argv[3], ' ');
-	if (pipe(pipefd) == -1)
-	{
-		perror("pipe");
-		return (1);
-	}
-	pid = fork();
-	printf("test2\n");
-	if (pid == 0)
-	{
-		close(pipefd[0]);
-		printf("test3\n");
-		dup2(pipefd[1], STDOUT_FILENO);
-		printf("test4\n");
-		close(pipefd[1]);
-		// execve(ft_parse_args(command1), command1, envp);
-		ft_parse_args(command1, envp, &info);
-		// perror("execve");
-		exit(1);
-	}
-	close(pipefd[1]);
-	dup2(pipefd[0], STDIN_FILENO);
-	close(pipefd[0]);
-	printf("test1\n");
-	ft_parse_args(command2, envp, &info);
-	// execve(ft_parse_args(command2), command2, envp);
-	// perror("execve");
+	set_var(&info, argv);
+	ft_pipe(argv, envp, info);
 	return (0);
 }
 
