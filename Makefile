@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/13 22:32:47 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/10/13 22:33:52 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ fclean: clean
 	$(RM) $(RMFLAGS) $(NAME) a.out
 	@printf "\e[38;5;208msuccessfully deleted🗑\e[0m\n"
 
-push: 
+push:
 	git add .
 	git commit -m "$(MSG)"
 	git push

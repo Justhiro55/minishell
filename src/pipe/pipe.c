@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:50:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/13 22:27:00 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/13 22:50:40 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,15 @@ int	ft_exec(char **command, char **envp, t_info *info)
 	return (1);
 }
 
-void	set_var(t_info *info, char **argv)
+void	set_var(t_info *info, char **argv, int argc)
 {
-	info->cmd1 = ft_split(argv[2], ' ');
-	info->cmd2 = ft_split(argv[3], ' ');
 	info->file_fd[0] = open(argv[1], O_RDONLY);
 	info->file_fd[1] = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (info->file_fd[0] < 0 || info->file_fd[1] < 0)
-		exit(EXIT_FAILURE);
+	// if (info->file_fd[0] < 0 || info->file_fd[1] < 0)
+	// 	exit(EXIT_FAILURE);
+	info->pipe_num = argc - 4;
+	info->cmd1 = ft_split(argv[2], ' ');
+	info->cmd2 = ft_split(argv[3], ' ');
 }
 
 void	child_process(int fd1, int fd2, t_info info, char **envp)
@@ -65,6 +66,7 @@ void	parent_process(int *fd, t_info info, char **envp)
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
+	dup2(info.file_fd[1], STDOUT_FILENO);
 	wait(&status); // 子プロセスの終了を待つ
 	ft_exec(info.cmd2, envp, &info);
 }
@@ -101,7 +103,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	set_env(&info, envp);
-	set_var(&info, argv);
+	set_var(&info, argv, argc);
 	ft_pipe(argv, envp, info);
 	return (0);
 }

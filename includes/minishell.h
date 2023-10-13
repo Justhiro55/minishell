@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/13 22:31:53 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/13 22:34:53 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@
 
 # define ERROR 1
 
-struct	s_env;
+struct s_env;
 
 typedef struct s_info
 {
 	char			**token;
 	struct s_env	*env;
 	//pipe
+	int				pipe_num;
 	int				pipe_fd[2];
 	int				file_fd[2];
 	char			**cmd1;
