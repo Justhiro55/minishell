@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/09 16:24:08 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/10/13 22:32:47 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ fclean: clean
 
 push: 
 	git add .
-	git commit -m "auto commit"
+	git commit -m "$(MSG)"
 	git push
 
 re: fclean all 
