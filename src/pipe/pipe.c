@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:50:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/13 23:15:09 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/13 23:20:48 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		ft_exec(char **command, char **envp, t_info *info);
 void	child_process(int pipefd1, int pipefd2, t_info info, char **envp)
 {
 	close(pipefd1);
+	dup2(info.file_fd[0], STDIN_FILENO);
 	dup2(pipefd2, STDOUT_FILENO);
 	close(pipefd2);
 	ft_exec(info.cmd1, envp, &info);
