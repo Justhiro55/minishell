@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:50:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/13 22:58:27 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/13 23:15:09 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@
 void	set_var(t_info *info, char **argv, int argc);
 int		ft_exec(char **command, char **envp, t_info *info);
 
-void	child_process(int fd1, int fd2, t_info info, char **envp)
+void	child_process(int pipefd1, int pipefd2, t_info info, char **envp)
 {
-	close(fd1);
-	dup2(fd2, STDOUT_FILENO);
-	close(fd2);
+	close(pipefd1);
+	dup2(pipefd2, STDOUT_FILENO);
+	close(pipefd2);
 	ft_exec(info.cmd1, envp, &info);
 }
 
-void	parent_process(int fd1, int fd2, t_info info, char **envp)
+void	parent_process(int pipefd1, int pipefd2, t_info info, char **envp)
 {
 	int	status;
 
-	close(fd2);
-	dup2(fd1, STDIN_FILENO);
-	close(fd1);
+	close(pipefd2);
+	dup2(pipefd1, STDIN_FILENO);
+	close(pipefd1);
 	dup2(info.file_fd[1], STDOUT_FILENO);
 	wait(&status); // 子プロセスの終了を待つ
 	ft_exec(info.cmd2, envp, &info);
