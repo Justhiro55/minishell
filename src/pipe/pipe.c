@@ -6,31 +6,33 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:50:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/10 22:56:27 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:13:47 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
 #include "../../includes/minishell.h"
 
-//木構造の各ノードに入るデータ
-
 char	*get_command_path(char *command)
 {
-	if ((ft_strcmp(command, "cat") == 1) || (ft_strcmp(command, "echo") == 1)
-		|| (ft_strcmp(command, "ls") == 1) || ft_strcmp(command,
-			"norminette") == 1 || ft_strcmp(command, "mkdir") == 1
-		|| ft_strcmp(command, "bash") == 1 || ft_strcmp(command, "rm") == 1
-		|| ft_strcmp(command, "pwd") == 1)
-		return ("/bin/");
-	else if ((ft_strcmp(command, "man") == 1) || (ft_strcmp(command,
-					"env") == 1) || (ft_strcmp(command, "head") == 1)
-			|| (ft_strcmp(command, "wc") == 1) || (ft_strcmp(command,
-					"make") == 1) || (ft_strcmp(command, "whoami") == 1)
-			|| (ft_strcmp(command, "vim") == 1) || (ft_strcmp(command,
-					"cat") == 1) || (ft_strcmp(command, "cd") == 1)
-			|| (ft_strcmp(command, "env") == 1))
-		return ("/usr/bin/");
+	(void)command;
+	printf("access:%d\n", access("/bin/cat", F_OK));
+	while ()
+		return (NULL);
+	// if ((ft_strcmp(command, "cat") == 1) || (ft_strcmp(command, "echo") == 1)
+	// 	|| (ft_strcmp(command, "ls") == 1) || ft_strcmp(command,
+	// 		"norminette") == 1 || ft_strcmp(command, "mkdir") == 1
+	// 	|| ft_strcmp(command, "bash") == 1 || ft_strcmp(command, "rm") == 1
+	// 	|| ft_strcmp(command, "pwd") == 1)
+	// 	return ("/bin/");
+	// else if ((ft_strcmp(command, "man") == 1) || (ft_strcmp(command,
+	// 			"env") == 1) || (ft_strcmp(command, "head") == 1)
+	// 			|| (ft_strcmp(command, "wc") == 1) || (ft_strcmp(command,
+	// 			"make") == 1) || (ft_strcmp(command, "whoami") == 1)
+	// 		|| (ft_strcmp(command, "vim") == 1) || (ft_strcmp(command,
+	// 				"cat") == 1) || (ft_strcmp(command, "cd") == 1)
+	// 		|| (ft_strcmp(command, "env") == 1))
+	// 	return ("/usr/bin/");
 	return (NULL);
 }
 
@@ -49,7 +51,10 @@ char	*ft_parse_args(char **command, char **envp, t_info *info)
 	else if (ft_strcmp(command[0], "export") == 0)
 		command_export(command, info);
 	else if (ft_strcmp(command[0], "ls") == 0)
+	{
+		printf("%s\n", getcwd(NULL, 0));
 		command_ls(getcwd(NULL, 0));
+	}
 	command_path = ft_strjoin(get_command_path(command[0]), command[0]);
 	printf("command_path:%s\n", command_path);
 	execve(command_path, command, envp);
@@ -111,10 +116,13 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	pid = fork();
+	printf("test2\n");
 	if (pid == 0)
 	{
 		close(pipefd[0]);
+		printf("test3\n");
 		dup2(pipefd[1], STDOUT_FILENO);
+		printf("test4\n");
 		close(pipefd[1]);
 		// execve(ft_parse_args(command1), command1, envp);
 		ft_parse_args(command1, envp, &info);
@@ -124,6 +132,7 @@ int	main(int argc, char **argv, char **envp)
 	close(pipefd[1]);
 	dup2(pipefd[0], STDIN_FILENO);
 	close(pipefd[0]);
+	printf("test1\n");
 	ft_parse_args(command2, envp, &info);
 	// execve(ft_parse_args(command2), command2, envp);
 	// perror("execve");

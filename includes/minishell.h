@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/10 21:16:02 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:38:39 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_error
 }					t_error;
 
 void				minishell(char **envp);
-void				parse(char *line, t_info *info);
+void				parse(char *line, t_info *info, char **envp);
 
 //signal
 void				sig_int_input(int signum);

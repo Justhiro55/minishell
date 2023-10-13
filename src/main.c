@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/07 23:07:44 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:08:00 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,9 @@
 int	main(int argc, char **argv, char **envp)
 {
 	(void)argv;
-	// while (*envp)
-	// {
-	// 	else
-	// 		printf("%s\n", *envp);
-	// 	envp++;
-	// }
 	if (argc == 1)
 		minishell(envp);
 }
-
-// void	set_env(t_info *info, char **envp)
-// {
-// 	t_info	info;
-// 	char	**key;
-// 	char	**value;
-// }
 
 void	minishell(char **envp)
 {
@@ -46,7 +33,9 @@ void	minishell(char **envp)
 		if (line == NULL || strlen(line) == 0)
 			free(line);
 		else
-			parse(line, &info);
+			parse(line, &info, envp);
+		add_history(line);
+		free(line);
 		// if (signal(SIGINT, sig_int_input) == SIG_ERR)
 		// {
 		// 	ft_putstr_fd(strerror(errno), STDERR);
@@ -59,6 +48,11 @@ void	minishell(char **envp)
 		// }
 	}
 }
+
+// __attribute__((destructor)) static void destructor()
+// {
+//      system("leaks -q minishell");
+// }
 
 // void	sig_int_input(int signum)
 // {
