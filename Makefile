@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/13 23:17:07 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/10/18 18:55:24 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,23 +39,39 @@ LIB			=	$(LIBFT)
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: src/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: src/command/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	make -C func/${LIBFTDIR}
-	$(CC) -lreadline ${LIB} ${GNL} $(OBJ) -o $(NAME)
-	@printf "\e[38;5;82msuccessfully built🚀\e[0m\n"
+	@printf "\e[38;5;82m----Compiling libft----\e[0m\n"
+	@make -C func/${LIBFTDIR}
+	@$(CC) -lreadline ${LIB} ${GNL} $(OBJ) -o $(NAME)
+	@printf "\e[38;5;82m  minishell Compiled🚀\e[0m\n\n"
 
 clean: 
-	$(RM) $(RMFLAGS) ${OBJ}
-	make clean -C func/${LIBFTDIR}
+	@$(RM) $(RMFLAGS) ${OBJ}
+	@make clean -C func/${LIBFTDIR}
     
 fclean: clean 
-	$(RM) $(RMFLAGS) $(NAME) a.out
-	@printf "\e[38;5;208msuccessfully deleted🗑\e[0m\n"
+	@$(RM) $(RMFLAGS) $(NAME) a.out
+	@make fclean -C func/${LIBFTDIR}
+	@printf "\e[38;5;208m\nsuccessfully deleted🗑\e[0m\n\n"
+
+party:
+	@printf "\033c"
+	@echo "\n\033[35m♪┏(・o･)┛♪"
+	@sleep 1
+	@printf "\033c"
+	@echo "\033[1;33m♪┗(・o･)┓♪"
+	@sleep 1
+	@printf "\033c"
+	@echo "\n\033[36m♪┏(・o･)┛♪"
+	@sleep 1
+	@printf "\033c"
+	@echo "\033[34m♪┗(・o･)┓♪\n"
+	@printf "\033c"
 
 push:
 	git add .

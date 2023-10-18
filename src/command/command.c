@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/18 15:48:38 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/18 18:12:38 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,42 @@ int	builtin_command(t_info *info)
 	return (0);
 }
 
-// int	ft_exec(t_info *info, char **envp)
+int	ft_exec(t_info *info, char **envp)
+{
+	char	**path;
+	int		i;
+	t_env	*env;
+	char	*command_path;
+
+	i = 0;
+	if (builtin_command(info) == 0)
+		return (0);
+	env = info->env;
+	while (ft_strcmp(env->key, "PATH") != 0 && i++ < 20)
+		env = env->next;
+	path = ft_split(env->value, ':');
+	i = 0;
+	while (path[i] != NULL)
+	{
+		command_path = ft_strjoin(ft_strjoin(path[i], "/"), info->token[0]);
+		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
+		{
+			execve(command_path, info->token, envp);
+			return (0);
+		}
+		free(command_path);
+		i++;
+	}
+	return (1);
+}
+
+// int	ft_exec(char **command, char **envp, t_info *info)
 // {
 // 	char	**path;
 // 	int		i;
 // 	t_env	*env;
 // 	char	*command_path;
 // 	i = 0;
-// 	if (builtin_command(info) == 0)
-// 		return (0);
 // 	env = info->env;
 // 	while (ft_strcmp(env->key, "PATH") != 0 && i++ < 20)
 // 		env = env->next;
@@ -54,10 +81,10 @@ int	builtin_command(t_info *info)
 // 	i = 0;
 // 	while (path[i] != NULL)
 // 	{
-// 		command_path = ft_strjoin(ft_strjoin(path[i], "/"), info->token[0]);
-// 		if (access(command_path, F_OK) == 0)
+// 		command_path = ft_strjoin(ft_strjoin(path[i], "/"), command[0]);
+// 		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
 // 		{
-// 			execve(command_path, info->token, envp);
+// 			execve(command_path, command, envp);
 // 			return (0);
 // 		}
 // 		free(command_path);
