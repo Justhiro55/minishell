@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:54:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/18 15:45:51 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:02:00 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,64 @@ int	**get_pipe(t_info info)
 	return (fd);
 }
 
-// int	ft_exec(char **command, char **envp, t_info *info)
-// {
-// 	char	**path;
-// 	int		i;
-// 	t_env	*env;
-// 	char	*command_path;
+int	ft_exec(char **command, char **envp, t_info *info)
+{
+	char	**path;
+	int		i;
+	t_env	*env;
+	char	*command_path;
 
-// 	i = 0;
-// 	env = info->env;
-// 	while (ft_strcmp(env->key, "PATH") != 0 && i++ < 20)
-// 		env = env->next;
-// 	path = ft_split(env->value, ':');
-// 	i = 0;
-// 	while (path[i] != NULL)
-// 	{
-// 		command_path = ft_strjoin(ft_strjoin(path[i], "/"), command[0]);
-// 		if (access(command_path, F_OK) == 0)
-// 		{
-// 			execve(command_path, command, envp);
-// 			return (0);
-// 		}
-// 		free(command_path);
-// 		i++;
-// 	}
-// 	return (1);
-// }
+	i = 0;
+	env = info->env;
+	while (ft_strcmp(env->key, "PATH") != 0 && i++ < 20)
+		env = env->next;
+	path = ft_split(env->value, ':');
+	i = 0;
+	while (path[i] != NULL)
+	{
+		command_path = ft_strjoin(ft_strjoin(path[i], "/"), command[0]);
+		if (access(command_path, F_OK) == 0)
+		{
+			execve(command_path, command, envp);
+			return (0);
+		}
+		free(command_path);
+		i++;
+	}
+	return (1);
+}
+
+void	free_cmd(char ***cmd, int cmd_count)
+{
+	int		i;
+	char	**cmd_args;
+	int		j;
+
+	i = 0;
+	while (i < cmd_count)
+	{
+		cmd_args = cmd[i];
+		j = 0;
+		while (cmd_args[j] != NULL)
+		{
+			free(cmd_args[j]);
+			j++;
+		}
+		free(cmd_args);
+		i++;
+	}
+	free(cmd);
+}
+
+void	free_fd(int **pipefd, int pipe_num)
+{
+	int	i;
+
+	i = 0;
+	while (i < pipe_num)
+	{
+		free(pipefd[i]);
+		i++;
+	}
+	free(pipefd);
+}

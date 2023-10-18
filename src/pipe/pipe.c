@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:50:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/18 15:44:28 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:02:04 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 void	set_var(t_info *info, char **argv, int argc);
 int		ft_exec(char **command, char **envp, t_info *info);
 int		**get_pipe(t_info info);
+void	free_cmd(char ***cmd, int cmd_count);
+void	free_fd(int **pipefd, int pipe_num);
 
 void	child_process(int *pipefd, t_info info, char **envp, int i)
 {
@@ -52,6 +54,7 @@ int	ft_pipe(char **envp, t_info info)
 	}
 	dup2(info.file_fd[1], STDOUT_FILENO);
 	ft_exec(info.cmd[i], envp, &info);
+	free_fd(pipefd, info.pipe_num);
 	return (0);
 }
 
@@ -68,8 +71,14 @@ int	main(int argc, char **argv, char **envp)
 	set_env(&info, envp);
 	set_var(&info, argv, argc);
 	ft_pipe(envp, info);
+	free_cmd(info.cmd, info.pipe_num);
 	return (0);
 }
+
+// __attribute__((destructor)) static void destructor()
+// {
+// 	system("leaks -q a.out");
+// }
 
 // #include <stdio.h>
 // #include <stdlib.h>
