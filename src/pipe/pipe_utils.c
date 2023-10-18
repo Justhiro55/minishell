@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:54:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/18 16:02:00 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:12:13 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void	set_var(t_info *info, char **argv, int argc)
 	}
 	info->pipe_num = argc - 3;
 	info->cmd = (char ***)malloc(sizeof(char **) * info->pipe_num);
+	if (info->cmd == NULL)
+	{
+		perror("malloc error");
+		exit(EXIT_FAILURE);
+	}
 	while (i < info->pipe_num)
 	{
 		info->cmd[i] = ft_split(argv[i + 2], ' ');
@@ -77,7 +82,7 @@ int	ft_exec(char **command, char **envp, t_info *info)
 	while (path[i] != NULL)
 	{
 		command_path = ft_strjoin(ft_strjoin(path[i], "/"), command[0]);
-		if (access(command_path, F_OK) == 0)
+		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
 		{
 			execve(command_path, command, envp);
 			return (0);
