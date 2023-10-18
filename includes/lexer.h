@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:50:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/10/17 16:56:16 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:36:20 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ typedef enum e_tokentype
 	CHAR_IO_NUMBER,
 }	t_tokentype;
 
-# define CHAR_QUOTE		0x01
-# define CHAR_DQUOTE	0x10
+# define CHAR_QUOTE		0x01 // '
+# define CHAR_DQUOTE	0x10 // "
 
 
 typedef struct s_tokeniser
