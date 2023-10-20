@@ -6,7 +6,7 @@
 #    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/17 11:35:45 by kotainou         ###   ########.fr        #
+#    Updated: 2023/10/20 18:14:11 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC = src/main.c \
 		src/command/ls_command.c \
 		src/command/export_command.c \
 		src/lexer/lexer.c \
-		src/lexer/token.c
+		src/lexer/token.c \
+		src/lexer/lexer_utils.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))

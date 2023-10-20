@@ -6,75 +6,92 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:15:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/10/17 15:35:10 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/10/20 18:07:01 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/lexer.h"
 
-// t_tokeniser	*init_tokeniser(void)
-// {
-// 	t_tokeniser	*tokeniser;
-
-// 	tokeniser = (t_tokeniser *)malloc(sizeof(t_tokeniser *));
-// 	if (tokeniser == NULL)
-// 		exit(1);
-// 	ft_memset(tokeniser, 0, sizeof(t_tokeniser *));
-// 	return (tokeniser);
-// }
-
-t_token	*init_token(void)
-{
-	t_token		*rnt_token;
-
-	rnt_token = (t_token *)malloc(sizeof(t_token *));
-	if (rnt_token == NULL)
-		exit(1);
-	ft_memset(rnt_token, 0, sizeof(t_token *));
-	return (rnt_token);
-}
-
-t_token *tokenlast(t_token *lst)
+t_token	*token_last(t_token *token)
 {
 	t_token	*p;
 
-	if (lst->next == lst)
-		return (lst);
-	p = lst;
-	while (p != NULL)
+	p = token;
+	while (p != NULL && p->next != NULL)
 	{
-		if (p == NULL)
-			break ;
 		p = p->next;
 	}
 	return (p);
 }
 
-void	tokenadd_back(t_token *list, t_token *new)
+t_token	*token_new(char *str, int type)
 {
-	t_token *p;
+	t_token	*newnode;
 
-	if (new == NULL)
-		return ;
-	while (list == NULL)
-	{
-		list = new;
-		return ;
-	}
-	p = tokenlast(list);
-	new->next = NULL;
-	new->prev = p;
-	p->next = new;
+	newnode = (t_token *)malloc(sizeof(t_token));
+	if (newnode == NULL)
+		return (NULL);
+	newnode->str = str;
+	newnode->type = type;
+	newnode->next = NULL;
+	newnode->prev = NULL;
+	return (newnode);
 }
 
-void	tokenprint(t_token *list)
+t_token	*tokenadd_back(t_token *head, char *str, int type)
+{
+	t_token	*new;
+	t_token *last;
+
+	new = token_new(str, type);
+	if (head->str == NULL)
+	{
+		return new;
+	}
+	last = token_last(head);
+	new->prev = last;
+	last->next = new;
+	return (head);
+}
+
+void	printtoken(t_token *token)
 {
 	t_token	*p;
 
-	p = list;
+	p = token;
+	printf("\n--print token--\n");
 	while (p != NULL)
 	{
-		printf("data = [%s]\n", p->str);
+		printf("str = [%s]\n", p->str);
+		printf("type = [%d]\n", p->type);
 		p = p->next;
 	}
+	printf("\n");
+}
+
+void	clear_list(t_token *token)
+{
+	t_token	*p;
+	t_token	*next;
+
+	p = token;
+	printf("list\n");
+	while (p != NULL)
+	{
+		next = p->next;
+		free(p);
+		p = next;
+	}
+	free(p);
+}
+
+t_token	*init_token()
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	if (token == NULL)
+		exit(1);
+	ft_memset(token, 0, sizeof(t_token));
+	return (token);
 }
