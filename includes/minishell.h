@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/21 14:11:05 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/22 14:46:50 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,13 @@
 
 # define ERROR 1
 
-struct	s_env;
+//pipe
+#define EXIT_FAILURE_FILE 2
+#define EXIT_FAILURE_PIPE 3
+#define EXIT_FAILURE_FORK 4
+#define EXIT_FAILURE_MALLOC 5
+
+struct s_env;
 
 typedef struct s_info
 {
@@ -62,5 +68,10 @@ void				parse(char *line, t_info *info, char **envp);
 //signal
 void				sig_int_input(int signum);
 void				sig_quit_input(int signum);
+
+//pipe
+void				free_cmd(char ***cmd, int cmd_count);
+void				free_fd(int **pipefd, int pipe_num);
+void				exit_process(int status);
 
 #endif

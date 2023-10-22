@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:50:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/22 13:28:55 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/22 14:47:34 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,6 @@
 void	set_var(t_info *info, char **argv, int argc);
 int		ft_exec(char **command, char **envp, t_info *info);
 int		**get_pipe(t_info info);
-void	free_cmd(char ***cmd, int cmd_count);
-void	free_fd(int **pipefd, int pipe_num);
-
-#define EXIT_FAILURE_FILE 2
-#define EXIT_FAILURE_PIPE 3
-#define EXIT_FAILURE_FORK 4
-#define EXIT_FAILURE_MALLOC 5
-
-void	exit_process(int status)
-{
-	if (status == EXIT_SUCCESS)
-		exit(EXIT_SUCCESS);
-	else if (status == EXIT_FAILURE_FILE)
-	{
-		perror("File open error");
-		exit(EXIT_FAILURE);
-	}
-	else if (status == EXIT_FAILURE_FORK)
-	{
-		perror("Fork error");
-		exit(EXIT_FAILURE);
-	}
-	else if (status == EXIT_FAILURE_MALLOC)
-	{
-		perror("Malloc error");
-		exit(EXIT_FAILURE);
-	}
-	else if (status == EXIT_FAILURE_PIPE)
-	{
-		perror("Pipe error");
-		exit(EXIT_FAILURE);
-	}
-}
 
 void	child_process(int *pipefd, t_info info, char **envp, int i)
 {
@@ -84,34 +51,42 @@ int	get_filefd(char *file, int type)
 	return (fd);
 }
 
-void	here_doc(char *delimiter)
+void	write_to_pipe(int fd[2], char *delimiter)
 {
 	char	*line;
+
+	line = NULL;
+	close(fd[0]);
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+			break ;
+		if (ft_strcmp(line, delimiter) == 0)
+		{
+			free(line);
+			exit(EXIT_SUCCESS);
+		}
+		write(fd[1], line, ft_strlen(line));
+		write(fd[1], "\n", 1);
+		free(line);
+	}
+}
+
+void	here_doc(char *delimiter)
+{
 	int		fd[2];
 	pid_t	parent;
 
-	line = NULL;
 	if (pipe(fd) == -1)
 		exit_process(EXIT_FAILURE_PIPE);
+	parent = fork();
 	if (parent < 0)
 		exit_process(EXIT_FAILURE_FORK);
 	if (!parent)
 	{
 		close(fd[0]);
-		while (1)
-		{
-			line = readline("> ");
-			if (!line)
-				break ;
-			if (ft_strcmp(line, delimiter) == 0)
-			{
-				free(line);
-				exit(EXIT_SUCCESS);
-			}
-			write(fd[1], line, ft_strlen(line));
-			write(fd[1], "\n", 1);
-		}
-		free(line);
+		write_to_pipe(fd, delimiter);
 	}
 	else
 	{

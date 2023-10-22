@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:54:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/21 17:28:36 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/22 14:47:55 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	set_var(t_info *info, char **argv, int argc)
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
-	while (i  < info->pipe_num)
+	while (i < info->pipe_num)
 	{
 		info->cmd[i] = ft_split(argv[i + 2 + here_doc], ' ');
 		i++;
@@ -106,39 +106,4 @@ int	ft_exec(char **command, char **envp, t_info *info)
 	execve(command_path, command, envp);
 	free(command_path);
 	return (1);
-}
-
-void	free_cmd(char ***cmd, int cmd_count)
-{
-	int		i;
-	char	**cmd_args;
-	int		j;
-
-	i = 0;
-	while (i < cmd_count)
-	{
-		cmd_args = cmd[i];
-		j = 0;
-		while (cmd_args[j] != NULL)
-		{
-			free(cmd_args[j]);
-			j++;
-		}
-		free(cmd_args);
-		i++;
-	}
-	free(cmd);
-}
-
-void	free_fd(int **pipefd, int pipe_num)
-{
-	int	i;
-
-	i = 0;
-	while (i < pipe_num)
-	{
-		free(pipefd[i]);
-		i++;
-	}
-	free(pipefd);
 }
