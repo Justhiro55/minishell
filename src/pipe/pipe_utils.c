@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:54:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/18 18:15:54 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/21 17:28:36 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,27 @@
 void	set_var(t_info *info, char **argv, int argc)
 {
 	int	i;
+	int	here_doc;
 
 	i = 0;
-	info->file_fd[0] = open(argv[1], O_RDONLY);
-	info->file_fd[1] = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (info->file_fd[0] < 0 || info->file_fd[1] < 0)
+	here_doc = 0;
+	if (ft_strcmp(argv[1], "here_doc") != 0)
+		info->pipe_num = argc - 3;
+	else
 	{
-		perror("File open error");
-		exit(EXIT_FAILURE);
+		here_doc = 1;
+		info->pipe_num = argc - 4;
 	}
-	info->pipe_num = argc - 3;
 	info->cmd = (char ***)malloc(sizeof(char **) * info->pipe_num);
 	if (info->cmd == NULL)
 	{
 		perror("malloc error");
 		exit(EXIT_FAILURE);
 	}
-	while (i < info->pipe_num)
+	i = 0;
+	while (i  < info->pipe_num)
 	{
-		info->cmd[i] = ft_split(argv[i + 2], ' ');
+		info->cmd[i] = ft_split(argv[i + 2 + here_doc], ' ');
 		i++;
 	}
 }
@@ -50,7 +52,7 @@ int	**get_pipe(t_info info)
 		exit(EXIT_FAILURE);
 	while (i < info.pipe_num)
 	{
-		fd[i] = (int *)malloc(sizeof(int) * info.pipe_num);
+		fd[i] = (int *)malloc(sizeof(int) * 2);
 		i++;
 	}
 	i = 0;
@@ -66,16 +68,15 @@ int	**get_pipe(t_info info)
 	return (fd);
 }
 
-int	ft_exec(char **command, char **envp, t_info *info)
+char	*get_path(t_info *info, char **command)
 {
 	char	**path;
-	int		i;
 	t_env	*env;
+	int		i;
 	char	*command_path;
 
-	i = 0;
 	env = info->env;
-	while (ft_strcmp(env->key, "PATH") != 0 && i++ < 20)
+	while (ft_strcmp(env->key, "PATH") != 0)
 		env = env->next;
 	path = ft_split(env->value, ':');
 	i = 0;
@@ -83,13 +84,27 @@ int	ft_exec(char **command, char **envp, t_info *info)
 	{
 		command_path = ft_strjoin(ft_strjoin(path[i], "/"), command[0]);
 		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
-		{
-			execve(command_path, command, envp);
-			return (0);
-		}
+			return (command_path);
 		free(command_path);
 		i++;
 	}
+	return (NULL);
+}
+
+int	ft_exec(char **command, char **envp, t_info *info)
+{
+	char	*command_path;
+	int		i;
+
+	i = 0;
+	command_path = get_path(info, command);
+	if (command_path == NULL)
+	{
+		perror("command");
+		exit(EXIT_FAILURE);
+	}
+	execve(command_path, command, envp);
+	free(command_path);
 	return (1);
 }
 
