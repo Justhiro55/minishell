@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:50:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/10/20 19:52:41 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/10/23 15:40:51 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "../func/libft/libft.h"
 #include <stddef.h>
 
-# define CHAR_QUOTE		0x01 // '
-# define CHAR_DQUOTE	0x10 // "
+# define CHAR_QUOTE		0x001 // '
+# define CHAR_DQUOTE	0x010 // "
 # define PIPE			0x100 // |
 
 typedef struct s_token
@@ -50,5 +50,6 @@ void	printtoken(t_token *list);
 void	skip_space(t_tokeniser *tk, char *line);
 size_t	redi_size(t_tokeniser *tk, char *line);
 int	check_space(int quote, t_tokeniser *tk, char *line);
+void	clear_list(t_token *token);
 
 #endif

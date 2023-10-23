@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:07:34 by kotainou          #+#    #+#             */
-/*   Updated: 2023/10/20 20:41:17 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/10/23 15:39:21 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ int	check_space(int quote, t_tokeniser *tk, char *line)
 {
 	char	c;
 
-	printf("quote = [%d]\n", quote);
 	if (quote & 0x01)
-		printf("quote\n");
 	c = line[tk->str_i + tk->str_len];
 	if (quote & CHAR_DQUOTE && c == '"')
 		return (1);

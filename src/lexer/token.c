@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:15:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/10/20 18:07:01 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/10/23 15:55:20 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ void	clear_list(t_token *token)
 	t_token	*next;
 
 	p = token;
-	printf("list\n");
 	while (p != NULL)
 	{
 		next = p->next;
+		free(token->str);
 		free(p);
 		p = next;
 	}
