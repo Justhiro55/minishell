@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:07:34 by kotainou          #+#    #+#             */
-/*   Updated: 2023/10/23 15:39:21 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:28:27 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ t_tokeniser	*init_tokeniser(void)
 {
 	t_tokeniser	*tokeniser;
 
-	tokeniser = (t_tokeniser *)malloc(sizeof(t_tokeniser *));
+	tokeniser = (t_tokeniser *)malloc(sizeof(t_tokeniser));
 	if (tokeniser == NULL)
 		exit(1);
-	ft_memset(tokeniser, 0, sizeof(t_tokeniser *));
+	ft_memset(tokeniser, 0, sizeof(t_tokeniser));
 	tokeniser->head_list = init_token();
 	return (tokeniser);
 }

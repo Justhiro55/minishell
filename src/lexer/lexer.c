@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:20:47 by kotainou          #+#    #+#             */
-/*   Updated: 2023/10/23 15:54:40 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:33:22 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	is_quote_end(int quote, t_tokeniser *tk, char *line)
 	}
 	if (quote | CHAR_DQUOTE && c == '"')
 	{
-		
 		return (1);
 	}
 	return (0);
@@ -65,7 +64,8 @@ void	cre_tokeniser(t_tokeniser *tk, char *line)
 		}
 		tk->str_len++;
 	}
-	tk->head_list = tokenadd_back(tk->head_list, ft_substr(line, tk->str_i, tk->str_len), quote);
+	tk->head_list = tokenadd_back(tk->head_list, ft_substr(line, tk->str_i,
+				tk->str_len), quote);
 	tk->str_i += tk->str_len;
 }
 
@@ -90,6 +90,5 @@ t_token	*lexer_main(char *line)
 			break ;
 	}
 	printtoken(tokeniser->head_list);
-	clear_list(tokeniser->head_list);
 	return (tokeniser->head_list);
 }

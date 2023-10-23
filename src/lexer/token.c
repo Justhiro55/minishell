@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:15:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/10/23 16:00:26 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:32:45 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,11 @@ t_token	*token_new(char *str, int type)
 t_token	*tokenadd_back(t_token *head, char *str, int type)
 {
 	t_token	*new;
-	t_token *last;
+	t_token	*last;
 
 	new = token_new(str, type);
 	if (head->str == NULL)
-	{
-		return new;
-	}
+		return (new);
 	last = token_last(head);
 	new->prev = last;
 	last->next = new;
@@ -85,7 +83,7 @@ void	clear_list(t_token *token)
 	free(p);
 }
 
-t_token	*init_token()
+t_token	*init_token(void)
 {
 	t_token	*token;
 
