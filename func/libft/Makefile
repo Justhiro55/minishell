@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 15:17:46 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/05 17:31:09 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/10/18 18:21:35 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,18 +74,18 @@ RMFLAGS = -f
 LIBC  = ar rc
 
 .c.o:
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 ${NAME}: ${OBJS}
-	${LIBC} ${NAME} ${OBJS}
+	@${LIBC} ${NAME} ${OBJS}
 
 all: ${NAME}
 
 clean:
-	${RM} ${RMFLAGS} ${OBJS} ${OBJS_B}
+	@${RM} ${RMFLAGS} ${OBJS} ${OBJS_B}
     
 fclean: clean
-	${RM} ${RMFLAGS} ${NAME}
+	@${RM} ${RMFLAGS} ${NAME}
 re: fclean all
 
 bonus:

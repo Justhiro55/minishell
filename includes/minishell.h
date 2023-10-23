@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/12 15:23:11 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:37:11 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <string.h>
 
 # define STDOUT 1
 # define STDERR 2
@@ -41,12 +40,23 @@
 
 # define ERROR 1
 
+//pipe
+#define EXIT_FAILURE_FILE 2
+#define EXIT_FAILURE_PIPE 3
+#define EXIT_FAILURE_FORK 4
+#define EXIT_FAILURE_MALLOC 5
+
 struct s_env;
 
 typedef struct s_info
 {
 	char			**token;
 	struct s_env	*env;
+	//pipe
+	int				pipe_num;
+	int				file_fd[2];
+	int				*pipe_fd;
+	char			***cmd;
 }					t_info;
 
 typedef struct s_error
@@ -55,10 +65,15 @@ typedef struct s_error
 }					t_error;
 
 void				minishell(char **envp);
-void				parse(char *line, t_info *info);
+void				parse(char *line, t_info *info, char **envp);
 
 //signal
 void				sig_int_input(int signum);
 void				sig_quit_input(int signum);
+
+//pipe
+void				free_cmd(char ***cmd, int cmd_count);
+void				free_fd(int **pipefd, int pipe_num);
+void				exit_process(int status);
 
 #endif

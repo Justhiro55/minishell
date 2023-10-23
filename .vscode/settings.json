@@ -3,6 +3,11 @@
         "builtin.h": "c",
         "minishell.h": "c",
         "libft.h": "c",
+<<<<<<< HEAD
+        "history.h": "c",
+        "unistd.h": "c"
+=======
         "lexer.h": "c"
+>>>>>>> 5dcea6c0cc4fc35847961c72275013bd4e277048
     }
 }
