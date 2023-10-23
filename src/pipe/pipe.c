@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:50:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/22 14:47:34 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:47:54 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/minishell.h"
 
 void	set_var(t_info *info, char **argv, int argc);
-int		ft_exec(char **command, char **envp, t_info *info);
+// int		ft_exec(char **command, char **envp, t_info *info);
 int		**get_pipe(t_info info);
 
 void	child_process(int *pipefd, t_info info, char **envp, int i)

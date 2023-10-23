@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:54:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/22 14:47:55 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:45:08 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,19 +91,19 @@ char	*get_path(t_info *info, char **command)
 	return (NULL);
 }
 
-int	ft_exec(char **command, char **envp, t_info *info)
-{
-	char	*command_path;
-	int		i;
+// int	ft_exec(char **command, char **envp, t_info *info)
+// {
+// 	char	*command_path;
+// 	int		i;
 
-	i = 0;
-	command_path = get_path(info, command);
-	if (command_path == NULL)
-	{
-		perror("command");
-		exit(EXIT_FAILURE);
-	}
-	execve(command_path, command, envp);
-	free(command_path);
-	return (1);
-}
+// 	i = 0;
+// 	command_path = get_path(info, command);
+// 	if (command_path == NULL)
+// 	{
+// 		perror("command");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	execve(command_path, command, envp);
+// 	free(command_path);
+// 	return (1);
+// }

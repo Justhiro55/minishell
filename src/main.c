@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/13 17:08:00 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:42:10 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	minishell(char **envp)
 	while (1)
 	{
 		line = readline("$> ");
+		lexer_main(line);
 		if (line == NULL || strlen(line) == 0)
 			free(line);
 		else
@@ -71,4 +72,9 @@ void	minishell(char **envp)
 // 	(void)signum;
 // 	printf("test1\n");
 // 	ft_putstr_fd("\b\b  \b\b", STDERR);
+// }
+
+// __attribute__((destructor)) static void destructor()
+// {
+// 	system("leaks -q minishell");
 // }

@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 15:03:23 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/23 16:44:25 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/10/20 18:10:58 by kotainou          #+#    #+#             */
+/*   Updated: 2023/10/23 17:47:15 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-char    *ft_substr(char const *s, size_t start, size_t len)
+# include "../func/libft/libft.h"
+# include "./minishell.h"
+
+typedef struct s_node
 {
-    size_t    slen;
-    char    *str;
+	t_nodetype		type;
+	char			**data;
+	t_redirects		*redirects;
+	struct s_node	*right;
+	struct s_node	*left;
+}					t_node;
 
-    slen = ft_strlen(s);
-    if (slen <= start)
-        str = ft_strdup("");
-    else
-    {
-        str = malloc(sizeof(char) * (slen - start + 1));
-        if (!str)
-            perror("malloc failed");
-        ft_strlcpy(str, s + start, len + 1);
-    }
-    return (str);
-}
+#endif
