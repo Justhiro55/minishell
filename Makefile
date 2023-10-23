@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
+#    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/09 16:24:08 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/10/20 18:14:11 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES_DIR)
+INCLUDES_DIR = ./Includes
 RM = rm
 RMFLAGS = -f
 SRC = src/main.c \
@@ -25,7 +26,10 @@ SRC = src/main.c \
 		src/command/not_found_command.c \
 		src/command/set_env.c \
 		src/command/ls_command.c \
-		src/command/export_command.c
+		src/command/export_command.c \
+		src/lexer/lexer.c \
+		src/lexer/token.c \
+		src/lexer/lexer_utils.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
@@ -42,6 +46,9 @@ $(OBJ_DIR)/%.o: src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: src/command/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: src/lexer/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)

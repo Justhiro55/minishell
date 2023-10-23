@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 15:15:17 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/09/24 19:25:13 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:43:41 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct s_d_list
+{
+	int				data;
+	t_list			list1;
+	t_list			list2;
+}					t_d_list;
 
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -50,7 +57,7 @@ char				*ft_strnstr(const char *haystack, const char *needle,
 int					ft_atoi(const char *str);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_strdup(const char *src);
-char				*ft_substr(char const *s, unsigned int start, size_t len);
+char				*ft_substr(char const *s, size_t start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_itoa(int n);
