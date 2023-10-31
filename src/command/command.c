@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/31 16:42:05 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:54:50 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,28 @@ void	set_data(t_node *node)
 	t_node	*node_child1;
 	t_node	*node_child2;
 	t_node	*node_child3;
+	t_node	*node_child4;
 	t_node	*node_pipe_1;
-
+	t_node	*node_pipe_2;
+	//malloc
+	///command node
 	node_child1 = (t_node *)malloc(sizeof(t_node));
 	node_child2 = (t_node *)malloc(sizeof(t_node));
 	node_child3 = (t_node *)malloc(sizeof(t_node));
-	node->data = (char **)malloc(sizeof(char *) * 2);
+	node_child4 = (t_node *)malloc(sizeof(t_node));
 	node_child1->data = (char **)malloc(sizeof(char *) * 3);
-	node_pipe_1 = (t_node *)malloc(sizeof(t_node));
 	node_child2->data = (char **)malloc(sizeof(char *) * 3);
 	node_child3->data = (char **)malloc(sizeof(char *) * 2);
+	node_child4->data = (char **)malloc(sizeof(char *) * 4);
+	///pipe node malloc
+	node->data = (char **)malloc(sizeof(char *) * 2);
+	node_pipe_1 = (t_node *)malloc(sizeof(t_node));
+	node_pipe_2 = (t_node *)malloc(sizeof(t_node));
+	node_pipe_1->data = (char **)malloc(sizeof(char *) * 2);
+	node_pipe_2->data = (char **)malloc(sizeof(char *) * 2);
+	//set data
 	node->data[0] = strdup("pipe");
 	node->data[1] = NULL;
-	node_pipe_1->data = (char **)malloc(sizeof(char *) * 2);
 	node_child1->data[0] = strdup("grep");
 	node_child1->data[1] = strdup("int");
 	node_child1->data[2] = NULL;
@@ -91,18 +100,29 @@ void	set_data(t_node *node)
 	node_child2->data[2] = NULL;
 	node_child3->data[0] = strdup("wc");
 	node_child3->data[1] = NULL;
-	node_pipe_1->data[1] = NULL;
-	node->left = node_pipe_1;
+	node_child4->data[0] = strdup("head");
+	node_child4->data[1] = strdup("-n");
+	node_child4->data[2] = strdup("32");
+	node_child4->data[3] = NULL;
 	node_pipe_1->data[0] = strdup("pipe");
+	node_pipe_1->data[1] = NULL;
+	node_pipe_2->data[0] = strdup("pipe");
+	node_pipe_2->data[1] = NULL;
+	//link
+	node->left = node_pipe_1;
 	node->right = node_child3;
 	node_pipe_1->right = node_child1;
+	node_pipe_1->left = node_pipe_2;
+	node_pipe_2->right = node_child4;
+	node_pipe_2->left = node_child2;
 	node_child1->left = NULL;
-	node_pipe_1->left = node_child2;
 	node_child1->right = NULL;
 	node_child2->left = NULL;
 	node_child2->right = NULL;
 	node_child3->left = NULL;
 	node_child3->right = NULL;
+	node_child4->left = NULL;
+	node_child4->right = NULL;
 }
 
 void	child_process(t_info info, char **envp, t_node *node)
