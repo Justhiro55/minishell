@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/23 17:48:09 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/31 13:51:00 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	builtin_command(t_info *info)
 	return (0);
 }
 
-int	ft_exec(t_info *info, char **envp)
+int	ft_exec(char **command, char **envp, t_info *info)
 {
 	char	**path;
 	int		i;
@@ -46,19 +46,17 @@ int	ft_exec(t_info *info, char **envp)
 	char	*command_path;
 
 	i = 0;
-	if (builtin_command(info) == 0)
-		return (0);
 	env = info->env;
-	while (ft_strcmp(env->key, "PATH") != 0 && i++ < 20)
+	while (env != NULL && ft_strcmp(env->key, "PATH") != 0)
 		env = env->next;
 	path = ft_split(env->value, ':');
 	i = 0;
 	while (path[i] != NULL)
 	{
-		command_path = ft_strjoin(ft_strjoin(path[i], "/"), info->token[0]);
+		command_path = ft_strjoin(ft_strjoin(path[i], "/"), command[0]);
 		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
 		{
-			execve(command_path, info->token, envp);
+			execve(command_path, command, envp);
 			return (0);
 		}
 		free(command_path);
@@ -67,54 +65,85 @@ int	ft_exec(t_info *info, char **envp)
 	return (1);
 }
 
-// int	ft_exec(char **command, char **envp, t_info *info)
-// {
-// 	char	**path;
-// 	int		i;
-// 	t_env	*env;
-// 	char	*command_path;
-// 	i = 0;
-// 	env = info->env;
-// 	while (ft_strcmp(env->key, "PATH") != 0 && i++ < 20)
-// 		env = env->next;
-// 	path = ft_split(env->value, ':');
-// 	i = 0;
-// 	while (path[i] != NULL)
-// 	{
-// 		command_path = ft_strjoin(ft_strjoin(path[i], "/"), command[0]);
-// 		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
-// 		{
-// 			execve(command_path, command, envp);
-// 			return (0);
-// 		}
-// 		free(command_path);
-// 		i++;
-// 	}
-// 	return (1);
-// }
-
-void	parse(char *line, t_info *info, char **envp)
+void	set_data(t_node *node, char *val1, char *val2)
 {
-	int	status;
+	t_node	*node_child1;
+	t_node	*node_child2;
 
-	set_token(info, line);
-	pid_t pid = fork(); // プロセスをフォーク
-	if (pid == -1)
-		perror("fork");
-	else if (pid == 0)
+	node_child1 = (t_node *)malloc(sizeof(t_node));
+	node_child2 = (t_node *)malloc(sizeof(t_node));
+	node->data = (char **)malloc(sizeof(char *) * 2);
+	node_child1->data = (char **)malloc(sizeof(char *) * 2);
+	node_child2->data = (char **)malloc(sizeof(char *) * 2);
+	node->data[0] = strdup("pipe");
+	node->data[1] = NULL;
+	node_child1->data[0] = strdup(val1);
+	node_child1->data[1] = NULL;
+	node_child2->data[0] = strdup(val2);
+	node_child2->data[1] = NULL;
+	node->left = node_child1;
+	node->right = node_child2;
+	node_child1->left = NULL;
+	node_child1->right = NULL;
+	node_child2->left = NULL;
+	node_child2->right = NULL;
+}
+
+void	child_process(t_info info, char **envp, t_node *node)
+{
+	pid_t	parent;
+	int		pipe_fd[2];
+
+	if (pipe(pipe_fd) == -1)
 	{
-		// 子プロセス
-		if (ft_exec(info, envp) == 1)
-		{
-			command_not_found(line);
-			exit(1); // 子プロセスを終了
-		}
-		exit(0); // 子プロセスを終了
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+	parent = fork();
+	if (!parent)
+	{
+		close(pipe_fd[0]);
+		dup2(pipe_fd[1], STDOUT_FILENO);
+		ft_exec(node->left->data, envp, &info);
 	}
 	else
 	{
-		// 親プロセス
-		wait(&status); // 子プロセスの終了を待つ
-		printf("status:%d\n", status);
+		close(pipe_fd[1]);
+		dup2(pipe_fd[0], STDIN_FILENO);
+		ft_exec(node->left->data, envp, &info);
+	}
+}
+
+void	parse(char *line, t_info *info, char **envp)
+{
+	int status;
+	pid_t parent;
+	t_node *node;
+
+	set_token(info, line);
+	node = (t_node *)malloc(sizeof(t_node));
+	set_data(node, "cat", "wc");
+	printf("node->right->data[0]:%s\n", node->right->data[0]);
+	if (ft_strcmp(node->data[0], "pipe") == 0)
+	{
+		parent = fork();
+		if (parent == -1)
+			perror("fork");
+		else if (!parent)
+		{
+			// if (ft_exec(node->left->data, envp, info) == 1)
+			// {
+			// 	command_not_found(line);
+			// 	exit(1);
+			// }
+			child_process(*info, envp, node);
+			exit(0);
+		}
+		else
+		{
+			wait(&status);
+			printf("status:%d\n", status);
+			ft_exec(node->right->data, envp, info);
+		}
 	}
 }
