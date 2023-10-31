@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/31 14:07:14 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:31:20 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	child_process(t_info info, char **envp, t_node *node)
 {
 	pid_t	parent;
 	int		pipe_fd[2];
+	int		status;
 
 	if (pipe(pipe_fd) == -1)
 	{
@@ -100,50 +101,39 @@ void	child_process(t_info info, char **envp, t_node *node)
 		exit(EXIT_FAILURE);
 	}
 	parent = fork();
+	if (parent == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
 	if (!parent)
 	{
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
+		close(pipe_fd[1]);
 		ft_exec(node->left->data, envp, &info);
+		exit(0);
 	}
 	else
 	{
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], STDIN_FILENO);
-		ft_exec(node->left->data, envp, &info);
+		close(pipe_fd[0]);
+		ft_exec(node->right->data, envp, &info);
+		wait(&status);
+		printf("status:%d\n", status);
 	}
 }
 
 void	parse(char *line, t_info *info, char **envp)
 {
-	int status;
-	pid_t parent;
 	t_node *node;
 
 	set_token(info, line);
 	node = (t_node *)malloc(sizeof(t_node));
-	set_data(node, "cat", "wc");
-	printf("node->right->data[0]:%s\n", node->right->data[0]);
+	set_data(node, "ls", "wc");
 	if (ft_strcmp(node->data[0], "pipe") == 0)
 	{
-		parent = fork();
-		if (parent == -1)
-			perror("fork");
-		else if (!parent)
-		{
-			// if (ft_exec(node->left->data, envp, info) == 1)
-			// {
-			// 	command_not_found(line);
-			// 	exit(1);
-			// }
-			child_process(*info, envp, node);
-			exit(0);
-		}
-		else
-		{
-			wait(&status);
-			printf("status:%d\n", status);
-			ft_exec(node->right->data, envp, info);
-		}
+		child_process(*info, envp, node);
 	}
 }
