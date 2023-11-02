@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 14:44:05 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/22 14:47:57 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:43:32 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
 #include "../../includes/minishell.h"
 
 void	free_cmd(char ***cmd, int cmd_count)

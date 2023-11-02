@@ -6,17 +6,15 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/31 13:49:15 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/02 19:16:11 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./lexer.h"
-
-// # include "../func/get_next_line/get_next_line.h"
 # include "../func/libft/libft.h"
+# include "./lexer.h"
 # include "lexer.h"
 # include "parser.h"
 # include <dirent.h>
@@ -43,10 +41,10 @@
 # define ERROR 1
 
 //pipe
-#define EXIT_FAILURE_FILE 2
-#define EXIT_FAILURE_PIPE 3
-#define EXIT_FAILURE_FORK 4
-#define EXIT_FAILURE_MALLOC 5
+# define EXIT_FAILURE_FILE 2
+# define EXIT_FAILURE_PIPE 3
+# define EXIT_FAILURE_FORK 4
+# define EXIT_FAILURE_MALLOC 5
 
 struct s_env;
 
@@ -61,6 +59,8 @@ typedef struct s_info
 	char			***cmd;
 }					t_info;
 
+# include "exec.h"
+
 typedef struct s_error
 {
 	int				**error;
@@ -73,9 +73,7 @@ void				parse(char *line, t_info *info, char **envp);
 void				sig_int_input(int signum);
 void				sig_quit_input(int signum);
 
-//pipe
-void				free_cmd(char ***cmd, int cmd_count);
-void				free_fd(int **pipefd, int pipe_num);
 void				exit_process(int status);
+int					**get_pipe(t_info info);
 
 #endif

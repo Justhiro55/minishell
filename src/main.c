@@ -6,11 +6,11 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/23 17:42:10 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:52:32 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/builtin.h"
+#include "../includes/exec.h"
 #include "../includes/minishell.h"
 
 int	main(int argc, char **argv, char **envp)

@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls_command.c                                       :+:      :+:    :+:   */
+/*   cd_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 15:48:20 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/09 16:29:08 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/10/04 13:53:36 by hhagiwar          #+#    #+#             */
+/*   Updated: 2023/11/02 18:52:54 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
+#include "../../includes/exec.h"
 
-void	command_ls(const char *dir_path)
+int	command_cd(char **token)
 {
-	DIR				*dir;
-	struct dirent	*entry;
-
-	dir = opendir(dir_path);
-	if (dir == NULL)
+	if (token[1] == NULL || ft_strcmp(token[1], "~") == 0)
 	{
-		perror("opendir");
-		exit(EXIT_FAILURE);
+		chdir(getenv("HOME"));
+		return (0);
 	}
-	entry = readdir(dir);
-	while (entry != NULL)
+	if (token[2] != NULL)
+		return (1);
+	if (chdir(token[1]) == -1)
 	{
-		if (entry->d_name[0] != '.')
-		{
-			printf("%s\n", entry->d_name);
-		}
+		ft_putstr_fd("cd: ", STDERR);
+		ft_putstr_fd(token[1], STDERR);
+		ft_putstr_fd(": ", STDERR);
+		ft_putstr_fd(strerror(errno), STDERR);
+		ft_putstr_fd("\n", STDERR);
 	}
-	closedir(dir);
+	return (0);
 }

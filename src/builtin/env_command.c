@@ -6,11 +6,11 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:56 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/07 22:47:33 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:53:01 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
+#include "../../includes/exec.h"
 
 int	command_env(char **token, t_info info)
 {

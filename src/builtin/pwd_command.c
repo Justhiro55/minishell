@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   not_found_command.c                                :+:      :+:    :+:   */
+/*   pwd_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 13:56:32 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/05 17:27:12 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/10/04 13:55:57 by hhagiwar          #+#    #+#             */
+/*   Updated: 2023/11/02 18:53:20 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
+#include "../../includes/exec.h"
 
-int	command_not_found(char *line)
+int	command_pwd(char **token)
 {
-	if (line[0] != 10)
+	if (token[1] != NULL)
 	{
-		ft_putstr_fd("command not found: ", STDERR);
-		ft_putstr_fd(line, STDERR);
+		ft_putstr_fd("pwd: too many arguments\n", STDERR);
+		return (1);
 	}
-	ft_putstr_fd("\n", STDERR);
-	return (1);
+	else
+	{
+		ft_putstr_fd(getcwd(NULL, 0), STDOUT);
+		ft_putstr_fd("\n", STDOUT);
+	}
+	return (0);
 }

@@ -6,30 +6,34 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/23 17:40:31 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/02 19:06:20 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
+INCLUDES_DIR = ./includes
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR)
-INCLUDES_DIR = ./Includes
 RM = rm
 RMFLAGS = -f
 SRC = src/main.c \
-		src/command/command.c \
-		src/command/cd_command.c \
-		src/command/echo_command.c \
-		src/command/env_command.c \
-		src/command/exit_command.c \
-		src/command/pwd_command.c \
-		src/command/not_found_command.c \
-		src/command/set_env.c \
-		src/command/ls_command.c \
-		src/command/export_command.c \
+		src/exec/command.c \
+		src/exec/exec_redirect.c \
+		src/exec/exec.c \
+		src/exec/node_utils.c \
+		src/exec/not_found_command.c \
+		src/builtin/cd_command.c \
+		src/builtin/echo_command.c \
+		src/builtin/env_command.c \
+		src/builtin/exit_command.c \
+		src/builtin/pwd_command.c \
+		src/builtin/set_env.c \
+		src/builtin/ls_command.c \
+		src/builtin/export_command.c \
 		src/lexer/lexer.c \
 		src/lexer/token.c \
-		src/lexer/lexer_utils.c
+		src/lexer/lexer_utils.c \
+		# src/pipe/pipe*.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
@@ -45,10 +49,16 @@ all: $(NAME)
 $(OBJ_DIR)/%.o: src/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/%.o: src/command/%.c
+$(OBJ_DIR)/%.o: src/exec/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: src/builtin/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: src/lexer/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+	
+$(OBJ_DIR)/%.o: src/pipe/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)

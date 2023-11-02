@@ -6,40 +6,40 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:50:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/23 17:47:54 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:55:13 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
 #include "../../includes/minishell.h"
+#include "../../includes/exec.h"
 
 void	set_var(t_info *info, char **argv, int argc);
-// int		ft_exec(char **command, char **envp, t_info *info);
 int		**get_pipe(t_info info);
 
-void	child_process(int *pipefd, t_info info, char **envp, int i)
-{
-	pid_t	parent;
+// void	child_process(int *pipefd, t_info info, char **envp, int i)
+// {
+// 	pid_t	parent;
 
-	parent = fork();
-	if (!parent)
-	{
-		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO);
-		ft_exec(info.cmd[i], envp, &info);
-	}
-	else
-	{
-		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-		waitpid(parent, NULL, 0);
-	}
-}
+// 	parent = fork();
+// 	if (!parent)
+// 	{
+// 		close(pipefd[0]);
+// 		dup2(pipefd[1], STDOUT_FILENO);
+// 		ft_exec(info.cmd[i], envp, &info);
+// 	}
+// 	else
+// 	{
+// 		close(pipefd[1]);
+// 		dup2(pipefd[0], STDIN_FILENO);
+// 		waitpid(parent, NULL, 0);
+// 	}
+// }
 
 int	get_filefd(char *file, int type)
 {
 	int	fd;
 
+	fd = -1;
 	if (type == 0)
 		fd = open(file, O_RDONLY);
 	else if (type == 1)

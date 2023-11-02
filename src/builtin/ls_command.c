@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_command.c                                     :+:      :+:    :+:   */
+/*   ls_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 13:55:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/13 17:07:17 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/10/09 15:48:20 by hhagiwar          #+#    #+#             */
+/*   Updated: 2023/11/02 18:53:20 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
+#include "../../includes/exec.h"
 
-int	command_exit(char **token)
+void	command_ls(const char *dir_path)
 {
-	if (token[1] == NULL)
-		exit(0);
-	else if (token[2] == NULL)
-		exit(atoi(token[1]));
-	else
-		ft_putstr_fd("exit: too many arguments\n", STDERR);
-	return (1);
+	DIR				*dir;
+	struct dirent	*entry;
+
+	dir = opendir(dir_path);
+	if (dir == NULL)
+	{
+		perror("opendir");
+		exit(EXIT_FAILURE);
+	}
+	entry = readdir(dir);
+	while (entry != NULL)
+	{
+		if (entry->d_name[0] != '.')
+		{
+			printf("%s\n", entry->d_name);
+		}
+	}
+	closedir(dir);
 }

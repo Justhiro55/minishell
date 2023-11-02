@@ -6,12 +6,12 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:54:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/23 17:45:08 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:44:01 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
 #include "../../includes/minishell.h"
+
 
 void	set_var(t_info *info, char **argv, int argc)
 {
