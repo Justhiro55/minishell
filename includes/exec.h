@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:51:01 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/02 19:12:40 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:46:53 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void				env_add_back(t_info *info, t_env *new_node);
 ///
 void				execute_parent_process(t_info info, char **envp,
 						t_node *node, int *fd);
+void				child_process(t_info info, char **envp, t_node *node);
 void				execute_child_process(t_info info, char **envp,
 						t_node *node, int *fd);
 void				set_node(t_node *node);
 void				exit_process(int status);
-void				child_process(t_info info, char **envp, t_node *node);
 int					ft_exec(char **command, char **envp, t_info *info);
 
 #endif

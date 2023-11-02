@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/02 18:53:20 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:50:10 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,6 @@ void	exit_process(int status)
 	}
 }
 
-void	setup_pipe(int *fd)
-{
-	if (pipe(fd) == -1)
-		exit_process(EXIT_FAILURE_PIPE);
-}
-
 void	create_fork_and_execute_child(t_info info, char **envp, t_node *node,
 		int *fd)
 {
@@ -63,7 +57,8 @@ void	child_process(t_info info, char **envp, t_node *node)
 {
 	int	fd[2];
 
-	setup_pipe(fd);
+	if (pipe(fd) == -1)
+		exit_process(EXIT_FAILURE_PIPE);
 	create_fork_and_execute_child(info, envp, node, fd);
 	execute_parent_process(info, envp, node, fd);
 }
@@ -76,7 +71,9 @@ void	parse(char *line, t_info *info, char **envp)
 	node = (t_node *)malloc(sizeof(t_node));
 	if (node == NULL)
 		exit_process(EXIT_FAILURE_MALLOC);
-	set_node(node);
-	if (ft_strcmp(node->data[0], "pipe") == 0)
+	set_node(node); //test用
+	if (node != NULL && node->type == NODE_PIPE)
 		child_process(*info, envp, node);
+	else if (node != NULL && node->type == NODE_COMMAND)
+		ft_exec(node->data, envp, info);
 }
