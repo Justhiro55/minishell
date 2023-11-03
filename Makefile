@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
+#    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/23 17:40:31 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/03 12:28:05 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,9 @@ SRC = src/main.c \
 		src/command/export_command.c \
 		src/lexer/lexer.c \
 		src/lexer/token.c \
-		src/lexer/lexer_utils.c
+		src/lexer/lexer_utils.c \
+		src/parser/parser.c \
+		src/parser/parser_redirect.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
@@ -49,6 +51,9 @@ $(OBJ_DIR)/%.o: src/command/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: src/lexer/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: src/parser/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/23 17:37:11 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:08:24 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "./lexer.h"
+// # include "./parser.h"
 
 // # include "../func/get_next_line/get_next_line.h"
 # include "../func/libft/libft.h"
