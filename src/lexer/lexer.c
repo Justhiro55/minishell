@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:20:47 by kotainou          #+#    #+#             */
-/*   Updated: 2023/10/23 17:33:22 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:06:14 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ t_token	*lexer_main(char *line)
 		if (i == 10)
 			break ;
 	}
-	printtoken(tokeniser->head_list);
+	// printtoken(tokeniser->head_list);
 	return (tokeniser->head_list);
 }

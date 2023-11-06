@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/09 16:23:47 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:05:15 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int					command_pwd(char **token);
 int					command_cd(char **token);
 int					command_env(char **token, t_info info);
 t_env				*command_export(char **token, t_info *info);
-void	command_ls(const char *dir_path);
+void				command_ls(const char *dir_path);
 
 //set
 void				set_env(t_info *info, char **envp);
@@ -40,5 +40,8 @@ void				set_token(t_info *info, char *line);
 t_env				*env_lstlast(t_env *lst);
 t_env				*env_lstnew(char *envp);
 void				env_add_back(t_info *info, t_env *new_node);
+void				ft_free_array(char **array);
+t_env				*find_env_path(t_info *info);
+char				*set_command_path(char *path, char *command);
 
 #endif

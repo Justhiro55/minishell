@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/23 17:40:31 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/06 13:05:44 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ RM = rm
 RMFLAGS = -f
 SRC = src/main.c \
 		src/command/command.c \
+		src/command/command_utils.c \
 		src/command/cd_command.c \
 		src/command/echo_command.c \
 		src/command/env_command.c \
