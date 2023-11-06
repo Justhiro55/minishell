@@ -6,7 +6,7 @@
 #    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/03 12:28:05 by kotainou         ###   ########.fr        #
+#    Updated: 2023/11/03 16:26:26 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC = src/main.c \
 		src/lexer/token.c \
 		src/lexer/lexer_utils.c \
 		src/parser/parser.c \
-		src/parser/parser_redirect.c
+		src/parser/parser_redirect.c \
+		src/parser/parser_utils.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))

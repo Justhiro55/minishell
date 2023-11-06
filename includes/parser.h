@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:58 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/03 13:23:10 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/04 11:35:05 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef enum e_redirect_type
 {
-	REDIRECT_INPUT,
+	REDIRECT_INPUT = 1,
 	REDIRECT_OUTPUT,
 	REDIRECT_APPEND_OUTPUT,
 	REDIRECT_HEREDOC,
@@ -67,5 +67,13 @@ t_node	*cmd(t_now_token *ntk);
 //redirect
 int	is_redirect(t_now_token *ntk);
 t_node	*new_node_redirect(t_node *node, t_now_token *ntk);
+
+//utils.
+t_node	*new_node(char *str, t_node *left, t_node *right);
+t_node	*new_node_cmd(t_now_token *ntk);
+t_node	*new_node_cmdname(t_now_token *ntk);
+void	printTree(t_node *root, size_t depth);
+char	*create_text(char *text, size_t	str_size);
+char	*check_text(char *text);
 
 #endif

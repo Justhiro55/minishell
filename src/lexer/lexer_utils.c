@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:07:34 by kotainou          #+#    #+#             */
-/*   Updated: 2023/10/23 17:28:27 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/05 15:33:30 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	skip_space(t_tokeniser *tk, char *line)
 {
 	while (line[tk->str_i] == ' ')
 	{
+		if (tk->quoted)
+			return ;
 		tk->str_i++;
 	}
 }
@@ -46,15 +48,33 @@ size_t	redi_size(t_tokeniser *tk, char *line)
 	return (1);
 }
 
-int	check_space(int quote, t_tokeniser *tk, char *line)
+int	check_space(t_tokeniser *tk, char *line)
 {
-	char	c;
+	// char	c;
 
-	if (quote & 0x01)
-	c = line[tk->str_i + tk->str_len];
-	if (quote & CHAR_DQUOTE && c == '"')
-		return (1);
-	if (quote & CHAR_QUOTE && c == '\'')
+	// (void)tk;
+	(void)line;
+	// if (quote & 0x01)
+	// c = line[tk->str_i + tk->str_len];
+	// if (quote & CHAR_DQUOTE && c == '"')
+	// 	return (1);
+	// if (quote & CHAR_QUOTE && c == '\'')
+	// 	return (1);
+	if (tk->quoted)
 		return (1);
 	return (0);
+}
+
+void	switch_quote_state(t_tokeniser *lex, char c)
+{
+	if (lex->quoted == 0 && type_quote(c))
+	{
+		lex->quoted = type_quote(c);
+		lex->quote_type = c;
+	}
+	else if (lex->quoted && c == lex->quote_type)
+	{
+		lex->quoted = 0;
+		lex->quote_type = 0;
+	}
 }

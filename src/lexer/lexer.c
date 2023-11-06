@@ -6,23 +6,20 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:20:47 by kotainou          #+#    #+#             */
-/*   Updated: 2023/10/31 16:51:38 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/05 15:33:35 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/lexer.h"
 
-int	type_quote(t_tokeniser *tk, char *line)
+int	type_quote(char a)
 {
-	char	a;
-
-	a = line[tk->str_i + tk->str_len];
 	if (a == '"' || a == '\'')
 	{
 		if (a == '"')
-			return (0x01);
+			return (CHAR_DQUOTE);
 		if (a == '\'')
-			return (0x10);
+			return (CHAR_QUOTE);
 	}
 	return (0);
 }
@@ -46,26 +43,25 @@ int	is_quote_end(int quote, t_tokeniser *tk, char *line)
 void	cre_tokeniser(t_tokeniser *tk, char *line)
 {
 	char	c;
-	int		quote;
+	// int		quote;
 
-	quote = 0;
+	tk->quoted = 0;
 	while (line[tk->str_i + tk->str_len] != '\0')
 	{
 		c = line[tk->str_i + tk->str_len];
-		if (c == ' ' && !check_space(quote, tk, line))
+		if (c == ' ' && !check_space(tk, line))
 			break ;
-		if (quote == 0 && (c == '\'' || c == '"'))
-			quote = type_quote(tk, line);
+		switch_quote_state(tk, c);
 		if (tk->str_len == 0 && (c == '|' || c == '>' || c == '<'))
 		{
-			quote = 0x100;
+			tk->quoted = 0x100;
 			tk->str_len += redi_size(tk, line);
 			break ;
 		}
 		tk->str_len++;
 	}
 	tk->head_list = tokenadd_back(tk->head_list, ft_substr(line, tk->str_i,
-				tk->str_len), quote);
+				tk->str_len), tk->quoted);
 	tk->str_i += tk->str_len;
 }
 
@@ -89,6 +85,6 @@ t_token	*lexer_main(char *line)
 		if (i == 10)
 			break ;
 	}
-	// printtoken(tokeniser->head_list);
+	printtoken(tokeniser->head_list);
 	return (tokeniser->head_list);
 }
