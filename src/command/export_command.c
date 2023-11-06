@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/07 23:07:35 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:46:39 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,19 @@ int	export_node(t_info *info, t_env new_node)
 	return (0);
 }
 
+int	export_one_arg(t_info *info)
+{
+	t_env	*tmp;
+
+	tmp = info->env;
+	while (tmp != NULL)
+	{
+		printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 t_env	*command_export(char **token, t_info *info)
 {
 	t_env	*new_node;
@@ -71,8 +84,8 @@ t_env	*command_export(char **token, t_info *info)
 
 	if (token[1] == NULL)
 	{
-		ft_putstr_fd("export: not enough arguments\n", STDERR);
-		return (info->env);
+		export_one_arg(info);
+		return (NULL);
 	}
 	if (export_error(token) == ERROR)
 	{
