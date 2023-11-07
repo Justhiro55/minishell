@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/02 19:06:20 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/06 17:46:00 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC = src/main.c \
 		src/exec/not_found_command.c \
 		src/builtin/cd_command.c \
 		src/builtin/echo_command.c \
+		src/builtin/command_utils.c \
 		src/builtin/env_command.c \
 		src/builtin/exit_command.c \
 		src/builtin/pwd_command.c \

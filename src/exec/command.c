@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/02 20:50:10 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:50:36 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,18 @@ void	parse(char *line, t_info *info, char **envp)
 	node = (t_node *)malloc(sizeof(t_node));
 	if (node == NULL)
 		exit_process(EXIT_FAILURE_MALLOC);
-	set_node(node); //test用
+	// set_node(node); //test用
 	if (node != NULL && node->type == NODE_PIPE)
+	{
 		child_process(*info, envp, node);
-	else if (node != NULL && node->type == NODE_COMMAND)
-		ft_exec(node->data, envp, info);
+	}
+	else
+		ft_exec(*info->cmd, envp, info);
 }
+
+// void	parse(char *line, t_info *info, char **envp)
+// {
+// 	set_token(info, line);
+// 	if (ft_exec(*info->cmd, envp, info) == 1)
+// 		command_not_found(line);
+// }

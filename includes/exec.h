@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 18:51:01 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/02 20:46:53 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
+/*   Updated: 2023/11/06 17:28:29 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void				set_token(t_info *info, char *line);
 t_env				*env_lstlast(t_env *lst);
 t_env				*env_lstnew(char *envp);
 void				env_add_back(t_info *info, t_env *new_node);
+void				ft_free_array(char **array);
+t_env				*find_env_path(t_info *info);
+char				*set_command_path(char *path, char *command);
 
 ///
 void				execute_parent_process(t_info info, char **envp,
