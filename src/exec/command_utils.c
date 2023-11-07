@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:03:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/06 18:38:46 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:53:41 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,15 @@ char	*set_command_path(char *path, char *command)
 	free(path_slash);
 	return (command_path);
 }
+
+int	command_not_found(char *line)
+{
+	if (line[0] != 10)
+	{
+		ft_putstr_fd("command not found: ", STDERR);
+		ft_putstr_fd(line, STDERR);
+	}
+	ft_putstr_fd("\n", STDERR);
+	return (1);
+}
+

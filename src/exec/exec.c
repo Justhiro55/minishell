@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/07 11:24:11 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:53:01 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,37 +100,3 @@ int	ft_exec(char **command, char **envp, t_info *info)
 	ft_free_array(path);
 	return (result);
 }
-
-// int	ft_exec(char **command, char **envp, t_info *info)
-// {
-// 	char	**path;
-// 	int		i;
-// 	t_env	*env;
-// 	char	*command_path;
-
-// 	i = 0;
-// 	env = info->env;
-// 	while (ft_strcmp(env->key, "PATH") != 0 && i++ < 20)
-// 		env = env->next;
-// 	path = ft_split(env->value, ':');
-// 	i = 0;
-// 	while (path[i] != NULL)
-// 	{
-// 		command_path = ft_strjoin(ft_strjoin(path[i], "/"), command[0]);
-// 		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
-// 		{
-// 			execve(command_path, command, envp);
-// 			return (0);
-// 		}
-// 		free(command_path);
-// 		i++;
-// 	}
-// 	return (1);
-// }
-
-// void	parse(char *line, t_info *info, char **envp)
-// {
-// 	set_token(info, line);
-// 	if (ft_exec(info, envp) == 1)
-// 		command_not_found(line);
-// }

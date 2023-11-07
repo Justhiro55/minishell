@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:40:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/07 15:26:47 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:54:33 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,15 @@ void	set_node(t_node *node)
 	node_child3->redirects->type = REDIRECT_OUTPUT;
 	// node_child4の設定
 	node_child4->data = (char **)malloc(sizeof(char *) * 4);
-	node_child4->data[0] = strdup("head");
-	node_child4->data[1] = strdup("-n");
-	// node_child4->data[1] = NULL;
-	node_child4->data[2] = strdup("32");
+	node_child4->data[0] = strdup("cat");
+	// node_child4->data[1] = strdup("-n");
+	node_child4->data[1] = NULL;
+	// node_child4->data[2] = strdup("32");
 	node_child4->data[3] = NULL;
 	node_child4->type = NODE_COMMAND;
 	node_child4->redirects = create_redirects();
+	node_child4->redirects->fd_file = open("src/pipe/pipe_utils2.c", O_RDONLY);
+	node_child4->redirects->type = REDIRECT_INPUT;
 	// node_pipe_1とnode_pipe_2の設定
 	node_pipe_1->data = (char **)malloc(sizeof(char *) * 2);
 	node_pipe_1->data[0] = strdup("pipe");
