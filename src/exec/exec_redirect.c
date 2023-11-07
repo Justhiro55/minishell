@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/06 19:49:30 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:45:31 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	handle_redirections_for_parent(t_node *node)
 {
 	if (node->right->redirects != NULL && node->right->type == NODE_COMMAND
 		&& node->right->redirects->fd_file > 0)
-	{
 		dup2(node->right->redirects->fd_file, STDOUT_FILENO);
-	}
 }
 
 void	execute_parent_process(t_info info, char **envp, t_node *node, int *fd)

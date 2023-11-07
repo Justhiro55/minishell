@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/06 19:47:56 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:24:11 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,13 @@ int	ft_exec(char **command, char **envp, t_info *info)
 	t_env	*env;
 	int		result;
 
-	(void)command;
 	if (builtin_command(info) == 0)
 		return (0);
 	env = find_env_path(info);
 	if (!env)
 		return (1);
 	path = ft_split(env->value, ':');
-	result = execute_from_path(path, info->token[0], info->token, envp);
+	result = execute_from_path(path, command[0], command, envp);
 	ft_free_array(path);
 	return (result);
 }
@@ -108,6 +107,7 @@ int	ft_exec(char **command, char **envp, t_info *info)
 // 	int		i;
 // 	t_env	*env;
 // 	char	*command_path;
+
 // 	i = 0;
 // 	env = info->env;
 // 	while (ft_strcmp(env->key, "PATH") != 0 && i++ < 20)

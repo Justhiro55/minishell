@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/06 19:50:36 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/07 12:02:02 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,24 @@ void	create_fork_and_execute_child(t_info info, char **envp, t_node *node,
 
 void	child_process(t_info info, char **envp, t_node *node)
 {
-	int	fd[2];
+	int		fd[2];
+	pid_t	parent;
+	int		status;
 
+	parent = fork();
 	if (pipe(fd) == -1)
 		exit_process(EXIT_FAILURE_PIPE);
-	create_fork_and_execute_child(info, envp, node, fd);
-	execute_parent_process(info, envp, node, fd);
+	else if (!parent)
+	{
+		create_fork_and_execute_child(info, envp, node, fd);
+		execute_parent_process(info, envp, node, fd);
+		exit(0);
+	}
+	wait(&status);
+	return ;
 }
+
+int		i = 0;
 
 void	parse(char *line, t_info *info, char **envp)
 {
@@ -71,13 +82,15 @@ void	parse(char *line, t_info *info, char **envp)
 	node = (t_node *)malloc(sizeof(t_node));
 	if (node == NULL)
 		exit_process(EXIT_FAILURE_MALLOC);
-	// set_node(node); //test用
-	if (node != NULL && node->type == NODE_PIPE)
+	if (i == 0)
+		set_node(node); //test用
+	if (node != NULL && node->type == NODE_PIPE && i == 0)
 	{
 		child_process(*info, envp, node);
+		i++;
 	}
 	else
-		ft_exec(*info->cmd, envp, info);
+		ft_exec(info->token, envp, info);
 }
 
 // void	parse(char *line, t_info *info, char **envp)
