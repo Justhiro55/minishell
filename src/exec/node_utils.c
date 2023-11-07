@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:40:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/06 18:37:07 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:26:47 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ void	set_node(t_node *node)
 	node_child1->type = NODE_COMMAND;
 	node_child1->redirects = create_redirects();
 	// node_child2の設定
-	node_child2->data = (char **)malloc(sizeof(char *) * 3);
+	node_child2->data = (char **)malloc(sizeof(char *) * 2);
 	node_child2->data[0] = strdup("cat");
-	node_child2->data[1] = strdup("src/pipe/pipe_utils.c");
-	node_child2->data[2] = NULL;
+	// node_child2->data[1] = strdup("src/pipe/pipe_utils.c");
+	node_child2->data[1] = NULL;
+	// node_child2->data[2] = NULL;
 	node_child2->type = NODE_COMMAND;
 	node_child2->redirects = create_redirects();
 	node_child2->redirects->fd_file = open("src/pipe/pipe_utils.c", O_RDONLY);

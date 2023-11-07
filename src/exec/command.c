@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/07 12:02:02 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:26:38 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	child_process(t_info info, char **envp, t_node *node)
 }
 
 int		i = 0;
-
 void	parse(char *line, t_info *info, char **envp)
 {
 	t_node	*node;
@@ -92,10 +91,3 @@ void	parse(char *line, t_info *info, char **envp)
 	else
 		ft_exec(info->token, envp, info);
 }
-
-// void	parse(char *line, t_info *info, char **envp)
-// {
-// 	set_token(info, line);
-// 	if (ft_exec(*info->cmd, envp, info) == 1)
-// 		command_not_found(line);
-// }

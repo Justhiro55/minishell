@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/07 11:45:31 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:24:29 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	handle_redirections_for_child(t_node *node)
 {
-	if (node->redirects != NULL && node->type == NODE_COMMAND
-		&& node->redirects->fd_file > 0)
+	if (node->type == NODE_COMMAND && node->redirects->fd_file > 0)
 		dup2(node->redirects->fd_file, STDIN_FILENO);
 }
 
@@ -25,10 +24,12 @@ void	execute_child_process(t_info info, char **envp, t_node *node, int *fd)
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
 	if (ft_strcmp(node->left->data[0], "pipe") == 0)
+	{
 		child_process(info, envp, node->left);
+	}
 	else
 	{
-		handle_redirections_for_child(node);
+		handle_redirections_for_child(node->left);
 		ft_exec(node->left->data, envp, &info);
 	}
 }

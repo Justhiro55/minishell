@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/06 17:46:00 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/07 12:33:05 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,13 @@ RM = rm
 RMFLAGS = -f
 SRC = src/main.c \
 		src/exec/command.c \
+		src/exec/command_utils.c \
 		src/exec/exec_redirect.c \
 		src/exec/exec.c \
 		src/exec/node_utils.c \
 		src/exec/not_found_command.c \
 		src/builtin/cd_command.c \
 		src/builtin/echo_command.c \
-		src/builtin/command_utils.c \
 		src/builtin/env_command.c \
 		src/builtin/exit_command.c \
 		src/builtin/pwd_command.c \
@@ -34,7 +34,6 @@ SRC = src/main.c \
 		src/lexer/lexer.c \
 		src/lexer/token.c \
 		src/lexer/lexer_utils.c \
-		# src/pipe/pipe*.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
@@ -57,9 +56,6 @@ $(OBJ_DIR)/%.o: src/builtin/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: src/lexer/%.c
-	@$(CC) $(CFLAGS) -c $< -o $@
-	
-$(OBJ_DIR)/%.o: src/pipe/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/06 17:28:29 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/07 12:30:00 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }					t_env;
-
-//pipe_def
-# define EXIT_FAILURE_FILE 2
-# define EXIT_FAILURE_PIPE 3
-# define EXIT_FAILURE_FORK 4
-# define EXIT_FAILURE_MALLOC 5
-
-// struct s_env;
-// struct t_info;
 
 //signal
 void				sig_int_input(int signum);
