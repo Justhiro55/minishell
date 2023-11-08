@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:40:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/07 17:54:33 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/08 19:00:43 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,21 @@ void	set_node(t_node *node)
 	node_child1->data = (char **)malloc(sizeof(char *) * 3);
 	node_child1->data[0] = strdup("grep");
 	node_child1->data[1] = strdup("int");
+	// node_child1->data[1] = NULL;
 	node_child1->data[2] = NULL;
 	node_child1->type = NODE_COMMAND;
 	node_child1->redirects = create_redirects();
 	// node_child2の設定
 	node_child2->data = (char **)malloc(sizeof(char *) * 2);
 	node_child2->data[0] = strdup("cat");
-	// node_child2->data[1] = strdup("src/pipe/pipe_utils.c");
+	// node_child2->data[1] = strdup("src/pipe/pipe.c");
 	node_child2->data[1] = NULL;
 	// node_child2->data[2] = NULL;
 	node_child2->type = NODE_COMMAND;
 	node_child2->redirects = create_redirects();
-	node_child2->redirects->fd_file = open("src/pipe/pipe_utils.c", O_RDONLY);
-	node_child2->redirects->type = REDIRECT_INPUT;
+	// node_child2->redirects->fd_file = open("src/pipe/pipe_utils.c", O_RDONLY);
+	node_child2->redirects->type = REDIRECT_HEREDOC;
+	node_child2->redirects->filename = strdup("end");
 	// node_child3の設定
 	node_child3->data = (char **)malloc(sizeof(char *) * 2);
 	node_child3->data[0] = strdup("wc");
