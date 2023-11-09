@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:40:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 15:32:42 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:16:15 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_redirects	*create_redirects(void)
 		exit_process(EXIT_FAILURE_MALLOC);
 	ft_memset(new_redirects, 0, sizeof(t_redirects));
 	new_redirects->fd_file = -1;
-	new_redirects->fd_backup = dup(STDOUT_FILENO);
+	new_redirects->fd_backup = ft_dup(STDOUT_FILENO);
 	return (new_redirects);
 }
 

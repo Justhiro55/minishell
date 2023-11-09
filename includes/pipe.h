@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 17:27:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/02 19:16:15 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:08:15 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define EXIT_FAILURE_PIPE 3
 # define EXIT_FAILURE_FORK 4
 # define EXIT_FAILURE_MALLOC 5
+# define EXIT_FAILURE_DUP 6
 
 // struct s_env;
 // struct t_info;

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 15:36:26 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:21:22 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,14 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-#define PIPE_READ 0
-#define PIPE_WRITE 1
+# define PIPE_READ 0
+# define PIPE_WRITE 1
 
+# define EXIT_FAILURE_FILE 2
+# define EXIT_FAILURE_PIPE 3
+# define EXIT_FAILURE_FORK 4
+# define EXIT_FAILURE_MALLOC 5
+# define EXIT_FAILURE_DUP 6
 
 //signal
 void				sig_int_input(int signum);
@@ -57,6 +62,10 @@ void				env_add_back(t_info *info, t_env *new_node);
 void				ft_free_array(char **array);
 t_env				*find_env_path(t_info *info);
 char				*set_command_path(char *path, char *command);
+int					ft_dup(int fd);
+void				ft_dup2(int old_fd, int new_fd);
+void				ft_pipe(int fd[2]);
+pid_t				ft_fork(void);
 
 ///
 void				execute_parent_process(t_info info, char **envp,
@@ -66,6 +75,7 @@ void				execute_child_process(t_info info, char **envp,
 						t_node *node, int *fd);
 void				set_node(t_node *node);
 void				exit_process(int status);
-int					ft_exec(char **command, char **envp, t_info *info, t_node *node);
+int					ft_exec(char **command, char **envp, t_info *info,
+						t_node *node);
 
 #endif

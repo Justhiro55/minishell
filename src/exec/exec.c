@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 15:38:19 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:23:04 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,14 @@ int	builtin_command(t_info *info)
 
 int	execute_command(char *command_path, char **tokens, char **envp)
 {
-	pid_t	pid;
+	pid_t	parent;
 	int		status;
 
-	pid = fork();
-	if (pid == 0)
+	parent = ft_fork();
+	if (!parent)
 	{
 		execve(command_path, tokens, envp);
 		exit(EXIT_FAILURE);
-	}
-	else if (pid < 0)
-	{
-		perror("fork");
-		return (1);
 	}
 	else
 	{

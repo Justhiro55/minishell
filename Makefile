@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/07 12:33:05 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/09 17:13:26 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC = src/main.c \
 		src/exec/exec_redirect.c \
 		src/exec/exec.c \
 		src/exec/node_utils.c \
+		src/exec/redirect_utils.c \
 		src/exec/not_found_command.c \
 		src/builtin/cd_command.c \
 		src/builtin/echo_command.c \

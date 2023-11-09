@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:54:37 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/07 18:22:46 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:20:04 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,7 @@ int	**get_pipe(t_info info)
 	i = 0;
 	while (i < info.pipe_num)
 	{
-		if (pipe(fd[i]) == -1)
-		{
-			perror("pipe");
-			exit(EXIT_FAILURE);
-		}
+		ft_pipe(fd[i]);
 		i++;
 	}
 	return (fd);
