@@ -6,13 +6,11 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 17:25:17 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:34:31 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
-
-#define EXIT_FAILURE_DUP 6
 
 void	exit_process(int status)
 {

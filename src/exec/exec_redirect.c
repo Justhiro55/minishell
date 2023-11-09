@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 17:25:38 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:35:03 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	handle_redirections_for_child(t_node *node)
 	{
 		stdin_backup = ft_dup(STDIN_FILENO);
 		ft_pipe(fd);
-		here_doc("end");
+		here_doc(node->redirects->filename);
 		ft_dup2(fd[PIPE_READ], STDIN_FILENO);
 		close(fd[PIPE_READ]);
 		close(fd[PIPE_WRITE]);
@@ -84,10 +84,10 @@ void	handle_redirections_for_parent(t_node *node)
 		&& node->right->redirects->fd_file > 0
 		&& node->right->redirects->type == REDIRECT_OUTPUT)
 		ft_dup2(node->right->redirects->fd_file, STDOUT_FILENO);
-	// if (node->right->redirects != NULL && node->right->type == NODE_COMMAND
-	// 	&& node->right->redirects->fd_file > 0
-	// 	&& node->right->redirects->type == REDIRECT_INPUT)
-	// 	ft_dup2(node->right->redirects->fd_file, STDIN_FILENO);
+	if (node->right->redirects != NULL && node->right->type == NODE_COMMAND
+		&& node->right->redirects->fd_file > 0
+		&& node->right->redirects->type == REDIRECT_INPUT)
+		ft_dup2(node->right->redirects->fd_file, STDIN_FILENO);
 }
 
 void	execute_parent_process(t_info info, char **envp, t_node *node, int *fd)
