@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/08 11:36:34 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:38:19 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,15 @@ int	execute_from_path(char **path, char *command_name, char **tokens,
 	return (result);
 }
 
-int	ft_exec(char **command, char **envp, t_info *info)
+void	handle_redirections_for_child(t_node *node);
+
+int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 {
 	char	**path;
 	t_env	*env;
 	int		result;
 
+	(void)node;
 	if (builtin_command(info) == 0)
 		return (0);
 	env = find_env_path(info);

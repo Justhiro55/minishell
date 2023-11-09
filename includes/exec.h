@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/08 11:36:49 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:36:26 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }					t_env;
+
+#define PIPE_READ 0
+#define PIPE_WRITE 1
+
 
 //signal
 void				sig_int_input(int signum);
@@ -62,6 +66,6 @@ void				execute_child_process(t_info info, char **envp,
 						t_node *node, int *fd);
 void				set_node(t_node *node);
 void				exit_process(int status);
-int					ft_exec(char **command, char **envp, t_info *info);
+int					ft_exec(char **command, char **envp, t_info *info, t_node *node);
 
 #endif

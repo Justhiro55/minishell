@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:40:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/08 19:00:43 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:32:42 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_redirects	*create_redirects(void)
 		exit_process(EXIT_FAILURE_MALLOC);
 	ft_memset(new_redirects, 0, sizeof(t_redirects));
 	new_redirects->fd_file = -1;
+	new_redirects->fd_backup = dup(STDOUT_FILENO);
 	return (new_redirects);
 }
 
@@ -56,11 +57,11 @@ void	set_node(t_node *node)
 	node->data[1] = NULL;
 	node->type = NODE_PIPE;
 	// node_child1の設定
-	node_child1->data = (char **)malloc(sizeof(char *) * 3);
-	node_child1->data[0] = strdup("grep");
-	node_child1->data[1] = strdup("int");
-	// node_child1->data[1] = NULL;
-	node_child1->data[2] = NULL;
+	node_child1->data = (char **)malloc(sizeof(char *) * 4);
+	node_child1->data[0] = strdup("head");
+	node_child1->data[1] = strdup("-n");
+	node_child1->data[2] = strdup("3");
+	node_child1->data[3] = NULL;
 	node_child1->type = NODE_COMMAND;
 	node_child1->redirects = create_redirects();
 	// node_child2の設定
@@ -76,7 +77,7 @@ void	set_node(t_node *node)
 	node_child2->redirects->filename = strdup("end");
 	// node_child3の設定
 	node_child3->data = (char **)malloc(sizeof(char *) * 2);
-	node_child3->data[0] = strdup("wc");
+	node_child3->data[0] = strdup("cat");
 	node_child3->data[1] = NULL;
 	node_child3->type = NODE_COMMAND;
 	node_child3->redirects = create_redirects();
