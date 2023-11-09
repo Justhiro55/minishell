@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 17:21:22 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:50:04 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int					ft_dup(int fd);
 void				ft_dup2(int old_fd, int new_fd);
 void				ft_pipe(int fd[2]);
 pid_t				ft_fork(void);
+int					open_file(t_node *node);
 
 ///
 void				execute_parent_process(t_info info, char **envp,

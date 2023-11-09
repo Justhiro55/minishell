@@ -6,11 +6,26 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:07:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 17:23:37 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:59:40 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+int	open_file(t_node *node)
+{
+	if (node == NULL || node->redirects == NULL)
+		return (-1);
+	if (node->redirects->type == REDIRECT_INPUT)
+		return (open(node->redirects->filename, O_RDONLY, 0));
+	if (node->redirects->type == REDIRECT_OUTPUT)
+		return (open(node->redirects->filename, O_WRONLY | O_CREAT | O_TRUNC,
+				0644));
+	if (node->redirects->type == REDIRECT_APPEND_OUTPUT)
+		return (open(node->redirects->filename, O_WRONLY | O_CREAT | O_APPEND,
+				0644));
+	return (-1);
+}
 
 int	ft_dup(int fd)
 {
