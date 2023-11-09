@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 17:23:04 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:37:40 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ int	execute_from_path(char **path, char *command_name, char **tokens,
 	command_not_found(command_name);
 	return (result);
 }
-
-void	handle_redirections_for_child(t_node *node);
 
 int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 {
