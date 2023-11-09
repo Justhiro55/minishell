@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/08 12:59:31 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:17:26 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,9 @@ typedef struct s_info
 {
 	char			**token;
 	struct s_env	*env;
-	//pipe
-	int				pipe_num;
-	int				file_fd[2];
-	int				*pipe_fd;
-	char			***cmd;
 }					t_info;
 
 # include "exec.h"
-
-typedef struct s_error
-{
-	int				**error;
-}					t_error;
 
 void				minishell(char **envp);
 void				parse(char *line, t_info *info, char **envp);
@@ -73,6 +63,5 @@ void				sig_int_input(int signum);
 void				sig_quit_input(int signum);
 
 void				exit_process(int status);
-int					**get_pipe(t_info info);
 
 #endif

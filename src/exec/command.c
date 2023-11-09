@@ -6,28 +6,11 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 18:34:31 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:18:56 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
-
-void	exit_process(int status)
-{
-	if (status == EXIT_SUCCESS)
-		exit(EXIT_SUCCESS);
-	else if (status == EXIT_FAILURE_FILE)
-		perror("File open error");
-	else if (status == EXIT_FAILURE_FORK)
-		perror("Fork error");
-	else if (status == EXIT_FAILURE_MALLOC)
-		perror("Malloc error");
-	else if (status == EXIT_FAILURE_PIPE)
-		perror("Pipe error");
-	else if (status == EXIT_FAILURE_DUP)
-		perror("Dup Error");
-	exit(EXIT_FAILURE);
-}
 
 void	create_fork_and_execute_child(t_info info, char **envp, t_node *node,
 		int *fd)
