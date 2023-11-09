@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:03:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/07 17:53:41 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:29:42 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,3 @@ int	command_not_found(char *line)
 	ft_putstr_fd("\n", STDERR);
 	return (1);
 }
-
