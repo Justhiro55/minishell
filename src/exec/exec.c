@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 18:37:48 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/10 15:16:30 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	builtin_command(t_info *info)
 		command_env(info->token, *info);
 	else if (ft_strcmp(info->token[0], "export") == 0)
 		command_export(info->token, info);
+	else if (ft_strcmp(info->token[0], "unset") == 0)
+		command_unset(info->token, info);
 	else
 		return (1);
 	return (0);
