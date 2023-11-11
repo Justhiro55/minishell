@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/10 15:16:47 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/11 13:24:37 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int					command_echo(char **token);
 int					command_pwd(char **token);
 int					command_cd(char **token);
 int					command_env(char **token, t_info info);
-t_env				*command_export(char **token, t_info *info);
-void				command_ls(const char *dir_path);
+int					command_export(char **token, t_info *info);
 int					command_unset(char **token, t_info *info);
 
 //redirect
