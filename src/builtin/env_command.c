@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:56 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/02 18:53:01 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/11 13:00:54 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	command_env(char **token, t_info info)
 		}
 		while (info.env != NULL)
 		{
-			printf("%s=%s\n", info.env->key, info.env->value);
+			if (info.env->value[0] != '\0')
+				printf("%s=%s\n", info.env->key, info.env->value);
 			info.env = info.env->next;
 		}
 	}
