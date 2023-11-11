@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/11 13:29:44 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/11 14:08:38 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,22 +80,28 @@ int	export_one_arg(t_info *info)
 int	command_export(char **token, t_info *info)
 {
 	t_env	*new_node;
-	t_env	*temp_env;
+	int		result;
+	int		i;
 
+	i = 1;
+	result = SUCCESS;
 	if (token[1] == NULL)
-	{
-		export_one_arg(info);
-		return (SUCCESS);
-	}
-	if (token[1][0] == '_')
-		return (SUCCESS);
-	if (ft_isalpha(token[1][0]) == 0 || export_error(token) == ERROR)
+		return (export_one_arg(info));
+	if (export_error(token) == ERROR)
 		return (error_export_msg(token[1]));
-	new_node = env_lstnew(token[1]);
-	if (!new_node)
-		return (ERROR);
-	temp_env = info->env;
-	if (export_node(info, *new_node) == SUCCESS)
-		env_add_back(info, new_node);
-	return (SUCCESS);
+	while (token[i] && (i++))
+	{
+		if (token[i - 1][0] != '_')
+		{
+			if (ft_isalpha(token[i - 1][0]) == 0)
+				result = error_export_msg(token[i - 1]);
+			else
+			{
+				new_node = env_lstnew(token[i - 1]);
+				if (new_node && export_node(info, *new_node) == SUCCESS)
+					env_add_back(info, new_node);
+			}
+		}
+	}
+	return (result);
 }
