@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:40:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 19:20:11 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:42:43 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	set_node(t_node *node)
 	node_child1->data = (char **)malloc(sizeof(char *) * 4);
 	node_child1->data[0] = strdup("head");
 	node_child1->data[1] = strdup("-n");
-	node_child1->data[2] = strdup("32");
+	node_child1->data[2] = strdup("3");
 	node_child1->data[3] = NULL;
 	node_child1->type = NODE_COMMAND;
 	node_child1->redirects = create_redirects();
@@ -72,18 +72,21 @@ void	set_node(t_node *node)
 	// node_child2->data[2] = NULL;
 	node_child2->type = NODE_COMMAND;
 	node_child2->redirects = create_redirects();
-	node_child2->redirects->type = REDIRECT_HEREDOC;
-	// node_child2->redirects->filename = strdup("src/pipe/pipe_utils.c");
+	node_child2->redirects->type = REDIRECT_INPUT;
+	// node_child2->redirects->type = REDIRECT_HEREDOC;
+	node_child2->redirects->filename = strdup("src/exec/exec.c");
+	// node_child2->redirects->filename = strdup("end");
+	node_child2->redirects->fd_file = open_file(node_child2);
 	// node_child2->redirects->fd_file = open_file(node_child2);
 	// node_child2->redirects->fd_file = open("src/pipe/pipe.c", O_RDONLY, 0);
-	node_child2->redirects->filename = strdup("end");
+	// node_child2->redirects->filename = strdup("../builtin/ls_command.c");
 	// node_child3の設定
 	node_child3->data = (char **)malloc(sizeof(char *) * 2);
 	node_child3->data[0] = strdup("cat");
 	node_child3->data[1] = NULL;
 	node_child3->type = NODE_COMMAND;
 	node_child3->redirects = create_redirects();
-	node_child3->redirects->type = REDIRECT_OUTPUT;
+	node_child3->redirects->type = REDIRECT_APPEND_OUTPUT;
 	node_child3->redirects->filename = strdup("test_outfile");
 	node_child3->redirects->fd_file = open_file(node_child3);
 	// node_child3->redirects->fd_file = open("test_outfile",
