@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:50:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/05 15:29:16 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:15:24 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEXER_H
 
 #include "./minishell.h"
+#include "./token.h"
 # include "../func/libft/libft.h"
 #include <stddef.h>
 
@@ -21,13 +22,13 @@
 # define CHAR_DQUOTE	0x010 // "
 # define PIPE			0x100 // |
 
-typedef struct s_token
-{
-	char			*str;
-	int				type;
-	struct s_token	*next;
-	struct s_token	*prev;
-}	t_token;
+// typedef struct s_token
+// {
+// 	char			*str;
+// 	int				type;
+// 	struct s_token	*next;
+// 	struct s_token	*prev;
+// }	t_token;
 
 typedef struct s_tokeniser
 {

@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/03 16:25:14 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:32:47 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_node	*cmd(t_now_token *ntk)
 	
 
 	cmd = ft_strdup(ntk->now->str);
-	// printf("cmd = [%s]\n", cmd);
 	if (ntk->now->next != NULL && ft_strncmp(ntk->now->next->str, "|", 1) != 0)
 	{
 		return (new_node_cmdname(ntk));

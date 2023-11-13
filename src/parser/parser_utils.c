@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/04 17:51:00 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:33:11 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_node	*new_node(char *str, t_node *left, t_node *right)
 {
 	t_node	*node;
 
+	// printf("new node= [%s]\n", right->data[0]);
 	node = ft_calloc(1, sizeof(t_node));
 	node->data = (char **)ft_calloc(1, sizeof(char *));
 	node->data[0] = ft_strdup(str);
@@ -55,7 +56,7 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 			return (new_node_redirect(node, ntk));
 		}
 		cmd = ft_strdup(ntk->now->str);
-		printf("cmd name = [%s]\n", cmd);
+		// printf("cmd name = [%s]\n", cmd);
 		check_text(cmd);
 		node->data[i] = cmd;
 		i++;
@@ -91,7 +92,7 @@ char	*create_text(char *text, size_t	str_size)
 		new_i++;
 		old_i++;
 	}
-	printf("new str= [%s]\n", new_text);
+	// printf("new str= [%s]\n", new_text);
 	return (new_text);
 }
 
@@ -128,30 +129,31 @@ char	*check_text(char *text)
 		printf("text = [%c]\n", text[i]);
 		error_parser();
 	}
-	printf("strlen = [%lu]\n", ft_strlen(text) - quote_num);
-	create_text(text, ft_strlen(text) - quote_num);
+	// printf("strlen = [%lu]\n", ft_strlen(text) - quote_num);
+	// create_text(text, ft_strlen(text) - quote_num);
+	// printf("create_text = [%s]\n", create_text(text, ft_strlen(text) - quote_num));
 	return (NULL);
 }
 
 void	printTree(t_node *root, size_t depth)
 {
-	size_t	i;
+	size_t		i;
+	t_redirects	*tmp;
 
 	if (root == NULL)
 		return ;
 	printTree(root->right, depth + 1);
 	for (i = 0; i < depth; i++)
-	{
 		printf(" ");
-	}
-	if (root->redirects != NULL)
+	tmp = root->redirects;
+	if (tmp != NULL)
 	{
-		while (root->redirects != NULL)
-		{
-			printf("redirect [%s] ", root->redirects->filename);
-			printf("redirect [%d] ", root->redirects->type);
-			
-		}
+	// 	// while (tmp != NULL)
+	// 	// {
+			printf("red filename =  [%s] ", root->redirects->filename);
+			printf("red type = [%d] ", root->redirects->type);
+	// 		tmp = tmp->next;
+	// 	// }
 	}
 	for (i = 0; i < root->row_size; i++)
 	{

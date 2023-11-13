@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:07:34 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/05 15:33:30 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/11 19:48:40 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	skip_space(t_tokeniser *tk, char *line)
 {
 	while (line[tk->str_i] == ' ')
 	{
-		if (tk->quoted)
-			return ;
+		// if (tk->quoted)
+		// 	return ;
 		tk->str_i++;
 	}
 }

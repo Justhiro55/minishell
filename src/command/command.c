@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/23 17:48:09 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:06:36 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,40 +31,73 @@ int	builtin_command(t_info *info)
 		command_env(info->token, *info);
 	else if (ft_strcmp(info->token[0], "export") == 0)
 		command_export(info->token, info);
-	// else if (ft_strcmp(info->token[0], "ls") == 0)
-	// 	command_ls(getcwd(NULL, 0));
 	else
 		return (1);
 	return (0);
 }
 
-int	ft_exec(t_info *info, char **envp)
+int	execute_command(char *command_path, char **tokens, char **envp)
 {
-	char	**path;
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		execve(command_path, tokens, envp);
+		exit(EXIT_FAILURE);
+	}
+	else if (pid < 0)
+	{
+		perror("fork");
+		return (1);
+	}
+	else
+	{
+		wait(&status);
+		return (0);
+	}
+}
+
+int	execute_from_path(char **path, char *command_name, char **tokens,
+		char **envp)
+{
 	int		i;
-	t_env	*env;
 	char	*command_path;
+	int		result;
 
 	i = 0;
-	if (builtin_command(info) == 0)
-		return (0);
-	env = info->env;
-	while (ft_strcmp(env->key, "PATH") != 0 && i++ < 20)
-		env = env->next;
-	path = ft_split(env->value, ':');
-	i = 0;
-	while (path[i] != NULL)
+	result = 1;
+	while (path[i])
 	{
-		command_path = ft_strjoin(ft_strjoin(path[i], "/"), info->token[0]);
+		command_path = set_command_path(path[i], command_name);
 		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
 		{
-			execve(command_path, info->token, envp);
-			return (0);
+			result = execute_command(command_path, tokens, envp);
+			free(command_path);
+			break ;
 		}
 		free(command_path);
 		i++;
 	}
-	return (1);
+	return (result);
+}
+
+int	ft_exec(t_info *info, char **envp)
+{
+	char	**path;
+	t_env	*env;
+	int		result;
+
+	if (builtin_command(info) == 0)
+		return (0);
+	env = find_env_path(info);
+	if (!env)
+		return (1);
+	path = ft_split(env->value, ':');
+	result = execute_from_path(path, info->token[0], info->token, envp);
+	ft_free_array(path);
+	return (result);
 }
 
 // int	ft_exec(char **command, char **envp, t_info *info)
@@ -95,26 +128,7 @@ int	ft_exec(t_info *info, char **envp)
 
 void	parse(char *line, t_info *info, char **envp)
 {
-	int	status;
-
 	set_token(info, line);
-	pid_t pid = fork(); // プロセスをフォーク
-	if (pid == -1)
-		perror("fork");
-	else if (pid == 0)
-	{
-		// 子プロセス
-		if (ft_exec(info, envp) == 1)
-		{
-			command_not_found(line);
-			exit(1); // 子プロセスを終了
-		}
-		exit(0); // 子プロセスを終了
-	}
-	else
-	{
-		// 親プロセス
-		wait(&status); // 子プロセスの終了を待つ
-		printf("status:%d\n", status);
-	}
+	if (ft_exec(info, envp) == 1)
+		command_not_found(line);
 }

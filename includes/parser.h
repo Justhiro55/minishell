@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:58 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/04 11:35:05 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:16:06 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 // # include "../func/libft/libft.h"
 # include "./minishell.h"
-// # include "./lexer.h"
+# include "./token.h"
 # include <stddef.h>
 
 typedef enum e_redirect_type

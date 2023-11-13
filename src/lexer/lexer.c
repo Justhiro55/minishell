@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:20:47 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/05 15:33:35 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:22:05 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	cre_tokeniser(t_tokeniser *tk, char *line)
 		}
 		tk->str_len++;
 	}
+	// printf("substr = [%s]\n", ft_substr(line, tk->str_i,tk->str_len));
 	tk->head_list = tokenadd_back(tk->head_list, ft_substr(line, tk->str_i,
 				tk->str_len), tk->quoted);
 	tk->str_i += tk->str_len;
@@ -81,10 +82,10 @@ t_token	*lexer_main(char *line)
 		skip_space(tokeniser, line);
 		tokeniser->str_len = 0;
 		cre_tokeniser(tokeniser, line);
-		i++;
-		if (i == 10)
-			break ;
+		// i++;
+		// if (i == 10)
+		// 	break ;
 	}
-	printtoken(tokeniser->head_list);
+	// printtoken(tokeniser->head_list);
 	return (tokeniser->head_list);
 }

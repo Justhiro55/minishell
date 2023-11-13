@@ -6,7 +6,7 @@
 #    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/03 16:26:26 by kotainou         ###   ########.fr        #
+#    Updated: 2023/11/06 16:45:02 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ RM = rm
 RMFLAGS = -f
 SRC = src/main.c \
 		src/command/command.c \
+		src/command/command_utils.c \
 		src/command/cd_command.c \
 		src/command/echo_command.c \
 		src/command/env_command.c \
