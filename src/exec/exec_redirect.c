@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/13 15:03:54 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:55:51 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,45 @@ void	here_doc(char *delimiter)
 	}
 }
 
+void	here_doc_mock(char *delimiter)
+{
+	char	*line;
+
+	ft_dup2(STDIN_FILENO, STDOUT_FILENO);
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+			break ;
+		if (ft_strcmp(line, delimiter) == 0)
+		{
+			free(line);
+			break ;
+		}
+		free(line);
+	}
+}
+
 void	handle_redirections_for_child(t_node *node, t_redirects *redirects)
 {
-	int	stdin_backup;
-	int	fd[2];
+	int		status;
+	pid_t	parent;
 
 	while (redirects->next != NULL)
+	{
+		if (redirects->type == REDIRECT_HEREDOC)
+		{
+			parent = fork();
+			if (!parent)
+			{
+				here_doc_mock(redirects->filename);
+				exit(1);
+			}
+			else
+				wait(&status);
+		}
 		redirects = redirects->next;
+	}
 	if (redirects != NULL && node->type == NODE_COMMAND
 		&& redirects->type == REDIRECT_INPUT)
 		ft_dup2(redirects->fd_file, STDIN_FILENO);
@@ -51,16 +83,7 @@ void	handle_redirections_for_child(t_node *node, t_redirects *redirects)
 		ft_dup2(redirects->fd_file, STDOUT_FILENO);
 	if (redirects != NULL && node->type == NODE_COMMAND
 		&& redirects->type == REDIRECT_HEREDOC)
-	{
-		stdin_backup = ft_dup(STDIN_FILENO);
-		ft_pipe(fd);
 		here_doc(redirects->filename);
-		ft_dup2(fd[PIPE_READ], STDIN_FILENO);
-		close(fd[PIPE_READ]);
-		close(fd[PIPE_WRITE]);
-		ft_dup2(stdin_backup, STDIN_FILENO);
-		close(stdin_backup);
-	}
 }
 
 void	execute_child_process(t_info info, char **envp, t_node *node, int *fd)
