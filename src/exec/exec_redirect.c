@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/13 19:03:58 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:26:21 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,13 @@ void	execute_child_process(t_info info, char **envp, t_node *node, int *fd)
 
 void	handle_redirections_for_parent(t_node *node)
 {
+	while (node->right->redirects->next != NULL)
+	{
+		if (node->right->redirects->type == REDIRECT_OUTPUT
+			|| node->right->redirects->type == REDIRECT_APPEND_OUTPUT)
+			open_file(node->right->redirects);
+		node->right->redirects = node->right->redirects->next; //
+	}
 	if (node->right->redirects != NULL && node->right->type == NODE_COMMAND
 		&& node->right->redirects->fd_file > 0
 		&& node->right->redirects->type == REDIRECT_OUTPUT)

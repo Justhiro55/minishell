@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:40:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/13 19:04:32 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:27:37 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ void	set_node(t_node *node)
 
 
 
-
-
 	
 	// node_child3の設定
 	node_child3->data = (char **)malloc(sizeof(char *) * 2);
@@ -101,10 +99,18 @@ void	set_node(t_node *node)
 	node_child3->type = NODE_COMMAND;
 	node_child3->redirects = create_redirects();
 	node_child3->redirects->type = REDIRECT_OUTPUT;
-	node_child3->redirects->filename = strdup("test_outfile");
+	node_child3->redirects->filename = strdup("test_outfile1");
 	node_child3->redirects->fd_file = open_file(node_child3->redirects);
 	node_child3->redirects->type = REDIRECT_OUTPUT;
-	node_child3->redirects->next = NULL;
+
+
+	node_child3->redirects->next = create_redirects();
+	node_child3->redirects->next->type = REDIRECT_OUTPUT;
+	node_child3->redirects->next->filename = strdup("test_outfile2");
+	node_child3->redirects->next->fd_file = open_file(node_child3->redirects->next);
+	node_child3->redirects->next->next = NULL;
+
+	
 	// node_child4の設定
 	node_child4->data = (char **)malloc(sizeof(char *) * 4);
 	node_child4->data[0] = strdup("cat");
