@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:07:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/13 16:13:15 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:10:23 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ int	open_file(t_redirects *redirects)
 	if (redirects->type == REDIRECT_INPUT)
 		return (open(redirects->filename, O_RDONLY, 0));
 	if (redirects->type == REDIRECT_OUTPUT)
-		return (open(redirects->filename, O_WRONLY | O_CREAT | O_TRUNC,
-				0644));
+		return (open(redirects->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644));
 	if (redirects->type == REDIRECT_APPEND_OUTPUT)
-		return (open(redirects->filename, O_WRONLY | O_CREAT | O_APPEND,
-				0644));
+		return (open(redirects->filename, O_WRONLY | O_CREAT | O_APPEND, 0644));
 	return (-1);
 }
 
