@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/13 14:39:35 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:03:54 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	handle_redirections_for_child(t_node *node, t_redirects *redirects)
 	int	stdin_backup;
 	int	fd[2];
 
+	while (redirects->next != NULL)
+		redirects = redirects->next;
 	if (redirects != NULL && node->type == NODE_COMMAND
 		&& redirects->type == REDIRECT_INPUT)
 		ft_dup2(redirects->fd_file, STDIN_FILENO);
@@ -72,10 +74,10 @@ void	execute_child_process(t_info info, char **envp, t_node *node, int *fd)
 		child_process(info, envp, node->left);
 	else
 	{
+		redirects = node->redirects;
 		fd_backup = dup(STDOUT_FILENO);
 		redirects = node->left->redirects;
 		handle_redirections_for_child(node->left, redirects);
-		redirects = redirects->next;
 		ft_dup2(fd_backup, STDOUT_FILENO);
 		ft_exec(node->left->data, envp, &info, node);
 	}
