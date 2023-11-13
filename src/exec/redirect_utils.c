@@ -6,23 +6,23 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:07:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 19:16:34 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:13:15 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	open_file(t_node *node)
+int	open_file(t_redirects *redirects)
 {
-	if (node == NULL || node->redirects == NULL)
+	if (redirects == NULL)
 		return (-1);
-	if (node->redirects->type == REDIRECT_INPUT)
-		return (open(node->redirects->filename, O_RDONLY, 0));
-	if (node->redirects->type == REDIRECT_OUTPUT)
-		return (open(node->redirects->filename, O_WRONLY | O_CREAT | O_TRUNC,
+	if (redirects->type == REDIRECT_INPUT)
+		return (open(redirects->filename, O_RDONLY, 0));
+	if (redirects->type == REDIRECT_OUTPUT)
+		return (open(redirects->filename, O_WRONLY | O_CREAT | O_TRUNC,
 				0644));
-	if (node->redirects->type == REDIRECT_APPEND_OUTPUT)
-		return (open(node->redirects->filename, O_WRONLY | O_CREAT | O_APPEND,
+	if (redirects->type == REDIRECT_APPEND_OUTPUT)
+		return (open(redirects->filename, O_WRONLY | O_CREAT | O_APPEND,
 				0644));
 	return (-1);
 }

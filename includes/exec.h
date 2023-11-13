@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 20:19:21 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:13:51 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void				exit_process(int status);
 void				ft_free_array(char **array);
 t_env				*find_env_path(t_info *info);
 char				*set_command_path(char *path, char *command);
-int					open_file(t_node *node);
+int					open_file(t_redirects *redirects);
 int					ft_dup(int fd);
 void				ft_dup2(int old_fd, int new_fd);
 void				ft_pipe(int fd[2]);
