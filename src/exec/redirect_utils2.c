@@ -6,11 +6,13 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:45:07 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/14 17:51:59 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:29:51 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+void	here_doc(char *delimiter);
 
 void	here_doc_mock(char *delimiter)
 {
@@ -31,15 +33,26 @@ void	here_doc_mock(char *delimiter)
 	}
 }
 
-void	here_doc_fork(char *filename)
+void	here_doc_fork(t_redirects *redirects)
 {
-	pid_t	parent;
+	pid_t		parent;
+	t_redirects	*tmp;
 
+	tmp = redirects;
 	parent = fork();
 	if (!parent)
 	{
-		here_doc_mock(filename);
-		exit(1);
+		while (tmp != NULL)
+		{
+			tmp = tmp->next;
+			if (tmp->type == REDIRECT_HEREDOC || tmp->type == REDIRECT_INPUT)
+			{
+				here_doc_mock(redirects->filename);
+				exit(0);
+			}
+		}
+		here_doc(redirects->filename);
+		exit(0);
 	}
 }
 
