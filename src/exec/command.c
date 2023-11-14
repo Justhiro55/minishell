@@ -6,24 +6,13 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/09 20:18:56 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:10:03 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	create_fork_and_execute_child(t_info info, char **envp, t_node *node,
-		int *fd)
-{
-	pid_t	parent;
-
-	parent = ft_fork();
-	if (!parent)
-	{
-		execute_child_process(info, envp, node, fd);
-		exit(0);
-	}
-}
+void	handle_redirections_for_child(t_node *node, t_redirects *redirects);
 
 void	child_process(t_info info, char **envp, t_node *node)
 {
@@ -31,12 +20,14 @@ void	child_process(t_info info, char **envp, t_node *node)
 	pid_t	parent;
 	int		status;
 
-	parent = ft_fork();
 	ft_pipe(fd);
+	parent = ft_fork();
 	if (!parent)
 	{
-		create_fork_and_execute_child(info, envp, node, fd);
-		execute_parent_process(info, envp, node, fd);
+		execute_child_process(info, envp, node->left, fd);
+		wait(&status);
+		execute_child_process(info, envp, node->right, fd);
+		wait(&status);
 		exit(0);
 	}
 	wait(&status);

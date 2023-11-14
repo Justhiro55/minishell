@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/13 16:13:51 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:18:17 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,16 @@ t_env				*command_export(char **token, t_info *info);
 void				command_ls(const char *dir_path);
 
 //redirect
+void				child_process(t_info info, char **envp, t_node *node);
+;
 void				execute_parent_process(t_info info, char **envp,
 						t_node *node, int *fd);
-void				child_process(t_info info, char **envp, t_node *node);
 void				execute_child_process(t_info info, char **envp,
 						t_node *node, int *fd);
+void				execute_process(t_info info, char **envp, t_node *node,
+						int *fd);
+void				here_doc_mock(char *delimiter);
+void				restore_stdin_stdout(int stdin_backup, int stdout_backup);
 
 //set
 void				set_node(t_node *node);
@@ -76,5 +81,6 @@ int					ft_dup(int fd);
 void				ft_dup2(int old_fd, int new_fd);
 void				ft_pipe(int fd[2]);
 pid_t				ft_fork(void);
+void				here_doc_fork(char *filename);
 
 #endif
