@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:45:07 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/14 19:29:51 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/15 16:29:58 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,7 @@ void	here_doc_fork(t_redirects *redirects)
 	parent = fork();
 	if (!parent)
 	{
-		while (tmp != NULL)
-		{
-			tmp = tmp->next;
-			if (tmp->type == REDIRECT_HEREDOC || tmp->type == REDIRECT_INPUT)
-			{
-				here_doc_mock(redirects->filename);
-				exit(0);
-			}
-		}
-		here_doc(redirects->filename);
+		here_doc_mock(redirects->filename);
 		exit(0);
 	}
 }
