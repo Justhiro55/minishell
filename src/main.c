@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/06 13:06:28 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:17:54 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/builtin.h"
 #include "../includes/minishell.h"
 
 int	main(int argc, char **argv, char **envp)
@@ -26,11 +25,12 @@ void	minishell(char **envp)
 	t_info	info;
 
 	line = NULL;
-	set_env(&info, envp);
+	// set_env(&info, envp);
 	while (1)
 	{
 		line = readline("$> ");
-		lexer_main(line);
+		// lexer_main(line);
+		parser(lexer_main(line));
 		if (line == NULL || strlen(line) == 0)
 			free(line);
 		else
