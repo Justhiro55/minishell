@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:20:47 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/13 16:22:05 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:25:47 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ void	cre_tokeniser(t_tokeniser *tk, char *line)
 		switch_quote_state(tk, c);
 		if (tk->str_len == 0 && (c == '|' || c == '>' || c == '<'))
 		{
-			tk->quoted = 0x100;
+			tk->quoted = REDIRECT;
+			if (c == '|')
+				tk->quoted = PIPE; 
 			tk->str_len += redi_size(tk, line);
 			break ;
 		}
@@ -87,5 +89,6 @@ t_token	*lexer_main(char *line)
 		// 	break ;
 	}
 	// printtoken(tokeniser->head_list);
+	// check_syntax(tokeniser->head_list);
 	return (tokeniser->head_list);
 }

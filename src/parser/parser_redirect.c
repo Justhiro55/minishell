@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:13:00 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/06 16:48:37 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:42:50 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ int	is_redirect(t_now_token *ntk)
 	
 // }
 
+t_node	*redirect_add_cmd(t_now_token *ntk, t_node *node)
+{
+	if (node->data[0] == NULL)
+	{
+		printf("add cmd = [%s]\n", ntk->now->str);
+		node->data[0] = ft_strdup(ntk->now->str);
+	}
+	return (node);
+}
+
 t_node	*new_node_redirect(t_node *node, t_now_token *ntk)
 {
 	t_redirects	*redirect;
@@ -68,5 +78,6 @@ t_node	*new_node_redirect(t_node *node, t_now_token *ntk)
 			redirect->next = NULL;
 		}
 	}
+	redirect_add_cmd(ntk, node);
 	return	(node);
 }

@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/13 16:33:11 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:41:10 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,9 @@ void	printTree(t_node *root, size_t depth)
 	{
 	// 	// while (tmp != NULL)
 	// 	// {
-			printf("red filename =  [%s] ", root->redirects->filename);
-			printf("red type = [%d] ", root->redirects->type);
+			printf("cmd = [%s]", root->data[0]);
+			printf("redirects filename =  [%s] ", root->redirects->filename);
+			printf(" type = [%d] ", root->redirects->type);
 	// 		tmp = tmp->next;
 	// 	// }
 	}

@@ -6,7 +6,7 @@
 #    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/06 16:45:02 by kotainou         ###   ########.fr        #
+#    Updated: 2023/11/13 19:21:19 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC = src/main.c \
 		src/lexer/lexer.c \
 		src/lexer/token.c \
 		src/lexer/lexer_utils.c \
+		src/lexer/syntax_error.c \
 		src/parser/parser.c \
 		src/parser/parser_redirect.c \
 		src/parser/parser_utils.c

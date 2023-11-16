@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 16:12:59 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/13 16:17:29 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/13 21:40:00 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define TOKEN_H
 
 #include "./minishell.h"
+
+# define CHAR_QUOTE		0x0001 // '
+# define CHAR_DQUOTE	0x0010 // "
+# define REDIRECT		0x0100 // < > << >>
+# define PIPE			0x1000 // |
 
 typedef struct s_token
 {
