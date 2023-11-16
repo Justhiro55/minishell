@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/15 20:22:28 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:25:13 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	handle_redirections_for_child(t_node *node, t_redirects *redirects)
 		ft_dup2(stdin_backup, STDIN_FILENO);
 }
 
-//ヒアドックの入力をコマンドに渡せれてない
 void	execute_child_process(t_info info, char **envp, t_node *node, int *fd)
 {
 	pid_t	parent;

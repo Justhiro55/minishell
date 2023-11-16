@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:40:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/15 19:18:20 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:06:57 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	set_node(t_node *node)
 	node_child2->data[1] = NULL;
 	node_child2->type = NODE_COMMAND;
 	node_child2->redirects = create_redirects();
-	node_child2->redirects->type = REDIRECT_INPUT;
-	node_child2->redirects->filename = strdup("src/exec/exec.c");
+	node_child2->redirects->type = REDIRECT_HEREDOC;
+	node_child2->redirects->filename = strdup("test");
 	node_child2->redirects->next = create_redirects();
-	node_child2->redirects->next->type = REDIRECT_HEREDOC;
-	node_child2->redirects->next->filename = strdup("test");
+	node_child2->redirects->next->type = REDIRECT_INPUT;
+	node_child2->redirects->next->filename = strdup("src/exec/exec.c");
 	// node_child2->redirects->next->next = NULL;
 	// node_child2->redirects->type = REDIRECT_HEREDOC;
 	// node_child2->redirects->next->type = REDIRECT_INPUT;
@@ -92,8 +92,8 @@ void	set_node(t_node *node)
 	node_child3->redirects->type = REDIRECT_OUTPUT;
 	node_child3->redirects->filename = strdup("test_outfile1");
 	node_child3->redirects->next = create_redirects();
-	node_child3->redirects->next->type = REDIRECT_OUTPUT;
-	node_child3->redirects->next->filename = strdup("test_outfile2");
+	node_child3->redirects->next->type = REDIRECT_HEREDOC;
+	node_child3->redirects->next->filename = strdup("end");
 	// node_child3->redirects->next->next = NULL;
 	node_child3->redirects->next->next = create_redirects();
 	node_child3->redirects->next->next->type = REDIRECT_HEREDOC;
