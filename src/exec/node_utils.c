@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:40:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/16 13:06:57 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/19 16:20:45 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,26 @@ void	set_node(t_node *node)
 	node->type = NODE_PIPE;
 	// node_child1の設定
 	node_child1->data = (char **)malloc(sizeof(char *) * 4);
-	node_child1->data[0] = strdup("wc");
+	node_child1->data[0] = strdup("cat");
+	// node_child1->data[1] = strdup("src/exec/exec.c");
 	node_child1->data[1] = NULL;
-	// node_child1->data[1] = strdup("-n");
 	// node_child1->data[2] = strdup("333");
+	node_child1->data[2] = NULL;
 	node_child1->data[3] = NULL;
 	node_child1->type = NODE_COMMAND;
-	node_child1->redirects = create_redirects();
-	node_child1->redirects->next = NULL;
+	node_child1->redirects = NULL;
+	// node_child1->redirects = create_redirects();
+	// node_child1->redirects->type = REDIRECT_OUTPUT;
+	// node_child1->redirects->filename = strdup("test3");
+	// node_child1->redirects->next = NULL;
 	// node_child2の設定
 	node_child2->data = (char **)malloc(sizeof(char *) * 2);
 	node_child2->data[0] = strdup("wc");
 	node_child2->data[1] = NULL;
 	node_child2->type = NODE_COMMAND;
 	node_child2->redirects = create_redirects();
-	node_child2->redirects->type = REDIRECT_HEREDOC;
-	node_child2->redirects->filename = strdup("test");
+	node_child2->redirects->type = REDIRECT_INPUT;
+	node_child2->redirects->filename = strdup("src/exec/exec.c");
 	node_child2->redirects->next = create_redirects();
 	node_child2->redirects->next->type = REDIRECT_INPUT;
 	node_child2->redirects->next->filename = strdup("src/exec/exec.c");
@@ -92,21 +96,18 @@ void	set_node(t_node *node)
 	node_child3->redirects->type = REDIRECT_OUTPUT;
 	node_child3->redirects->filename = strdup("test_outfile1");
 	node_child3->redirects->next = create_redirects();
-	node_child3->redirects->next->type = REDIRECT_HEREDOC;
-	node_child3->redirects->next->filename = strdup("end");
+	node_child3->redirects->next->type = REDIRECT_OUTPUT;
+	node_child3->redirects->next->filename = strdup("end1");
 	// node_child3->redirects->next->next = NULL;
 	node_child3->redirects->next->next = create_redirects();
-	node_child3->redirects->next->next->type = REDIRECT_HEREDOC;
-	node_child3->redirects->next->next->filename = strdup("end");
+	node_child3->redirects->next->next->type = REDIRECT_OUTPUT;
+	node_child3->redirects->next->next->filename = strdup("end2");
 	node_child3->redirects->next->next->next = NULL;
 	// node_child4の設定
 	node_child4->data = (char **)malloc(sizeof(char *) * 4);
-	node_child4->data[0] = strdup("wc");
+	node_child4->data[0] = strdup("cat");
 	node_child4->data[1] = NULL;
 	node_child4->type = NODE_COMMAND;
-
-
-
 	node_child4->redirects = create_redirects();
 	node_child4->redirects->type = REDIRECT_INPUT;
 	node_child4->redirects->filename = strdup("src/exec/exec.c");
@@ -117,12 +118,12 @@ void	set_node(t_node *node)
 	// node_child4->redirects->next->next = NULL;
 	// node_child4->redirects->type = REDIRECT_HEREDOC;
 	// node_child4->redirects->next->type = REDIRECT_INPUT;
-	node_child4->redirects->next->next = create_redirects();
-	node_child4->redirects->next->next->type = REDIRECT_OUTPUT;
-	node_child4->redirects->next->next->filename = strdup("test2");
+	// node_child4->redirects->next->next = create_redirects();
+	node_child4->redirects->next->next = NULL;
+	// node_child4->redirects->next->next->type = REDIRECT_HEREDOC;
+	// node_child4->redirects->next->next->filename = strdup("test");
 	// node_child4->redirects->next->next->fd_file = open_file(node_child4->redirects->next->next);
-	node_child4->redirects->next->next->next = NULL;
-
+	// node_child4->redirects->next->next->next = NULL;
 	// node_pipe_1とnode_pipe_2の設定
 	node_pipe_1->data = (char **)malloc(sizeof(char *) * 2);
 	node_pipe_1->data[0] = strdup("pipe");
