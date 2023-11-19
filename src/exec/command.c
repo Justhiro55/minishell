@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/19 16:27:02 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/19 16:40:35 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,20 @@ void	parse(char *line, t_info *info, char **envp)
 	}
 	else
 	{
-		int fd[2];
-		if (node->redirects != NULL)
-		{
-			pipe(fd);
-			execute_child_process(*info, envp, node, fd);
-			wait(NULL);
-		}
-		else
-			ft_exec(node->data, envp, info, node);
+		// int fd[2];
+		// printf("0:%s, 1:%s, 2:%s\n", node->data[0], node->data[1], node->data[2]);
+		// if (node->redirects != NULL)
+		// {
+		// 	pipe(fd);
+		// 	execute_child_process(*info, envp, node, fd);
+		// 	wait(NULL);
+		// }
+		// else
+		// child_process(*info, envp, node);
+		printf("0:%s, 1:%s\n", node->data[0], node->data[1]);
+		if(node->data[2] == NULL)
+			printf("test\n");
+		ft_exec(node->data, envp, info, node);
 		free(node);
 	}
 }

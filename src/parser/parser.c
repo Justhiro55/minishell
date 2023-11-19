@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/13 18:42:24 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/19 16:34:56 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,16 @@ t_node	*expr(t_now_token *ntk)
 	while (1)
 	{
 		if (ntk->now != NULL && ntk->now->str != NULL)
-		{
 			op = ft_strdup(ntk->now->str);
-		}
 		else
-		{
 			op = ft_strdup("");
-		}
 		if (ft_strncmp("|", op, 1) == 0)
 		{
 			ntk->now = ntk->now->next;
 			node = new_node(op, node, cmd(ntk));
 		}
 		else
-		{
 			return (node);
-		}
 	}
 	return (node);
 }
@@ -44,7 +38,6 @@ t_node	*expr(t_now_token *ntk)
 t_node	*cmd(t_now_token *ntk)
 {
 	char	*cmd;
-	
 
 	cmd = ft_strdup(ntk->now->str);
 	if (ntk->now->next != NULL && ft_strncmp(ntk->now->next->str, "|", 1) != 0)
@@ -54,15 +47,13 @@ t_node	*cmd(t_now_token *ntk)
 	return (new_node_cmd(ntk));
 }
 
-t_node	*parser(t_token	*token)
+t_node	*parser(t_token *token)
 {
-	t_now_token	*ntk;
-	t_node		*node;
+	t_now_token *ntk;
+	t_node *node;
 
 	ntk = ft_calloc(1, sizeof(t_now_token));
 	ntk->now = token;
 	node = expr(ntk);
-	printf("---print tree---\n");
-	printTree(node, 0);
 	return (node);
 }
