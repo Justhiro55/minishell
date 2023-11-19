@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/18 19:02:11 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/19 17:53:06 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ void	set_token(t_info *info, char *line)
 	info->token = ft_split(line, ' ');
 }
 
-int	builtin_command(t_info *info)
+int	builtin_command(char **command, t_info *info)
 {
-	if (ft_strcmp(info->token[0], "exit") == 0)
-		command_exit(info->token);
-	else if (ft_strcmp(info->token[0], "echo") == 0)
-		command_echo(info->token);
-	else if (ft_strcmp(info->token[0], "pwd") == 0)
-		command_pwd(info->token);
-	else if (ft_strcmp(info->token[0], "cd") == 0)
-		command_cd(info->token);
-	else if (ft_strcmp(info->token[0], "env") == 0)
-		command_env(info->token, *info);
-	else if (ft_strcmp(info->token[0], "export") == 0)
-		command_export(info->token, info);
+	if (ft_strcmp(command[0], "exit") == 0)
+		command_exit(command);
+	else if (ft_strcmp(command[0], "echo") == 0)
+		command_echo(command);
+	else if (ft_strcmp(command[0], "pwd") == 0)
+		command_pwd(command);
+	else if (ft_strcmp(command[0], "cd") == 0)
+		command_cd(command);
+	else if (ft_strcmp(command[0], "env") == 0)
+		command_env(command, *info);
+	else if (ft_strcmp(command[0], "export") == 0)
+		command_export(command, info);
 	else
 		return (1);
 	return (0);
@@ -86,7 +86,7 @@ int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 	int		result;
 
 	(void)node;
-	if (builtin_command(info) == 0)
+	if (builtin_command(command, info) == 0)
 		return (0);
 	env = find_env_path(info);
 	if (!env)

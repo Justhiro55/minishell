@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/19 16:40:35 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/19 18:37:56 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,20 @@ void	exec_pipe(t_info info, char **envp, t_node *node)
 	parent1 = ft_fork();
 	if (parent1 == 0)
 	{
-		wait(NULL);
 		exec_left_node(info, envp, node, pipefd);
+		wait(NULL);
 	}
 	parent2 = ft_fork();
 	if (parent2 == 0)
 	{
-		wait(NULL);
 		exec_right_node(info, envp, node, pipefd);
+		wait(NULL);
 	}
 	wait(NULL);
 	close(pipefd[PIPE_READ]);
 	close(pipefd[PIPE_WRITE]);
+	waitpid(parent1, NULL, 0);
+	waitpid(parent2, NULL, 0);
 }
 
 void	child_process(t_info info, char **envp, t_node *node)
@@ -65,7 +67,10 @@ void	child_process(t_info info, char **envp, t_node *node)
 	if (node == NULL)
 		return ;
 	if (node->type == NODE_PIPE)
+	{
 		exec_pipe(info, envp, node);
+		wait(NULL);
+	}
 	else
 	{
 		handle_redirections_for_child(node, node->redirects);
@@ -80,6 +85,7 @@ int		i = 0;
 void	parse(char *line, t_info *info, char **envp)
 {
 	t_node *node;
+	pid_t parent;
 
 	set_token(info, line);
 	if (i == 0)
@@ -88,12 +94,13 @@ void	parse(char *line, t_info *info, char **envp)
 		if (node == NULL)
 			exit_process(EXIT_FAILURE_MALLOC);
 		set_node(node); //test用
+		i++;
 	}
 	else
 		node = parser(lexer_main(line));
 	if (node != NULL && node->type == NODE_PIPE && i == 0)
 	{
-		pid_t parent = ft_fork();
+		parent = ft_fork();
 		if (!parent)
 			child_process(*info, envp, node);
 		else
@@ -102,20 +109,11 @@ void	parse(char *line, t_info *info, char **envp)
 	}
 	else
 	{
-		// int fd[2];
-		// printf("0:%s, 1:%s, 2:%s\n", node->data[0], node->data[1], node->data[2]);
-		// if (node->redirects != NULL)
-		// {
-		// 	pipe(fd);
-		// 	execute_child_process(*info, envp, node, fd);
-		// 	wait(NULL);
-		// }
-		// else
-		// child_process(*info, envp, node);
-		printf("0:%s, 1:%s\n", node->data[0], node->data[1]);
-		if(node->data[2] == NULL)
-			printf("test\n");
-		ft_exec(node->data, envp, info, node);
+		parent = ft_fork();
+		if (!parent)
+			child_process(*info, envp, node);
+		else
+			waitpid(parent, NULL, 0);
 		free(node);
 	}
 }

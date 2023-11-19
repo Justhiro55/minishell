@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/19 16:21:22 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/19 17:33:02 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	minishell(char **envp)
 		if (line == NULL || strlen(line) == 0 || line[0] == '\0')
 			free(line);
 		else
+		{
 			parse(line, &info, envp);
+		}
 		add_history(line);
 		free(line);
 		// if (signal(SIGINT, sig_int_input) == SIG_ERR)
