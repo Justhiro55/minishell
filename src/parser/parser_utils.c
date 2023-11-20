@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/13 18:41:10 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/20 11:14:50 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,47 @@ t_node	*new_node_cmd(t_now_token *ntk)
 	return (node);
 }
 
+int	is_redirect_token(t_token *ntk)
+{
+	char	*op;
+
+	op = ft_strdup(ntk->str);
+	if (ft_strncmp("<", op, ft_strlen(op)) == 0)
+	{
+	// printf("is redirect = [%s]\n", op);
+	// printf("return = [%d]\n", REDIRECT_INPUT);
+		return (REDIRECT_INPUT);
+	}
+	else if (ft_strncmp(">", op, ft_strlen(op)) == 0)
+	{
+		return (REDIRECT_OUTPUT);
+	}
+	else if (ft_strncmp("<<", op, ft_strlen(op)) == 0)
+	{
+		return (REDIRECT_APPEND_OUTPUT);
+	}
+	else if (ft_strncmp(">>", op, ft_strlen(op)) == 0)
+	{
+		return (REDIRECT_HEREDOC);
+	}
+	return (0);
+}
+
+size_t	count_word(t_now_token *ntk)
+{
+	t_token *token;
+	size_t	count;
+
+	token = ntk->now;
+	count = 0;
+	while (token->next != NULL && ft_strncmp(token->next->str, "|", 1) != 0 && is_redirect_token(token) == 0)
+	{
+		count++;
+		token = token->next;
+	}
+	return (count);
+}
+
 t_node	*new_node_cmdname(t_now_token *ntk)
 {
 	t_node	*node;
@@ -48,7 +89,8 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 
 	i = 0;
 	node = ft_calloc(1, sizeof(t_node));
-	node->data = (char **)ft_calloc(1, sizeof(char *));
+	printf("count = [%zu]\n", count_word(ntk));
+	node->data = (char **)ft_calloc(count_word(ntk) + 1, sizeof(char *));
 	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0)
 	{
 		if (is_redirect(ntk))
@@ -62,6 +104,7 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 		i++;
 		ntk->now = ntk->now->next;
 	}
+	node->data[i + 1] = NULL;
 	node->row_size = i;
 	return (node);
 }
@@ -148,13 +191,15 @@ void	printTree(t_node *root, size_t depth)
 	tmp = root->redirects;
 	if (tmp != NULL)
 	{
-	// 	// while (tmp != NULL)
-	// 	// {
-			printf("cmd = [%s]", root->data[0]);
-			printf("redirects filename =  [%s] ", root->redirects->filename);
+		printf(" cmd = [%s]", root->data[0]);
+		// while (tmp != NULL)
+		// {
+			printf(" redirects filename =  [%s] ", root->redirects->filename);
 			printf(" type = [%d] ", root->redirects->type);
-	// 		tmp = tmp->next;
-	// 	// }
+			tmp = tmp->next;
+			if (tmp->next != NULL)
+				printf("tmp = [%s]\n", tmp->next->filename);
+		// }
 	}
 	for (i = 0; i < root->row_size; i++)
 	{

@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:13:00 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/13 18:42:50 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/20 11:15:04 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_node	*new_node_redirect(t_node *node, t_now_token *ntk)
 			redirect->next = ft_calloc(1, sizeof(t_redirects));
 			redirect = redirect->next;
 			redirect->next = NULL;
+			printf("kokoha\n");
 		}
 	}
 	redirect_add_cmd(ntk, node);
