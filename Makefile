@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/16 15:46:05 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/20 11:21:20 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,4 +109,3 @@ push_w:
 re: fclean all 
 
 .PHONY: all clean fclean re help
-
