@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:40:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/22 13:57:41 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:06:06 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,11 @@ void	set_node(t_node *node)
 	node_child2->redirects->next->next->next = create_redirects();
 	node_child2->redirects->next->next->next->type = REDIRECT_OUTPUT;
 	node_child2->redirects->next->next->next->filename = strdup("test_heredoc");
-	node_child2->redirects->next->next->next->next = NULL;
+	node_child2->redirects->next->next->next->next = create_redirects();
+	node_child2->redirects->next->next->next->next->type = REDIRECT_HEREDOC;
+	node_child2->redirects->next->next->next->next->filename = strdup("test2");
+	node_child2->redirects->next->next->next->next->next = NULL;
+	// node_child2->redirects->next->next->next->next = NULL;
 	// node_child3の設定
 	node_child3->data = (char **)malloc(sizeof(char *) * 3);
 	node_child3->data[0] = strdup("ls");
