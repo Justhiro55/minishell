@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/19 18:37:56 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/22 13:41:52 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	exec_left_node(t_info info, char **envp, t_node *node, int *pipefd)
 	close(pipefd[PIPE_READ]);
 	ft_dup2(pipefd[PIPE_WRITE], STDOUT_FILENO);
 	close(pipefd[PIPE_WRITE]);
-	if (node->left != NULL)
-		child_process(info, envp, node->left);
+	if (node != NULL)
+		child_process(info, envp, node);
 	wait(NULL);
 	exit(1);
 }
@@ -30,8 +30,8 @@ void	exec_right_node(t_info info, char **envp, t_node *node, int *pipefd)
 	close(pipefd[PIPE_WRITE]);
 	ft_dup2(pipefd[PIPE_READ], STDIN_FILENO);
 	close(pipefd[PIPE_READ]);
-	if (node->right != NULL)
-		child_process(info, envp, node->right);
+	if (node != NULL)
+		child_process(info, envp, node);
 	wait(NULL);
 	exit(1);
 }
@@ -46,16 +46,17 @@ void	exec_pipe(t_info info, char **envp, t_node *node)
 	parent1 = ft_fork();
 	if (parent1 == 0)
 	{
-		exec_left_node(info, envp, node, pipefd);
-		wait(NULL);
+		exec_left_node(info, envp, node->left, pipefd);
+		waitpid(parent1, NULL, 0);
+		exit(1);
 	}
 	parent2 = ft_fork();
 	if (parent2 == 0)
 	{
-		exec_right_node(info, envp, node, pipefd);
-		wait(NULL);
+		exec_right_node(info, envp, node->right, pipefd);
+		waitpid(parent2, NULL, 0);
+		exit(1);
 	}
-	wait(NULL);
 	close(pipefd[PIPE_READ]);
 	close(pipefd[PIPE_WRITE]);
 	waitpid(parent1, NULL, 0);
@@ -64,6 +65,8 @@ void	exec_pipe(t_info info, char **envp, t_node *node)
 
 void	child_process(t_info info, char **envp, t_node *node)
 {
+	// int stdin_backup = dup(STDIN_FILENO);
+	// int stdout_backup = dup(STDOUT_FILENO);
 	if (node == NULL)
 		return ;
 	if (node->type == NODE_PIPE)
@@ -76,6 +79,7 @@ void	child_process(t_info info, char **envp, t_node *node)
 		handle_redirections_for_child(node, node->redirects);
 		wait(NULL);
 		ft_exec(node->data, envp, &info, node);
+		wait(NULL);
 	}
 	exit(EXIT_SUCCESS);
 }
@@ -111,7 +115,10 @@ void	parse(char *line, t_info *info, char **envp)
 	{
 		parent = ft_fork();
 		if (!parent)
+		{
 			child_process(*info, envp, node);
+			exit(1);
+		}
 		else
 			waitpid(parent, NULL, 0);
 		free(node);

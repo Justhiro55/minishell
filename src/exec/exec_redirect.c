@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/19 18:41:08 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/22 13:55:53 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,12 @@
 
 void	here_doc(char *delimiter, int pipefd[2])
 {
-	int		fd[2];
-	pid_t	parent;
 	char	*line;
 	int		stdout_backup;
 
+	(void)stdout_backup;
 	(void)pipefd;
-	ft_dup2(fd[PIPE_WRITE], STDOUT_FILENO);
-	if (pipe(fd) == -1)
-		exit_process(EXIT_FAILURE_PIPE);
-	parent = fork();
-	if (parent < 0)
-		exit_process(EXIT_FAILURE_FORK);
-	if (!parent)
-	{
-		close(fd[0]);
+	// ft_dup2(pipefd[PIPE_WRITE], STDOUT_FILENO);
 		while (1)
 		{
 			stdout_backup = ft_dup(STDOUT_FILENO);
@@ -39,34 +30,28 @@ void	here_doc(char *delimiter, int pipefd[2])
 			if (ft_strcmp(line, delimiter) == 0)
 			{
 				free(line);
-				exit(1);
+				// exit(1);
+				break;
 			}
 			ft_dup2(stdout_backup, STDOUT_FILENO);
-			write(STDOUT_FILENO, line, ft_strlen(line));
-			write(STDOUT_FILENO, "\n", 1);
+			write(pipefd[PIPE_WRITE], line, ft_strlen(line));
+			write(pipefd[PIPE_WRITE], "\n", 1);
 			free(line);
-		}
-		exit(1);
+		// exit(1);
 	}
-	else
-		waitpid(parent, NULL, 0);
-	exit(1);
 }
 
 void	handle_redirections_for_child(t_node *node, t_redirects *redirects)
 {
 	t_redirects	*tmp;
-	t_redirects	*re;
 	int			stdin_backup;
 	int			stdout_backup;
 	int			pipefd[2];
 	int			heredoc_flag;
 
-	// pid_t		parent;
-	re = redirects;
 	heredoc_flag = 0;
-	stdin_backup = STDIN_FILENO;
-	stdout_backup = STDOUT_FILENO;
+	stdin_backup = dup(STDIN_FILENO);
+	stdout_backup = dup(STDOUT_FILENO);
 	pipe(pipefd);
 	while (redirects != NULL && node->type == NODE_COMMAND)
 	{
@@ -85,15 +70,18 @@ void	handle_redirections_for_child(t_node *node, t_redirects *redirects)
 		}
 		redirects = redirects->next;
 	}
-	ft_dup2(stdout_backup, STDOUT_FILENO);
 	if (heredoc_flag == 1)
 	{
+		stdin_backup = ft_dup(STDIN_FILENO);
+		ft_pipe(pipefd);
 		here_doc(tmp->filename, pipefd);
-		dup2(pipefd[PIPE_READ], STDIN_FILENO);
-		return ;
+		ft_dup2(pipefd[PIPE_READ], STDIN_FILENO);
+		close(pipefd[PIPE_READ]);
+		close(pipefd[PIPE_WRITE]);
 	}
 	else
 		ft_dup2(stdin_backup, STDIN_FILENO);
+	ft_dup2(stdout_backup, STDOUT_FILENO);
 }
 
 // void	execute_child_process(t_info info, char **envp, t_node *node, int *fd)

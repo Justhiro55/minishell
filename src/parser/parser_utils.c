@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/19 16:43:23 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/20 11:57:27 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 		node->data[i] = cmd;
 		i++;
 		ntk->now = ntk->now->next;
+		node->data[i + 1] = NULL;
 	}
-	node->data[i + 1] = NULL;
 	// printf("coutn = [%zu] i + i = [%lu]\n", count, i + 1);
 	node->row_size = i;
 	return (node);
