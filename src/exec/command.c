@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/22 13:41:52 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:13:33 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ void	exec_pipe(t_info info, char **envp, t_node *node)
 
 void	child_process(t_info info, char **envp, t_node *node)
 {
-	// int stdin_backup = dup(STDIN_FILENO);
-	// int stdout_backup = dup(STDOUT_FILENO);
 	if (node == NULL)
 		return ;
 	if (node->type == NODE_PIPE)

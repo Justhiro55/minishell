@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:40:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/22 14:06:06 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/22 14:12:17 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,17 +108,17 @@ void	set_node(t_node *node)
 	node_child3->redirects->next->next->next = NULL;
 	// node_child4の設定
 	node_child4->data = (char **)malloc(sizeof(char *) * 4);
-	node_child4->data[0] = strdup("wc");
+	node_child4->data[0] = strdup("cat");
 	node_child4->data[1] = NULL;
 	node_child4->type = NODE_COMMAND;
 	node_child4->redirects = create_redirects();
 	node_child4->redirects->type = REDIRECT_OUTPUT;
 	node_child4->redirects->filename = strdup("test_no_output");
-	// node_child4->redirects->next = NULL;
-	node_child4->redirects->next = create_redirects();
-	node_child4->redirects->next->type = REDIRECT_INPUT;
-	node_child4->redirects->next->filename = strdup("src/exec/exec.c");
-	node_child4->redirects->next->next = NULL;
+	node_child4->redirects->next = NULL;
+	// node_child4->redirects->next = create_redirects();
+	// node_child4->redirects->next->type = REDIRECT_INPUT;
+	// node_child4->redirects->next->filename = strdup("src/exec/exec.c");
+	// node_child4->redirects->next->next = NULL;
 	// node_child4->redirects->next = create_redirects();
 	// node_child4->redirects->next->type = REDIRECT_INPUT;
 	// node_child4->redirects->next->filename = strdup("src/exec/redirect_utils.c");

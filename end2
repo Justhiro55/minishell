@@ -1,0 +1,13 @@
+total 88
+-rw-r--r--   1 hhagiwar  2020   3229 Nov 20 11:21 Makefile
+-rw-r--r--   1 hhagiwar  2020     11 Nov 16 15:43 README.md
+-rw-r--r--   1 hhagiwar  2020      0 Nov 22 14:12 end1
+-rw-r--r--   1 hhagiwar  2020      0 Nov 22 14:12 end2
+drwxr-xr-x   4 hhagiwar  2020    136 Nov 16 15:43 func
+drwxr-xr-x   7 hhagiwar  2020    238 Nov 16 15:43 includes
+-rwxr-xr-x   1 hhagiwar  2020  30828 Nov 22 14:12 minishell
+drwxr-xr-x  27 hhagiwar  2020    918 Nov 22 14:12 obj
+drwxr-xr-x   7 hhagiwar  2020    238 Nov 16 15:43 src
+-rw-r--r--   1 hhagiwar  2020     25 Nov 22 14:11 test_heredoc
+-rw-r--r--   1 hhagiwar  2020      0 Nov 22 14:12 test_no_output
+-rw-r--r--   1 hhagiwar  2020      0 Nov 22 14:12 test_outfile1
