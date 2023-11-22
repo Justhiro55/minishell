@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:13:00 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/22 18:16:57 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:35:01 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_node	*new_node_redirect(t_node *node, t_now_token *ntk)
 
 	// printf("redirect\n");
 	redirect = ft_calloc(1, sizeof(t_redirects));
-	redirect->fd_backup = ft_dup(STDIN_FILENO);//
+	redirect->fd_backup = ft_dup(STDIN_FILENO);
 	node->redirects = redirect;
 	while (ntk->now != NULL && is_redirect(ntk))
 	{
