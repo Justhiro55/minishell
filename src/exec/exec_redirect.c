@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/22 14:13:49 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:29:03 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	here_doc(char *delimiter, int pipefd[2])
 		write(pipefd[PIPE_WRITE], "\n", 1);
 		free(line);
 	}
+	wait(NULL);
 }
 
 void	handle_redirections_for_child(t_node *node, t_redirects *redirects)
