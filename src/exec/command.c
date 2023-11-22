@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/22 16:01:22 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:10:58 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	exec_left_node(t_info info, char **envp, t_node *node, int *pipefd)
 	if (node != NULL)
 		child_process(info, envp, node);
 	wait(NULL);
-	exit(1);
+	exit(2);
 }
 
 void	exec_right_node(t_info info, char **envp, t_node *node, int *pipefd)
@@ -47,7 +47,6 @@ void	exec_pipe(t_info info, char **envp, t_node *node)
 	if (parent1 == 0)
 	{
 		exec_left_node(info, envp, node->left, pipefd);
-		// waitpid(parent1, NULL, 0);
 		exit(1);
 	}
 	waitpid(parent1, NULL, 0);
@@ -92,40 +91,30 @@ int		i = 0;
 
 void	parse(char *line, t_info *info, char **envp)
 {
-	t_node *node;
-	pid_t parent;
+	t_node	*node;
 
+	// pid_t parent;
 	set_token(info, line);
-	if (i == 0)
-	{
-		node = (t_node *)malloc(sizeof(t_node));
-		if (node == NULL)
-			exit_process(EXIT_FAILURE_MALLOC);
-		set_node(node); //test用
-		i++;
-	}
-	else
-		node = parser(lexer_main(line));
-	if (node != NULL && node->type == NODE_PIPE && i == 0)
-	{
-		parent = ft_fork();
-		if (!parent)
-			child_process(*info, envp, node);
-		else
-			waitpid(parent, NULL, 0);
-		i++;
-	}
-	else
-	{
-		// parent = ft_fork();
-		// if (!parent)
-		// {
-		child_process(*info, envp, node);
-		// 	exit(1);
-		// }
-		// else
-		// 	waitpid(parent, NULL, 0);
-		free(node);
-		// }
-	}
+	// if (i == 0)
+	// {
+	// 	node = (t_node *)malloc(sizeof(t_node));
+	// 	if (node == NULL)
+	// 		exit_process(EXIT_FAILURE_MALLOC);
+	// 	set_node(node); //test用
+	// 	i++;
+	// }
+	// else
+	node = parser(lexer_main(line));
+	// if (node != NULL && node->type == NODE_PIPE && i == 0)
+	// {
+	// 	parent = ft_fork();
+	// 	if (!parent)
+	// 		child_process(*info, envp, node);
+	// 	else
+	// 		waitpid(parent, NULL, 0);
+	// 	i++;
+	// }
+	// else
+	child_process(*info, envp, node);
+	free(node);
 }

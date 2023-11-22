@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:40:44 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/22 15:33:43 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:05:05 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	set_node(t_node *node)
 	node_child3->redirects->type = REDIRECT_OUTPUT;
 	node_child3->redirects->filename = strdup("test_outfile1");
 	node_child3->redirects->next = create_redirects();
-	node_child3->redirects->next->type = REDIRECT_OUTPUT;
-	node_child3->redirects->next->filename = strdup("end1");
+	node_child3->redirects->next->type = REDIRECT_HEREDOC;
+	node_child3->redirects->next->filename = strdup("test");
 	// node_child3->redirects->next->next = NULL;
 	node_child3->redirects->next->next = create_redirects();
 	node_child3->redirects->next->next->type = REDIRECT_OUTPUT;
