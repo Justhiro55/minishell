@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/20 11:14:50 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/23 19:19:26 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ size_t	count_word(t_now_token *ntk)
 		count++;
 		token = token->next;
 	}
+	if (count == 0)
+		count = 1;
 	return (count);
 }
 
@@ -89,7 +91,6 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 
 	i = 0;
 	node = ft_calloc(1, sizeof(t_node));
-	printf("count = [%zu]\n", count_word(ntk));
 	node->data = (char **)ft_calloc(count_word(ntk) + 1, sizeof(char *));
 	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0)
 	{
@@ -103,8 +104,8 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 		node->data[i] = cmd;
 		i++;
 		ntk->now = ntk->now->next;
+		node->data[i + 1] = NULL;
 	}
-	node->data[i + 1] = NULL;
 	node->row_size = i;
 	return (node);
 }
@@ -182,6 +183,7 @@ void	printTree(t_node *root, size_t depth)
 {
 	size_t		i;
 	t_redirects	*tmp;
+	int	cmd_i = 0;
 
 	if (root == NULL)
 		return ;
@@ -191,24 +193,28 @@ void	printTree(t_node *root, size_t depth)
 	tmp = root->redirects;
 	if (tmp != NULL)
 	{
-		printf(" cmd = [%s]", root->data[0]);
-		// while (tmp != NULL)
-		// {
-			printf(" redirects filename =  [%s] ", root->redirects->filename);
-			printf(" type = [%d] ", root->redirects->type);
+		while (root->data[cmd_i] != NULL)
+		{
+			printf(" cmd = [%s]", root->data[cmd_i]);
+			cmd_i++;
+		}
+		while (tmp != NULL)
+		{
+			printf(" type = [%d] ", tmp->type);
+			printf(" filename =  [%s] ", tmp->filename);
 			tmp = tmp->next;
-			if (tmp->next != NULL)
-				printf("tmp = [%s]\n", tmp->next->filename);
-		// }
+			// if (tmp->next != NULL)
+			// 	printf("tmp = [%s]\n", tmp->next->filename);
+		}
 	}
 	for (i = 0; i < root->row_size; i++)
 	{
 		if (i == 0)
 			printf("+");
 		if (i == 0 && root->type == NODE_PIPE)
-			printf("type PIPE ");
+			printf("type pipe ");
 		else if(i == 0 && root->type == NODE_COMMAND)
-			printf("type COMMAND ");
+			printf("type cmd ");
 		printf("%s ", root->data[i]);
 	}
 	printf("\n");

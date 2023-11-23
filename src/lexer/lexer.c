@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:20:47 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/20 11:15:56 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:42:06 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	cre_tokeniser(t_tokeniser *tk, char *line)
 			tk->quoted = REDIRECT;
 			if (c == '|')
 			{
-				printf("cre tokeniser in pipe\n");
 				tk->quoted = PIPE; 
 			}
 			tk->str_len += redi_size(tk, line);
