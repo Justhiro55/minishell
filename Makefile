@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/24 16:42:33 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/24 18:34:44 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC = src/main.c \
 		src/exec/command_utils.c \
 		src/exec/exec_redirect.c \
 		src/exec/exec.c \
+		src/exec/exec_utils.c \
 		src/exec/redirect_utils.c \
 		src/exec/redirect_utils2.c \
 		src/exec/exit_process.c \

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:55:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/24 17:56:03 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/24 18:35:58 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	free_info(t_info *info)
 	{
 		env_lstclear(&info->env);
 		free_info_token(info);
-		// free(info);
 	}
 }
 

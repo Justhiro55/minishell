@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/23 19:10:37 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/24 18:32:04 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int							ft_exec(char **command, char **envp, t_info *info,
 								t_node *node);
 
 //builtin-command
+int							builtin_command(char **command, t_info *info,
+								t_node *node);
 int							command_exit(char **token, t_info *info,
 								t_node *node);
 int							command_not_found(char *line);
@@ -66,8 +68,8 @@ void						execute_child_process(t_info info, char **envp,
 void						execute_process(t_info info, char **envp,
 								t_node *node, int *fd);
 void						here_doc_mock(char *delimiter);
-void	restore_stdin_stdout(int stdin_backup,
-							int stdout_backup);
+void						restore_stdin_stdout(int stdin_backup,
+								int stdout_backup);
 
 //set
 void						set_node(t_node *node);
@@ -85,6 +87,8 @@ void						free_fd(int **pipefd, int pipe_num);
 void						free_fd(int **pipefd, int pipe_num);
 
 //util
+int							execute_command(char *command_path, char **tokens,
+								char **envp);
 void						exit_process(int status);
 void						ft_free_array(char **array);
 t_env						*find_env_path(t_info *info);
