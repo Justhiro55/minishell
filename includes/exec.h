@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/16 16:13:17 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/23 19:10:37 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ typedef struct s_env
 
 int							ft_exec(char **command, char **envp, t_info *info,
 								t_node *node);
-int							ft_exec(char **command, char **envp, t_info *info,
-								t_node *node);
 
 //builtin-command
-int							command_exit(char **token);
+int							command_exit(char **token, t_info *info,
+								t_node *node);
 int							command_not_found(char *line);
 int							command_echo(char **token);
 int							command_pwd(char **token);
@@ -67,8 +66,8 @@ void						execute_child_process(t_info info, char **envp,
 void						execute_process(t_info info, char **envp,
 								t_node *node, int *fd);
 void						here_doc_mock(char *delimiter);
-void						restore_stdin_stdout(int stdin_backup,
-								int stdout_backup);
+void	restore_stdin_stdout(int stdin_backup,
+							int stdout_backup);
 
 //set
 void						set_node(t_node *node);

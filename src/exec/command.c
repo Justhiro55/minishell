@@ -6,13 +6,17 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/22 18:10:58 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:27:42 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
 void	handle_redirections_for_child(t_node *node, t_redirects *redirects);
+void	free_redirects(t_redirects *redirects);
+void	free_node(t_node *node);
+void	free_info(t_info *info);
+void	free_info_token(t_info *info);
 
 void	exec_left_node(t_info info, char **envp, t_node *node, int *pipefd)
 {
@@ -21,7 +25,6 @@ void	exec_left_node(t_info info, char **envp, t_node *node, int *pipefd)
 	close(pipefd[PIPE_WRITE]);
 	if (node != NULL)
 		child_process(info, envp, node);
-	wait(NULL);
 	exit(2);
 }
 
@@ -32,7 +35,6 @@ void	exec_right_node(t_info info, char **envp, t_node *node, int *pipefd)
 	close(pipefd[PIPE_READ]);
 	if (node != NULL)
 		child_process(info, envp, node);
-	wait(NULL);
 	exit(1);
 }
 
@@ -49,7 +51,6 @@ void	exec_pipe(t_info info, char **envp, t_node *node)
 		exec_left_node(info, envp, node->left, pipefd);
 		exit(1);
 	}
-	waitpid(parent1, NULL, 0);
 	parent2 = ft_fork();
 	if (parent2 == 0)
 	{
@@ -74,14 +75,11 @@ void	child_process(t_info info, char **envp, t_node *node)
 	if (node->type == NODE_PIPE)
 	{
 		exec_pipe(info, envp, node);
-		wait(NULL);
 	}
 	else
 	{
 		handle_redirections_for_child(node, node->redirects);
-		wait(NULL);
 		ft_exec(node->data, envp, &info, node);
-		wait(NULL);
 	}
 	ft_dup2(stdin_backup, STDIN_FILENO);
 	ft_dup2(stdout_backup, STDOUT_FILENO);
@@ -94,7 +92,7 @@ void	parse(char *line, t_info *info, char **envp)
 	t_node	*node;
 
 	// pid_t parent;
-	set_token(info, line);
+	info->token = ft_split(line, ' ');
 	// if (i == 0)
 	// {
 	// 	node = (t_node *)malloc(sizeof(t_node));
@@ -116,5 +114,6 @@ void	parse(char *line, t_info *info, char **envp)
 	// }
 	// else
 	child_process(*info, envp, node);
-	free(node);
+	free_info_token(info);
+	free_node(node);
 }

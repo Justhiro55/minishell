@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/22 19:00:04 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/24 13:59:05 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,14 @@ void	handle_redirections_for_child(t_node *node, t_redirects *redirects)
 	ft_pipe(pipefd);
 	while (redirects != NULL && node->type == NODE_COMMAND)
 	{
-			ft_dup2(redirects->fd_backup, STDIN_FILENO);
-
+		ft_dup2(redirects->fd_backup, STDIN_FILENO);
 		if (redirects->type == REDIRECT_INPUT)
 		{
 			stdin_backup = open_file(redirects);
 			heredoc_flag = 0;
 		}
 		else if (redirects->type == REDIRECT_OUTPUT
-			|| redirects->type == REDIRECT_APPEND_OUTPUT)
+				|| redirects->type == REDIRECT_APPEND_OUTPUT)
 			stdout_backup = open_file(redirects);
 		else if (redirects->type == REDIRECT_HEREDOC)
 		{
