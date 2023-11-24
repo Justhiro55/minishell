@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/20 11:57:27 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/24 19:01:34 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	is_redirect_token(t_token *ntk)
 	else if (ft_strncmp(">", op, ft_strlen(op)) == 0)
 		return (REDIRECT_OUTPUT);
 	else if (ft_strncmp("<<", op, ft_strlen(op)) == 0)
-		return (REDIRECT_APPEND_OUTPUT);
-	else if (ft_strncmp(">>", op, ft_strlen(op)) == 0)
 		return (REDIRECT_HEREDOC);
+	else if (ft_strncmp(">>", op, ft_strlen(op)) == 0)
+		return (REDIRECT_APPEND_OUTPUT);
 	return (0);
 }
 
@@ -81,7 +81,6 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 
 	i = 0;
 	node = ft_calloc(1, sizeof(t_node));
-	// size_t	count = count_word(ntk);
 	node->data = (char **)ft_calloc(count_word(ntk) + 1, sizeof(char *));
 	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0)
 	{
@@ -94,7 +93,6 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 		ntk->now = ntk->now->next;
 		node->data[i + 1] = NULL;
 	}
-	// printf("coutn = [%zu] i + i = [%lu]\n", count, i + 1);
 	node->row_size = i;
 	return (node);
 }
@@ -169,7 +167,9 @@ void	printTree(t_node *root, size_t depth)
 {
 	size_t		i;
 	t_redirects	*tmp;
+	int			cmd_i;
 
+	cmd_i = 0;
 	if (root == NULL)
 		return ;
 	printTree(root->right, depth + 1);
@@ -178,22 +178,28 @@ void	printTree(t_node *root, size_t depth)
 	tmp = root->redirects;
 	if (tmp != NULL)
 	{
-		// 	// while (tmp != NULL)
-		// 	// {
-		printf("cmd = [%s]", root->data[0]);
-		printf("redirects filename =  [%s] ", root->redirects->filename);
-		printf(" type = [%d] ", root->redirects->type);
-		// 		tmp = tmp->next;
-		// 	// }
+		while (root->data[cmd_i] != NULL)
+		{
+			printf(" cmd = [%s]", root->data[cmd_i]);
+			cmd_i++;
+		}
+		while (tmp != NULL)
+		{
+			printf(" type = [%d] ", tmp->type);
+			printf(" filename =  [%s] ", tmp->filename);
+			tmp = tmp->next;
+			// if (tmp->next != NULL)
+			// 	printf("tmp = [%s]\n", tmp->next->filename);
+		}
 	}
 	for (i = 0; i < root->row_size; i++)
 	{
 		if (i == 0)
 			printf("+");
 		if (i == 0 && root->type == NODE_PIPE)
-			printf("type PIPE ");
+			printf("type pipe ");
 		else if (i == 0 && root->type == NODE_COMMAND)
-			printf("type COMMAND ");
+			printf("type cmd ");
 		printf("%s ", root->data[i]);
 	}
 	printf("\n");

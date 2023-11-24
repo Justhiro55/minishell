@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/24 18:33:21 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/24 19:09:12 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	parse(char *line, t_info *info, char **envp)
 
 	info->token = ft_split(line, ' ');
 	node = parser(lexer_main(line));
-	// printf("0:[%s], 1:[%s]\n", node->data[0], node->data[1]);
+	printf("0:[%s], 1:[%s]\n", node->data[0], node->data[1]);
 	child_process(*info, envp, node);
 	free_info_token(info);
-	free_node(node);
+	// free_node(node);
 }
