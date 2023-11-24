@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/24 13:41:25 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:57:36 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ void	minishell(char **envp)
 		// }
 	}
 }
-
-// __attribute__((destructor)) static void destructor()
-// {
-//      system("leaks -q minishell");
-// }
 
 // void	sig_int_input(int signum)
 // {

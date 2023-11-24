@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:55:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/23 19:41:28 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:56:03 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,11 @@ int	command_exit(char **token, t_info *info, t_node *node)
 		exit(0);
 	}
 	else if (token[2] == NULL)
+	{
+		free_node(node);
+		free_info(info);
 		exit(atoi(token[1]));
+	}
 	else
 		ft_putstr_fd("exit: too many arguments\n", STDERR);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/24 14:27:42 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:58:29 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,7 @@ void	child_process(t_info info, char **envp, t_node *node)
 	if (node == NULL)
 		return ;
 	if (node->type == NODE_PIPE)
-	{
 		exec_pipe(info, envp, node);
-	}
 	else
 	{
 		handle_redirections_for_child(node, node->redirects);
@@ -85,34 +83,13 @@ void	child_process(t_info info, char **envp, t_node *node)
 	ft_dup2(stdout_backup, STDOUT_FILENO);
 }
 
-int		i = 0;
-
 void	parse(char *line, t_info *info, char **envp)
 {
 	t_node	*node;
 
-	// pid_t parent;
 	info->token = ft_split(line, ' ');
-	// if (i == 0)
-	// {
-	// 	node = (t_node *)malloc(sizeof(t_node));
-	// 	if (node == NULL)
-	// 		exit_process(EXIT_FAILURE_MALLOC);
-	// 	set_node(node); //test用
-	// 	i++;
-	// }
-	// else
 	node = parser(lexer_main(line));
-	// if (node != NULL && node->type == NODE_PIPE && i == 0)
-	// {
-	// 	parent = ft_fork();
-	// 	if (!parent)
-	// 		child_process(*info, envp, node);
-	// 	else
-	// 		waitpid(parent, NULL, 0);
-	// 	i++;
-	// }
-	// else
+	// printf("0:[%s], 1:[%s]\n", node->data[0], node->data[1]);
 	child_process(*info, envp, node);
 	free_info_token(info);
 	free_node(node);
