@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls_command.c                                       :+:      :+:    :+:   */
+/*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 15:48:20 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/09 16:29:08 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/11/13 16:12:59 by kotainou          #+#    #+#             */
+/*   Updated: 2023/11/16 15:48:14 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
+#ifndef TOKEN_H
+# define TOKEN_H
 
-void	command_ls(const char *dir_path)
+# include "./exec.h"
+# include "./lexer.h"
+# include "./minishell.h"
+# include "./parser.h"
+# include "./token.h"
+
+# define CHAR_QUOTE		0x0001 // '
+# define CHAR_DQUOTE	0x0010 // "
+# define REDIRECT		0x0100 // < > << >>
+# define PIPE			0x1000 // |
+
+typedef struct s_token
 {
-	DIR				*dir;
-	struct dirent	*entry;
+	char			*str;
+	int				type;
+	struct s_token	*next;
+	struct s_token	*prev;
+}	t_token;
 
-	dir = opendir(dir_path);
-	if (dir == NULL)
-	{
-		perror("opendir");
-		exit(EXIT_FAILURE);
-	}
-	entry = readdir(dir);
-	while (entry != NULL)
-	{
-		if (entry->d_name[0] != '.')
-		{
-			printf("%s\n", entry->d_name);
-		}
-	}
-	closedir(dir);
-}
+#endif

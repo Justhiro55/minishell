@@ -6,11 +6,11 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/23 17:42:10 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/24 19:03:36 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/builtin.h"
+#include "../includes/exec.h"
 #include "../includes/minishell.h"
 
 int	main(int argc, char **argv, char **envp)
@@ -30,10 +30,7 @@ void	minishell(char **envp)
 	while (1)
 	{
 		line = readline("$> ");
-		lexer_main(line);
-		if (line == NULL || strlen(line) == 0)
-			free(line);
-		else
+		if (line != NULL && strlen(line) != 0 && line[0] != '\0')
 			parse(line, &info, envp);
 		add_history(line);
 		free(line);
@@ -49,11 +46,6 @@ void	minishell(char **envp)
 		// }
 	}
 }
-
-// __attribute__((destructor)) static void destructor()
-// {
-//      system("leaks -q minishell");
-// }
 
 // void	sig_int_input(int signum)
 // {

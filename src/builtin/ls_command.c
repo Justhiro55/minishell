@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   not_found_command.c                                :+:      :+:    :+:   */
+/*   ls_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 13:56:32 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/05 17:27:12 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/10/09 15:48:20 by hhagiwar          #+#    #+#             */
+/*   Updated: 2023/11/07 18:24:48 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
+#include "../../includes/exec.h"
 
-int	command_not_found(char *line)
+void	command_ls(const char *dir_path)
 {
-	if (line[0] != 10)
+	DIR				*dir;
+	struct dirent	*entry;
+
+	dir = opendir(dir_path);
+	if (dir == NULL)
 	{
-		ft_putstr_fd("command not found: ", STDERR);
-		ft_putstr_fd(line, STDERR);
+		perror("opendir");
+		exit(EXIT_FAILURE);
 	}
-	ft_putstr_fd("\n", STDERR);
-	return (1);
+	entry = readdir(dir);
+	while (entry != NULL)
+	{
+		if (entry->d_name[0] != '.')
+		{
+			printf("%s\n", entry->d_name);
+		}
+	}
+	closedir(dir);
 }

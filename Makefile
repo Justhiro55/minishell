@@ -5,31 +5,41 @@
 #                                                     +:+ +:+         +:+      #
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/23 17:40:31 by hhagiwar         ###   ########.fr        #
+#    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
+#    Updated: 2023/11/24 18:34:44 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
+INCLUDES_DIR = ./includes
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR)
-INCLUDES_DIR = ./Includes
 RM = rm
 RMFLAGS = -f
 SRC = src/main.c \
-		src/command/command.c \
-		src/command/cd_command.c \
-		src/command/echo_command.c \
-		src/command/env_command.c \
-		src/command/exit_command.c \
-		src/command/pwd_command.c \
-		src/command/not_found_command.c \
-		src/command/set_env.c \
-		src/command/ls_command.c \
-		src/command/export_command.c \
+		src/exec/command.c \
+		src/exec/command_utils.c \
+		src/exec/exec_redirect.c \
+		src/exec/exec.c \
+		src/exec/exec_utils.c \
+		src/exec/redirect_utils.c \
+		src/exec/redirect_utils2.c \
+		src/exec/exit_process.c \
+		src/builtin/cd_command.c \
+		src/builtin/echo_command.c \
+		src/builtin/env_command.c \
+		src/builtin/exit_command.c \
+		src/builtin/pwd_command.c \
+		src/builtin/set_env.c \
+		src/builtin/ls_command.c \
+		src/builtin/export_command.c \
 		src/lexer/lexer.c \
 		src/lexer/token.c \
-		src/lexer/lexer_utils.c
+		src/lexer/lexer_utils.c \
+		src/lexer/syntax_error.c \
+		src/parser/parser.c \
+		src/parser/parser_redirect.c \
+		src/parser/parser_utils.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
@@ -45,10 +55,16 @@ all: $(NAME)
 $(OBJ_DIR)/%.o: src/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/%.o: src/command/%.c
+$(OBJ_DIR)/%.o: src/exec/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: src/builtin/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: src/lexer/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: src/parser/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
@@ -93,4 +109,3 @@ push_w:
 re: fclean all 
 
 .PHONY: all clean fclean re help
-

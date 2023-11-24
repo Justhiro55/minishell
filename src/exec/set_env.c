@@ -6,11 +6,11 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/07 23:07:42 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/02 20:26:14 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
+#include "../../includes/exec.h"
 
 t_env	*env_lstnew(char *envp)
 {
@@ -77,9 +77,7 @@ void	set_env(t_info *info, char **envp)
 			first = new_node;
 		}
 		else
-		{
 			last->next = new_node;
-		}
 		last = new_node;
 		envp++;
 	}

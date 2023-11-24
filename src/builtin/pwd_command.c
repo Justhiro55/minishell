@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd_command.c                                       :+:      :+:    :+:   */
+/*   pwd_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 13:53:36 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/10/05 17:27:39 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/10/04 13:55:57 by hhagiwar          #+#    #+#             */
+/*   Updated: 2023/11/02 18:53:20 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
+#include "../../includes/exec.h"
 
-int	command_cd(char **token)
+int	command_pwd(char **token)
 {
-	if (token[1] == NULL || ft_strcmp(token[1], "~") == 0)
+	if (token[1] != NULL)
 	{
-		chdir(getenv("HOME"));
-		return (0);
-	}
-	if (token[2] != NULL)
+		ft_putstr_fd("pwd: too many arguments\n", STDERR);
 		return (1);
-	if (chdir(token[1]) == -1)
+	}
+	else
 	{
-		ft_putstr_fd("cd: ", STDERR);
-		ft_putstr_fd(token[1], STDERR);
-		ft_putstr_fd(": ", STDERR);
-		ft_putstr_fd(strerror(errno), STDERR);
-		ft_putstr_fd("\n", STDERR);
+		ft_putstr_fd(getcwd(NULL, 0), STDOUT);
+		ft_putstr_fd("\n", STDOUT);
 	}
 	return (0);
 }
