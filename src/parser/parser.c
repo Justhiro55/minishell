@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/23 17:44:06 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/24 18:48:39 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_node	*parser(t_token	*token)
 	ntk = ft_calloc(1, sizeof(t_now_token));
 	ntk->now = token;
 	node = expr(ntk);
-	printf("---print tree---\n");
-	printTree(node, 0);
+	// printf("---print tree---\n");
+	// printTree(node, 0);
 	return (node);
 }
