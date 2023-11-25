@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/25 14:36:12 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/25 15:27:30 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC = src/main.c \
 		src/builtin/echo_command.c \
 		src/builtin/env_command.c \
 		src/builtin/exit_command.c \
+		src/builtin/exit_utils.c \
 		src/builtin/pwd_command.c \
 		src/builtin/unset_command.c \
 		src/builtin/set_env.c \
