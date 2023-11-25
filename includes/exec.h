@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/25 14:25:35 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 15:26:39 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,11 @@ void						env_add_back(t_info *info, t_env *new_node);
 void						free_cmd(char ***cmd, int cmd_count);
 void						free_fd(int **pipefd, int pipe_num);
 void						free_fd(int **pipefd, int pipe_num);
+void						free_redirects(t_redirects *redirects);
+void						free_node(t_node *node);
+void						env_lstclear(t_env **lst);
+void						free_info_token(t_info *info);
+void						free_info(t_info *info);
 
 //util
 int							execute_command(char *command_path, char **tokens,

@@ -6,121 +6,60 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:55:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/25 14:24:46 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 15:24:19 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	free_redirects(t_redirects *redirects)
+int	contains_non_numeric(const char *str)
 {
-	t_redirects	*current;
+	size_t	i;
 
-	while (redirects)
-	{
-		current = redirects;
-		redirects = redirects->next;
-		if (current->filename != NULL)
-			free(current->filename);
-		free(current);
-	}
-}
-
-void	free_node(t_node *node)
-{
-	int	i;
-
+	if (str == NULL || *str == '\0')
+		return (0);
 	i = 0;
-	if (node)
+	while (str[i] != '\0')
 	{
-		while (node->data[i] != NULL && i < (int)node->row_size)
-		{
-			free(node->data[i]);
-			i++;
-		}
-		free(node->data);
-		if (node->redirects != NULL)
-			free_redirects(node->redirects);
-		free_node(node->left);
-		free_node(node->right);
-		free(node);
+		if (!ft_isdigit((unsigned char)str[i]))
+			return (1);
+		i++;
 	}
+	return (0);
 }
 
-void	env_lstclear(t_env **lst)
+int	print_error_and_exit(char *str)
 {
-	t_env	*current;
-	t_env	*temp;
-
-	if (!lst || !*lst)
-		return ;
-	current = *lst;
-	while (current != NULL)
-	{
-		temp = current->next;
-		free(current->key);
-		free(current->value);
-		free(current);
-		current = temp;
-	}
-	*lst = NULL;
-}
-
-void	free_env_list(t_env *env)
-{
-	t_env	*current;
-
-	while (env)
-	{
-		current = env;
-		env = env->next;
-		free(current->key);
-		free(current->value);
-		free(current);
-	}
-}
-
-void	free_info_token(t_info *info)
-{
-	int	i;
-
-	if (info->token)
-	{
-		i = 0;
-		while (info->token[i] != NULL)
-		{
-			free(info->token[i]);
-			i++;
-		}
-		free(info->token);
-		info->token = NULL;
-	}
-}
-
-void	free_info(t_info *info)
-{
-	if (info)
-	{
-		env_lstclear(&info->env);
-		free_info_token(info);
-	}
+	ft_putstr_fd("exit: ", STDERR);
+	ft_putstr_fd(str, STDERR);
+	ft_putstr_fd(": numeric argument required\n", STDERR);
+	return (255);
 }
 
 int	command_exit(char **token, t_info *info, t_node *node)
 {
+	int	status;
+
+	status = -1;
+	ft_putstr_fd("exit\n", STDERR);
 	if (token[1] == NULL)
-	{
-		free_node(node);
-		free_info(info);
-		exit(0);
-	}
+		status = 0;
+	else if (contains_non_numeric(token[1]) == 1)
+		status = print_error_and_exit(token[1]);
 	else if (token[2] == NULL)
 	{
-		free_node(node);
-		free_info(info);
-		exit(atoi(token[1]));
+		if (ft_atoi(token[1]) < 0)
+			status = 256 + (ft_atoi(token[1]) % 256);
+		else
+			status = ft_atoi(token[1]) % 256;
 	}
 	else
 		ft_putstr_fd("exit: too many arguments\n", STDERR);
-	return (1);
+	if (status != -1)
+	{
+		free_node(node);
+		free_info(info);
+		exit(status);
+	}
+	return (ERROR);
 }
