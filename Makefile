@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/25 15:27:30 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/25 17:27:26 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ SRC = src/main.c \
 		src/exec/redirect_utils.c \
 		src/exec/redirect_utils2.c \
 		src/exec/exit_process.c \
+		src/exec/set_env.c \
+		src/exec/set_env_utils.c \
 		src/builtin/cd_command.c \
 		src/builtin/echo_command.c \
 		src/builtin/env_command.c \
@@ -32,7 +34,6 @@ SRC = src/main.c \
 		src/builtin/exit_utils.c \
 		src/builtin/pwd_command.c \
 		src/builtin/unset_command.c \
-		src/builtin/set_env.c \
 		src/builtin/export_command.c \
 		src/lexer/lexer.c \
 		src/lexer/token.c \

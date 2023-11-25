@@ -6,30 +6,31 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/11 13:11:24 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 17:38:48 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-char	*ft_strndup(const char *s, size_t n)
-{
-	char	*copy;
-	size_t	i;
+char	*ft_strndup(const char *s, size_t n);
 
-	i = 0;
-	copy = (char *)malloc(n + 1);
-	if (!copy)
+void	remove_quotes_in_place(char *str)
+{
+	int	read_index;
+	int	write_index;
+
+	read_index = 0;
+	write_index = 0;
+	while (str[read_index] != '\0')
 	{
-		return (NULL);
+		if (str[read_index] != '"')
+		{
+			str[write_index] = str[read_index];
+			write_index++;
+		}
+		read_index++;
 	}
-	while (i < n && s[i] != '\0')
-	{
-		copy[i] = s[i];
-		i++;
-	}
-	copy[i] = '\0';
-	return (copy);
+	str[write_index] = '\0';
 }
 
 t_env	*env_lstnew(char *envp)
@@ -39,9 +40,11 @@ t_env	*env_lstnew(char *envp)
 	int		key_length;
 
 	new_node = (t_env *)malloc(sizeof(t_env));
+	remove_quotes_in_place(envp);
 	if (new_node)
 	{
 		separator = ft_strchr(envp, '=');
+		remove_quotes_in_place(separator);
 		if (separator != NULL)
 		{
 			key_length = separator - envp;
