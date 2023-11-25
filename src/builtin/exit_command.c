@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:55:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/25 15:24:19 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:51:27 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	contains_non_numeric(const char *str)
 	if (str == NULL || *str == '\0')
 		return (0);
 	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
 	while (str[i] != '\0')
 	{
 		if (!ft_isdigit((unsigned char)str[i]))
@@ -28,12 +30,67 @@ int	contains_non_numeric(const char *str)
 	return (0);
 }
 
-int	print_error_and_exit(char *str)
+int	print_error_and_return(char *str)
 {
 	ft_putstr_fd("exit: ", STDERR);
 	ft_putstr_fd(str, STDERR);
 	ft_putstr_fd(": numeric argument required\n", STDERR);
 	return (255);
+}
+
+// int	is_outside_long_range(char *str)
+// {
+// 	int			negative;
+// 	long long	value;
+
+// 	if (str == NULL || ft_strlen(str) > 21)
+// 		return (1);
+// 	negative = 0;
+// 	value = 0;
+// 	if (*str == '-')
+// 	{
+// 		negative = 1;
+// 		str++;
+// 	}
+// 	while (*str != '\0')
+// 	{
+// 		if (value > LONG_MAX / 10 && *str > '8')
+// 			return (1);
+// 		value = value * 10 + (*str - '0');
+// 		if (negative && -1 * value < LONG_MIN)
+// 			return (1);
+// 		else if (!negative && value > LONG_MAX)
+// 			return (1);
+// 		str++;
+// 	}
+// 	return (0);
+// }
+
+int	is_outside_long_range(char *str)
+{
+	int			negative;
+	long long	value;
+
+	if (str == NULL || ft_strlen(str) > 21)
+		return (1);
+	negative = 0;
+	value = 0;
+	if (*str == '-')
+	{
+		negative = 1;
+		str++;
+	}
+	while (*str != '\0')
+	{
+		if ((negative && (-(value) < (LONG_MIN / 10) || (-(value) == LONG_MIN
+						/ 10 && *str - '0' == 9))) || (!negative
+				&& (value > LONG_MAX / 10 || (value == LONG_MAX / 10 && *str
+						- '0' > LONG_MAX % 10))))
+			return (1);
+		value = value * 10 + (*str - '0');
+		str++;
+	}
+	return (0);
 }
 
 int	command_exit(char **token, t_info *info, t_node *node)
@@ -44,8 +101,9 @@ int	command_exit(char **token, t_info *info, t_node *node)
 	ft_putstr_fd("exit\n", STDERR);
 	if (token[1] == NULL)
 		status = 0;
-	else if (contains_non_numeric(token[1]) == 1)
-		status = print_error_and_exit(token[1]);
+	else if (contains_non_numeric(token[1]) == 1
+		|| is_outside_long_range(token[1]) == 1)
+		status = print_error_and_return(token[1]);
 	else if (token[2] == NULL)
 	{
 		if (ft_atoi(token[1]) < 0)

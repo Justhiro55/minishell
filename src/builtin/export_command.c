@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/25 14:21:40 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 16:42:41 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	command_export(char **token, t_info *info)
 	result = SUCCESS;
 	if (token[1] == NULL)
 		return (export_one_arg(info));
-	if (export_error(token) == ERROR)
+	else if (export_error(token) == ERROR)
 		return (error_export_msg(token[1]));
 	while (token[i] && (i++))
 	{
