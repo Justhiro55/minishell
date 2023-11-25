@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/25 14:24:02 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/25 14:36:12 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRC = src/main.c \
 		src/builtin/pwd_command.c \
 		src/builtin/unset_command.c \
 		src/builtin/set_env.c \
-		src/builtin/ls_command.c \
 		src/builtin/export_command.c \
 		src/lexer/lexer.c \
 		src/lexer/token.c \

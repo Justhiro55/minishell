@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:15:46 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/11 12:52:30 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:36:52 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,20 @@ void	unset_process(char *token, t_info *info)
 
 int	command_unset(char **token, t_info *info)
 {
-	int	flag;
+	int	status;
 	int	i;
 
 	i = 1;
-	flag = SUCCESS;
+	status = SUCCESS;
 	if (token[i] == NULL)
-		return (flag);
+		return (status);
 	while (token[i] != NULL)
 	{
 		if (arg_check(token[i]) == ERROR)
-			flag = ERROR;
+			status = ERROR;
 		else if (token[i][0] != '_')
 			unset_process(token[i], info);
 		i++;
 	}
-	return (flag);
+	return (status);
 }

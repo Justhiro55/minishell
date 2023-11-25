@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:56 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/11 13:00:54 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:37:13 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int	command_env(char **token, t_info info)
 	if (token[1] != NULL)
 	{
 		ft_putstr_fd("env: too many arguments\n", STDERR);
-		return (1);
+		return (ERROR);
 	}
 	if (token[1] == NULL)
 	{
 		if (info.env == NULL)
 		{
-			return (0);
+			return (SUCCESS);
 		}
 		while (info.env != NULL)
 		{
@@ -32,5 +32,5 @@ int	command_env(char **token, t_info info)
 			info.env = info.env->next;
 		}
 	}
-	return (0);
+	return (SUCCESS);
 }
