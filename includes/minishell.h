@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/10 13:04:08 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:20:41 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define MINISHELL_H
 
 # include "../func/libft/libft.h"
+# include "./exec.h"
 # include "./lexer.h"
+# include "./minishell.h"
+# include "./token.h"
 # include "lexer.h"
 # include "parser.h"
 # include <dirent.h>

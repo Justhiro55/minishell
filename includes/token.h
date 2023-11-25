@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 15:03:23 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/24 16:09:14 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/11/13 16:12:59 by kotainou          #+#    #+#             */
+/*   Updated: 2023/11/16 15:48:14 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef TOKEN_H
+# define TOKEN_H
 
-char    *ft_substr(char const *s, size_t start, size_t len)
+# include "./exec.h"
+# include "./lexer.h"
+# include "./minishell.h"
+# include "./parser.h"
+# include "./token.h"
+
+# define CHAR_QUOTE		0x0001 // '
+# define CHAR_DQUOTE	0x0010 // "
+# define REDIRECT		0x0100 // < > << >>
+# define PIPE			0x1000 // |
+
+typedef struct s_token
 {
-    size_t    slen;
-    char    *str;
+	char			*str;
+	int				type;
+	struct s_token	*next;
+	struct s_token	*prev;
+}	t_token;
 
-    slen = ft_strlen(s);
-    if (slen <= start)
-        str = ft_strdup("");
-    else
-    {
-        str = malloc(sizeof(char) * (slen - start + 1));
-        if (!str)
-            perror("malloc failed");
-        ft_strlcpy(str, s + start, len + 1);
-    }
-    return (str);
-}
+#endif

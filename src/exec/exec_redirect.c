@@ -6,20 +6,20 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/10 16:14:53 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:21:51 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	here_doc(char *delimiter)
+int	here_doc(char *delimiter, int pipefd[2])
 {
 	char	*line;
 	int		stdout_backup;
 
+	stdout_backup = ft_dup(STDOUT_FILENO);
 	while (1)
 	{
-		stdout_backup = ft_dup(STDOUT_FILENO);
 		ft_dup2(STDIN_FILENO, STDOUT_FILENO);
 		line = readline("> ");
 		if (!line)
@@ -27,77 +27,60 @@ void	here_doc(char *delimiter)
 		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
-			exit(EXIT_SUCCESS);
+			break ;
 		}
-		ft_dup2(stdout_backup, STDOUT_FILENO);
-		write(STDOUT_FILENO, line, ft_strlen(line));
-		write(STDOUT_FILENO, "\n", 1);
+		write(pipefd[PIPE_WRITE], line, ft_strlen(line));
+		write(pipefd[PIPE_WRITE], "\n", 1);
 		free(line);
 	}
+	ft_dup2(stdout_backup, STDOUT_FILENO);
+	wait(NULL);
+	return (1);
 }
 
-void	handle_redirections_for_child(t_node *node)
+int	update_stdin(int *stdin_backup, t_redirects *redirects)
+{
+	*stdin_backup = open_file(redirects);
+	return (0);
+}
+
+void	set_redirects(int stdin_backup, int stdout_backup, int pipefd[2],
+		int heredoc_flag)
+{
+	if (heredoc_flag == 0)
+		ft_dup2(stdin_backup, STDIN_FILENO);
+	else
+		ft_dup2(pipefd[PIPE_READ], STDIN_FILENO);
+	ft_dup2(stdout_backup, STDOUT_FILENO);
+	close(pipefd[PIPE_READ]);
+	close(pipefd[PIPE_WRITE]);
+}
+
+void	handle_redirections_for_child(t_node *node, t_redirects *redirects)
 {
 	int	stdin_backup;
-	int	fd[2];
+	int	stdout_backup;
+	int	pipefd[2];
+	int	heredoc_flag;
 
-	if (node->redirects != NULL && node->type == NODE_COMMAND
-		&& node->redirects->fd_file > 0
-		&& node->redirects->type == REDIRECT_INPUT)
-		ft_dup2(node->redirects->fd_file, STDIN_FILENO);
-	if (node->redirects != NULL && node->type == NODE_COMMAND
-		&& node->redirects->fd_file > 0
-		&& node->redirects->type == REDIRECT_OUTPUT)
-		ft_dup2(node->redirects->fd_file, STDIN_FILENO);
-	if (node->redirects != NULL && node->type == NODE_COMMAND
-		&& node->redirects->type == REDIRECT_HEREDOC)
+	heredoc_flag = 0;
+	stdin_backup = dup(STDIN_FILENO);
+	stdout_backup = dup(STDOUT_FILENO);
+	ft_pipe(pipefd);
+	while (redirects != NULL && node->type == NODE_COMMAND)
 	{
-		stdin_backup = ft_dup(STDIN_FILENO);
-		ft_pipe(fd);
-		here_doc(node->redirects->filename);
-		ft_dup2(fd[PIPE_READ], STDIN_FILENO);
-		close(fd[PIPE_READ]);
-		close(fd[PIPE_WRITE]);
-		ft_dup2(stdin_backup, STDIN_FILENO);
-		close(stdin_backup);
+		ft_dup2(redirects->fd_backup, STDIN_FILENO);
+		if (redirects->type == REDIRECT_INPUT)
+			heredoc_flag = update_stdin(&stdin_backup, redirects);
+		else if (redirects->type == REDIRECT_OUTPUT
+			|| redirects->type == REDIRECT_APPEND_OUTPUT)
+			stdout_backup = open_file(redirects);
+		else if (redirects->type == REDIRECT_HEREDOC)
+		{
+			ft_pipe(pipefd);
+			heredoc_flag = here_doc(redirects->filename, pipefd);
+		}
+		redirects = redirects->next;
 	}
-}
-
-void	execute_child_process(t_info info, char **envp, t_node *node, int *fd)
-{
-	int	fd_backup;
-
-	fd_backup = dup(STDOUT_FILENO);
-	ft_dup2(fd[1], STDOUT_FILENO);
-	if (ft_strcmp(node->left->data[0], "pipe") == 0)
-		child_process(info, envp, node->left);
-	else
-	{
-		handle_redirections_for_child(node->left);
-		ft_exec(node->left->data, envp, &info, node);
-	}
-}
-
-void	handle_redirections_for_parent(t_node *node)
-{
-	if (node->right->redirects != NULL && node->right->type == NODE_COMMAND
-		&& node->right->redirects->fd_file > 0
-		&& node->right->redirects->type == REDIRECT_OUTPUT)
-		ft_dup2(node->right->redirects->fd_file, STDOUT_FILENO);
-	if (node->right->redirects != NULL && node->right->type == NODE_COMMAND
-		&& node->right->redirects->fd_file > 0
-		&& node->right->redirects->type == REDIRECT_INPUT)
-		ft_dup2(node->right->redirects->fd_file, STDIN_FILENO);
-}
-
-void	execute_parent_process(t_info info, char **envp, t_node *node, int *fd)
-{
-	int	status;
-
-	close(fd[1]);
-	ft_dup2(fd[0], STDIN_FILENO);
-	close(fd[0]);
-	handle_redirections_for_parent(node);
-	ft_exec(node->right->data, envp, &info, node);
-	wait(&status);
+	set_redirects(stdin_backup, stdout_backup, pipefd, heredoc_flag);
 }
