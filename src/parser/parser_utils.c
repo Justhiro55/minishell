@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/24 19:01:34 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 22:36:24 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ t_node	*new_node_cmd(t_now_token *ntk)
 	t_node	*node;
 
 	node = ft_calloc(1, sizeof(t_node));
-	node->data = (char **)ft_calloc(1, sizeof(char *));
+	node->data = (char **)ft_calloc(2, sizeof(char *));
 	node->data[0] = ft_strdup(ntk->now->str);
+	node->data[1] = NULL;
 	node->row_size = 1;
 	ntk->now = ntk->now->next;
 	return (node);
@@ -81,7 +82,9 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 
 	i = 0;
 	node = ft_calloc(1, sizeof(t_node));
-	node->data = (char **)ft_calloc(count_word(ntk) + 1, sizeof(char *));
+	size_t cn = count_word(ntk);
+	node->data = (char **)ft_calloc(cn + 1, sizeof(char *));
+	printf("count = [%zu]\n", cn);
 	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0)
 	{
 		if (is_redirect(ntk))
@@ -90,8 +93,9 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 		check_text(cmd);
 		node->data[i] = cmd;
 		i++;
+		node->data[i] = NULL;
 		ntk->now = ntk->now->next;
-		node->data[i + 1] = NULL;
+		// node->data[i + 1] = NULL;
 	}
 	node->row_size = i;
 	return (node);

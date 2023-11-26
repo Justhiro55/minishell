@@ -3,17 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
+#    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/24 18:34:44 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/25 22:37:33 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-CC = cc
+CC = gcc
 INCLUDES_DIR = ./includes
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR)
+# CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -g -fsanitize=address
 RM = rm
 RMFLAGS = -f
 SRC = src/main.c \
@@ -70,8 +71,10 @@ $(OBJ_DIR)/%.o: src/parser/%.c
 $(NAME): $(OBJ)
 	@printf "\e[38;5;82m----Compiling libft----\e[0m\n"
 	@make -C func/${LIBFTDIR}
-	@$(CC) -lreadline ${LIB} ${GNL} $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) -lreadline ${LIB} ${GNL} $(OBJ) -o $(NAME)
 	@printf "\e[38;5;82m  minishell Compiled🚀\e[0m\n\n"
+
+#	@$(CC) -lreadline ${LIB} ${GNL} $(OBJ) -o $(NAME)
 
 clean: 
 	@$(RM) $(RMFLAGS) ${OBJ}

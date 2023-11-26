@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/24 19:09:12 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 22:35:30 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,43 @@ void	child_process(t_info info, char **envp, t_node *node)
 	ft_dup2(stdout_backup, STDOUT_FILENO);
 }
 
+void	deb_printf(t_node *node)
+{
+	printf("deb node [%s]\n", node->data[0]);
+}
+
+void	deb_data_print(t_node *node)
+{
+	int i = 0;
+
+	while (1)
+	{
+		printf("node = [%s]\n", node->data[i]);
+		if (node->data[i] == NULL)
+			break ;
+		i++;
+	}
+}
 void	parse(char *line, t_info *info, char **envp)
 {
 	t_node	*node;
+	t_token *token;
 
 	info->token = ft_split(line, ' ');
-	node = parser(lexer_main(line));
-	printf("0:[%s], 1:[%s]\n", node->data[0], node->data[1]);
+	token = lexer_main(line);
+	// printf("lexer ok\n");
+	node = parser(token);
+	// printf("token ok\n");
+	if (node == NULL)
+		printf("no data node\n");
+	if (node->data[0] == NULL)
+	{
+		return ;
+	}
+	printf("node\n");
+	// deb_data_print(node);
+//	printf("node[%p] data[%p] data[0][%p]\n", node, node->data, node->data[0]);
+	// printf("0:[%s], 1:[%s]\n", node->data[0], node->data[1]);
 	child_process(*info, envp, node);
 	free_info_token(info);
 	// free_node(node);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:50:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/16 16:11:56 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 18:50:19 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ typedef struct s_token t_token; // 既存の宣言に合わせて型名を指定
 typedef struct s_tokeniser
 {
 	char	*str;
-	int str_i;   //どこの配列から始まるのか
-	int str_len; //文字列の長さ
-	int quoted;  //", ' を一つで管理する " = 0x01, ' = 0x10
+	int		str_i;   //どこの配列から始まるのか
+	int		str_len; //文字列の長さ
+	int		quoted;  //", ' を一つで管理する " = 0x01, ' = 0x10
 	char	quote_type;
 	t_token	*head_list;
 }	t_tokeniser;

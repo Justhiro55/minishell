@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:13:00 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/24 18:59:12 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 21:13:11 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,25 @@ int	is_redirect(t_now_token *ntk)
 	op = ft_strdup(ntk->now->str);
 	if (ft_strncmp("<", op, ft_strlen(op)) == 0)
 	{
+		free(op);
 		return (REDIRECT_INPUT);
 	}
 	else if (ft_strncmp(">", op, ft_strlen(op)) == 0)
 	{
+		free(op);
 		return (REDIRECT_OUTPUT);
 	}
 	else if (ft_strncmp("<<", op, ft_strlen(op)) == 0)
 	{
+		free(op);
 		return (REDIRECT_HEREDOC);
 	}
 	else if (ft_strncmp(">>", op, ft_strlen(op)) == 0)
 	{
+		free(op);
 		return (REDIRECT_APPEND_OUTPUT);
 	}
+	free(op);
 	return (0);
 }
 
