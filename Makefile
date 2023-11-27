@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/27 17:29:36 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/27 20:07:16 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRC = src/main.c \
 		src/parser/parser.c \
 		src/parser/parser_redirect.c \
 		src/parser/parser_utils.c \
-		src/expand/expand.c 
+		src/expand/expand.c \
+		src/expand/expand_utils.c 
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))

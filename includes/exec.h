@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/24 18:32:04 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:07:05 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void						execute_child_process(t_info info, char **envp,
 void						execute_process(t_info info, char **envp,
 								t_node *node, int *fd);
 void						here_doc_mock(char *delimiter);
-void						restore_stdin_stdout(int stdin_backup,
-								int stdout_backup);
+void	restore_stdin_stdout(int stdin_backup,
+							int stdout_backup);
 
 //set
 void						set_node(t_node *node);
@@ -99,5 +99,7 @@ void						ft_dup2(int old_fd, int new_fd);
 void						ft_pipe(int fd[2]);
 pid_t						ft_fork(void);
 void						here_doc_fork(t_redirects *redirects);
+void						append_char(char **s, char c);
+int	is_alpha_under(char c);
 
 #endif

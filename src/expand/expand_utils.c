@@ -1,42 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo_command.c                                     :+:      :+:    :+:   */
+/*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 13:54:29 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/27 20:21:47 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/11/27 20:06:26 by hhagiwar          #+#    #+#             */
+/*   Updated: 2023/11/27 20:06:39 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	command_echo(char **token)
+int	is_alpha_under(char c)
 {
-	int	i;
-	int	n_flag;
+	return ((('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z')) || c == '_');
+}
 
-	i = 1;
-	n_flag = 0;
-	if (token[1] == NULL)
-	{
-		ft_putstr_fd("\n", STDOUT);
-		return (0);
-	}
-	if (ft_strcmp(token[1], "-n") == 0)
-	{
-		n_flag = 1;
-		i++;
-	}
-	while (token[i])
-	{
-		ft_putstr_fd(token[i], STDOUT);
-		if (token[i + 1])
-			ft_putstr_fd(" ", STDOUT);
-		i++;
-	}
-	if (n_flag != 1)
-		ft_putstr_fd("\n", 1);
-	return (0);
+void	append_char(char **s, char c)
+{
+	size_t	size;
+	char	*new;
+
+	size = 2;
+	if (*s)
+		size += ft_strlen(*s);
+	new = (char *)malloc(size * sizeof(char));
+	if (new == NULL)
+		exit_process(EXIT_FAILURE_MALLOC);
+	if (*s)
+		ft_strlcpy(new, *s, size);
+	new[size - 2] = c;
+	new[size - 1] = '\0';
+	if (*s)
+		free(*s);
+	*s = new;
 }
