@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/25 17:27:26 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/27 20:17:03 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ clean:
 fclean: clean 
 	@$(RM) $(RMFLAGS) $(NAME) a.out
 	@make fclean -C func/${LIBFTDIR}
-	@rm test_outfile
+	@rm -f test_outfile
 	@printf "\e[38;5;208m\nsuccessfully deleted🗑\e[0m\n\n"
 
 party:

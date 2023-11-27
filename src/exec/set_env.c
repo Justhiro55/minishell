@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/25 17:38:48 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:09:39 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	remove_quotes_in_place(char *str)
 	write_index = 0;
 	while (str[read_index] != '\0')
 	{
-		if (str[read_index] != '"')
+		if (str[read_index] != '"' && str[read_index] != '\'')
 		{
 			str[write_index] = str[read_index];
 			write_index++;

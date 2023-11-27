@@ -6,11 +6,13 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:29 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/11 12:55:43 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:16:43 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+void	remove_quotes_in_place(char *str);
 
 int	n_option(char **token)
 {
@@ -31,6 +33,37 @@ int	n_option(char **token)
 	return (i);
 }
 
+bool	is_metacharacter(char c)
+{
+	return (c && strchr("|&;()<> \t\n", c));
+}
+
+int	check_arg(char **str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i] != NULL)
+	{
+		while (str[i][j] != '\0')
+		{
+			if (is_metacharacter(str[i][j]))
+			{
+				ft_putstr_fd("syntax error near unexpected token \'", STDOUT);
+				ft_putchar_fd(str[i][j], STDOUT);
+				ft_putstr_fd("\'\n", STDOUT);
+				return (ERROR);
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (SUCCESS);
+}
+
 int	command_echo(char **token)
 {
 	int	i;
@@ -41,10 +74,13 @@ int	command_echo(char **token)
 		ft_putstr_fd("\n", STDOUT);
 		return (0);
 	}
+	if (check_arg(token) == ERROR)
+		return (ERROR);
 	n_set = n_option(token);
 	i = n_set;
 	while (token[i])
 	{
+		remove_quotes_in_place(token[i]);
 		ft_putstr_fd(token[i], STDOUT);
 		if (token[i + 1])
 			ft_putstr_fd(" ", STDOUT);
