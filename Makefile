@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/24 18:34:44 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/27 17:29:36 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ SRC = src/main.c \
 		src/lexer/syntax_error.c \
 		src/parser/parser.c \
 		src/parser/parser_redirect.c \
-		src/parser/parser_utils.c
+		src/parser/parser_utils.c \
+		src/expand/expand.c 
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
@@ -55,6 +56,9 @@ all: $(NAME)
 $(OBJ_DIR)/%.o: src/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJ_DIR)/%.o: src/expand/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+	
 $(OBJ_DIR)/%.o: src/exec/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -66,6 +70,7 @@ $(OBJ_DIR)/%.o: src/lexer/%.c
 
 $(OBJ_DIR)/%.o: src/parser/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
+
 
 $(NAME): $(OBJ)
 	@printf "\e[38;5;82m----Compiling libft----\e[0m\n"
