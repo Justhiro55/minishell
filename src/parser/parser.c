@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/27 19:13:25 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:39:10 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ t_node	*expr(t_now_token *ntk)
 {
 	t_node	*node;
 	char	*op;
+	int		i;
 
+	i = 0;
 	node = cmd(ntk);
 	while (1)
 	{
@@ -31,6 +33,7 @@ t_node	*expr(t_now_token *ntk)
 		}
 		else
 			return (node);
+		i++;
 	}
 	return (node);
 }
@@ -70,10 +73,6 @@ t_node	*parser(t_token *token)
 	ntk = ft_calloc(1, sizeof(t_now_token));
 	ntk->now = token;
 	node = expr(ntk);
-	printtoken(token);
 	clear_token(token);
-	printf("node = [%s]\n", node->data[0]);
-	// printTree(node, 0);
-	// printf("node = [%s]\n", node->data[0]);
 	return (node);
 }

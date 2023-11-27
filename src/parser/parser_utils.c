@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/27 19:12:09 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:36:46 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,11 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 			return (new_node_redirect(node, ntk));
 		cmd = ft_strdup(ntk->now->str);
 		check_text(cmd);
-		node->data[i] = cmd;
-		printf("while node = [%s]\n", node->data[i]);
+		node->data[i] = ft_strdup(cmd);
 		i++;
+		node->data[i] = NULL;
 		ntk->now = ntk->now->next;
 	}
-	node->data[i] = NULL;
 	node->row_size = i;
 	return (node);
 }

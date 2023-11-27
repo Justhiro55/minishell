@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/27 19:12:36 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:38:31 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,6 @@ void	parse(char *line, t_info *info, char **envp)
 	info->token = ft_split(line, ' ');
 	token = lexer_main(line);
 	node = parser(token);
-	printf("node = [%s]\n", node->data[0]);
-	execute_command(node->data[0], node->data, envp);
-	if (node == NULL)
-		printf("no data node\n");
-	// child_process(*info, envp, node);
+	child_process(*info, envp, node);
 	free_info_token(info);
 }
