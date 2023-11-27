@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
+#    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/27 18:34:18 by kotainou         ###   ########.fr        #
+#    Updated: 2023/11/27 19:49:52 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME = minishell
 CC = gcc
 INCLUDES_DIR = ./includes
-INC	=	$(addprefix -I,$(INCLUDES_DIR)) -I$(RL_INCDIR)
+INC	=	$(addprefix -I,$(INCLUDES_DIR)) -I $(RL_INCDIR)
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR)
 # CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -g -fsanitize=address
 RM = rm
@@ -56,6 +56,16 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 LIBFTDIR	=	libft
 LIBFT		=	func/$(LIBFTDIR)/libft.a
 LIB			=	$(LIBFT)
+
+UNAME = $(shell uname)
+
+RL_NAME = readline
+ifeq ($(UNAME),Darwin)
+	RL_DIR = $(shell brew --prefix readline)
+	RL_LIBDIR = $(addprefix $(RL_DIR)/,lib)
+	RL_INCDIR = $(addprefix $(RL_DIR)/,include)
+endif
+
 
 all: $(NAME)
 
