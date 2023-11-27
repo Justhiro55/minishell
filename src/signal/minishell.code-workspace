@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../.."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"exec.h": "c",
+			"minishell.h": "c",
+			"libft.h": "c",
+			"history.h": "c",
+			"unistd.h": "c",
+			"lexer.h": "c",
+			"parser.h": "c"
+		}
+	}
+}

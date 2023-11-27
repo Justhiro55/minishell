@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/24 18:32:04 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:25:01 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ typedef struct s_redirects	t_redirects;
 
 typedef struct s_node		t_node;
 
+typedef struct s_info
+{
+	char			**token;
+	struct s_env	*env;
+}					t_info;
+
 typedef struct s_env
 {
 	char					*key;
@@ -40,6 +46,8 @@ typedef struct s_env
 # define EXIT_FAILURE_FORK 4
 # define EXIT_FAILURE_MALLOC 5
 # define EXIT_FAILURE_DUP 6
+
+void						parse(char *line, t_info *info, char **envp);
 
 int							ft_exec(char **command, char **envp, t_info *info,
 								t_node *node);
