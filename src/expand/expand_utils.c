@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:06:26 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/28 15:21:20 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:36:34 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	is_variable(char **dst, char **rest, char *p, t_env *env)
 		if (is_alpha_under(**rest))
 		{
 			value = ft_strdup(get_env(*rest, env));
-			printf("value: %s\n", value);
 			if (value)
 			{
 				while (*value != '\0' && is_alpha_under(*value))
