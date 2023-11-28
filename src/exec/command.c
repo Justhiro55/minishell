@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/25 14:09:17 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:30:51 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	exec_pipe(t_info info, char **envp, t_node *node)
 	waitpid(parent2, NULL, 0);
 }
 
+void	expand_variable(t_node *node, t_env *env);
+
 void	child_process(t_info info, char **envp, t_node *node)
 {
 	int	stdin_backup;
@@ -76,6 +78,7 @@ void	child_process(t_info info, char **envp, t_node *node)
 		exec_pipe(info, envp, node);
 	else
 	{
+		expand_variable(node, info.env);
 		handle_redirections_for_child(node, node->redirects);
 		ft_exec(node->data, envp, &info, node);
 	}
