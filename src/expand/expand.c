@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:13:34 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/28 15:34:14 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:30:14 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int		is_variable(char **dst, char **rest, char *p, t_env *env);
+int		is_variable(char **dst, char **rest, char *p, t_info *info);
 
-void	append_double_quote(char **dst, char **rest, char *p, t_env *env)
+void	append_double_quote(char **dst, char **rest, char *p, t_info *info)
 {
 	if (*p == '\"')
 	{
@@ -22,7 +22,7 @@ void	append_double_quote(char **dst, char **rest, char *p, t_env *env)
 		while (**rest && **rest != '\"')
 		{
 			if (**rest == '$')
-				is_variable(dst, rest, p, env);
+				is_variable(dst, rest, p, info);
 			else
 				append_char(dst, *((*rest)++));
 		}
@@ -43,12 +43,11 @@ void	append_single_quote(char **dst, char **rest, char *p)
 	}
 }
 
-void	expand_variable_tok(char **str, t_env *env)
+void	expand_variable_tok(char **str, t_info *info)
 {
 	char	*new_word;
 	char	*p;
 
-	(void)env;
 	if (*str == NULL)
 		return ;
 	p = *str;
@@ -61,7 +60,7 @@ void	expand_variable_tok(char **str, t_env *env)
 			append_single_quote(&new_word, &p, p);
 		else if (*p == '$')
 		{
-			is_variable(&new_word, &p, p, env);
+			is_variable(&new_word, &p, p, info);
 			p += ft_strlen(new_word);
 		}
 		else
@@ -71,7 +70,7 @@ void	expand_variable_tok(char **str, t_env *env)
 	*str = new_word;
 }
 
-void	expand_variable(t_node *node, t_env *env)
+void	expand_variable(t_node *node, t_info *info)
 {
 	int			i;
 	t_redirects	*redirects;
@@ -81,11 +80,11 @@ void	expand_variable(t_node *node, t_env *env)
 	if (node == NULL)
 		return ;
 	while (node->data[i] != NULL)
-		expand_variable_tok(&(node->data[i++]), env);
+		expand_variable_tok(&(node->data[i++]), info);
 	while (redirects != NULL)
 	{
 		if (redirects != NULL && redirects->type != REDIRECT_HEREDOC)
-			expand_variable_tok(&redirects->filename, env);
+			expand_variable_tok(&redirects->filename, info);
 		redirects = redirects->next;
 	}
 	redirects = node->redirects;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:06:26 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/28 15:36:34 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:30:33 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*get_env(char *key, t_env *env)
 	return (NULL);
 }
 
-int	is_variable(char **dst, char **rest, char *p, t_env *env)
+int	is_variable(char **dst, char **rest, char *p, t_info *info)
 {
 	char	*value;
 
@@ -64,20 +64,20 @@ int	is_variable(char **dst, char **rest, char *p, t_env *env)
 		(*rest)++;
 		if (is_alpha_under(**rest))
 		{
-			value = ft_strdup(get_env(*rest, env));
+			value = ft_strdup(get_env(*rest, info->env));
 			if (value)
 			{
 				while (*value != '\0' && is_alpha_under(*value))
 					append_char(dst, *(value++));
-				return (1);
 			}
 		}
-		// else if (**rest == '?')
-		// {
-		// 	*rest += 1;
-		// 	append_str(dst, ft_itoa(g_exit_status));
-		// 	return (1);
-		// }
+		else if (**rest == '?')
+		{
+			*rest += 1;
+			value = ft_itoa(info->status);
+			while (*value != '\0')
+				append_char(dst, *(value++));
+		}
 		else
 			append_char(dst, '$');
 	}

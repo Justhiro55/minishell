@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:29:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/24 18:33:12 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:10:28 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	execute_command(char *command_path, char **tokens, char **envp)
 	}
 	else
 	{
-		wait(&status);
-		return (0);
+		waitpid(parent, &status, 0);
+		return (status != 0);
 	}
 }

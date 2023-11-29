@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/27 18:22:00 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/29 14:59:58 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	set_env(t_info *info, char **envp)
 
 	first = NULL;
 	last = NULL;
+	info->status = 0;
 	info->env = NULL;
 	while (*envp != NULL)
 	{
