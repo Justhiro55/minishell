@@ -13,7 +13,9 @@
 #include "minishell.h"
 #include "sig.h" 
 
-#include <readline/readline.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 
 // void	sigint_handler_in_process(int sig)
@@ -32,7 +34,7 @@ void	sigint_handler_nonl(int sig)
 {
 	rl_on_new_line();
 	write(STDOUT_FILENO, "\n", 1);
-	// rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 	(void) sig;
 }

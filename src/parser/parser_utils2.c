@@ -45,11 +45,9 @@ char	*check_text(char *text)
 {
 	size_t	i;
 	int		flag;
-	int		quote_num;
 
 	i = 0;
 	flag = 0;
-	quote_num = 0;
 	while (i < ft_strlen(text))
 	{
 		if (flag == 0 && (text[i] == '"' || text[i] == '\''))
@@ -65,7 +63,6 @@ char	*check_text(char *text)
 				&& text[i] == '\''))
 		{
 			flag = 0;
-			quote_num += 2;
 		}
 		i++;
 	}

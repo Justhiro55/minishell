@@ -10,14 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
-#rl_replace_lineが使えるようにmakefileを修正する
 
 NAME = minishell
-CC = gcc
+CC = cc
 INCLUDES_DIR = ./includes
 INC	=	$(addprefix -I,$(INCLUDES_DIR)) -I $(RL_INCDIR)
-CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR)
-# CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(RL_INCDIR)
+LDFLAGS = -L $(RL_LIBDIR) -lreadline
+# CFLAGS += -g -fsanitize=address
+
 RM = rm
 RMFLAGS = -f
 SRC = src/main.c \
@@ -90,7 +91,7 @@ $(OBJ_DIR)/%.o: src/signal/%.c
 $(NAME): $(OBJ)
 	@printf "\e[38;5;82m----Compiling libft----\e[0m\n"
 	@make -C func/${LIBFTDIR}
-	@$(CC) -lreadline ${LIB} ${GNL} $(OBJ) -L .brew/Cellar/readline/8.2.7/lib/libreadline.a -I .brew/opt/readline/include -o $(NAME)
+	@$(CC) $(OBJ) $(LIBFT) $(LDFLAGS) -o $(NAME)
 	@printf "\e[38;5;82m  minishell Compiled🚀\e[0m\n\n"
 
 clean: 

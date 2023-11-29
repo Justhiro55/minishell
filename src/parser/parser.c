@@ -16,9 +16,7 @@ t_node	*expr(t_now_token *ntk)
 {
 	t_node	*node;
 	char	*op;
-	int		i;
 
-	i = 0;
 	node = cmd(ntk);
 	while (1)
 	{
@@ -33,16 +31,12 @@ t_node	*expr(t_now_token *ntk)
 		}
 		else
 			return (node);
-		i++;
 	}
 	return (node);
 }
 
 t_node	*cmd(t_now_token *ntk)
 {
-	char	*cmd;
-
-	cmd = ft_strdup(ntk->now->str);
 	if (ntk->now->next != NULL && ft_strncmp(ntk->now->next->str, "|", 1) != 0)
 	{
 		return (new_node_cmdname(ntk));

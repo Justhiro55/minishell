@@ -77,13 +77,9 @@ void	clear_tokeniser(t_tokeniser *tk)
 t_token	*lexer_main(char *line)
 {
 	t_tokeniser	*tokeniser;
-	size_t		i;
-	int			flag;
 	t_token		*token;
 
 	(void)line;
-	i = 0;
-	flag = 0;
 	tokeniser = init_tokeniser();
 	tokeniser->str_i = 0;
 	while (line[tokeniser->str_i] != '\0')

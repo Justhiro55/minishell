@@ -24,9 +24,7 @@ void	output_syntax_error(int i)
 
 void	check_rd(t_token *head, int rd_flag)
 {
-	t_token	*tmp;
-
-	tmp = head;
+	(void)head;
 	if (rd_flag > 0)
 		output_syntax_error(1);
 }
