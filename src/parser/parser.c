@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/27 19:39:10 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:28:05 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ t_node	*parser(t_token *token)
 	ntk = ft_calloc(1, sizeof(t_now_token));
 	ntk->now = token;
 	node = expr(ntk);
-	clear_token(token);
+	// clear_token(token);
 	return (node);
 }
