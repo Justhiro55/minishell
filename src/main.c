@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/29 15:31:14 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:24:39 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	minishell(char **envp)
 
 	line = NULL;
 	set_env(&info, envp);
+	// setup_signals();
 	while (1)
 	{
 		line = readline("$> ");

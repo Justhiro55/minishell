@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:13:34 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/29 15:30:14 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:43:33 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		is_variable(char **dst, char **rest, char *p, t_info *info);
 
-void	append_double_quote(char **dst, char **rest, char *p, t_info *info)
+int	append_double_quote(char **dst, char **rest, char *p, t_info *info)
 {
 	if (*p == '\"')
 	{
@@ -22,13 +22,17 @@ void	append_double_quote(char **dst, char **rest, char *p, t_info *info)
 		while (**rest && **rest != '\"')
 		{
 			if (**rest == '$')
-				is_variable(dst, rest, p, info);
+			{
+				if (is_variable(dst, rest, p, info) == -1)
+					return (-1);
+			}
 			else
 				append_char(dst, *((*rest)++));
 		}
 		if (**rest == '\"')
 			(*rest)++;
 	}
+	return (0);
 }
 
 void	append_single_quote(char **dst, char **rest, char *p)
@@ -57,11 +61,21 @@ void	expand_variable_tok(char **str, t_info *info)
 	while (*p && !is_metacharacter(*p))
 	{
 		if (*p == '\'')
+		{
 			append_single_quote(&new_word, &p, p);
+			p += ft_strlen(p);
+		}
+		if (*p == '\"')
+		{
+			append_double_quote(&new_word, &p, p, info);
+			p += ft_strlen(p);
+		}
 		else if (*p == '$')
 		{
 			is_variable(&new_word, &p, p, info);
-			p += ft_strlen(new_word);
+			while (*p != '\0' && *p != '\"' && *p != '$')
+				p++;
+			// p += ft_strlen(new_word);
 		}
 		else
 			append_char(&new_word, *p++);
@@ -87,5 +101,4 @@ void	expand_variable(t_node *node, t_info *info)
 			expand_variable_tok(&redirects->filename, info);
 		redirects = redirects->next;
 	}
-	redirects = node->redirects;
 }

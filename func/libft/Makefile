@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
+#    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 15:17:46 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/10/18 18:21:35 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/11/25 22:37:53 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ endif
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm
 RMFLAGS = -f
 LIBC  = ar rc

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/24 19:01:49 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:52:11 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,26 @@ t_node	*expr(t_now_token *ntk)
 
 t_node	*cmd(t_now_token *ntk)
 {
-	char	*cmd;
-
-	cmd = ft_strdup(ntk->now->str);
 	if (ntk->now->next != NULL && ft_strncmp(ntk->now->next->str, "|", 1) != 0)
 	{
 		return (new_node_cmdname(ntk));
 	}
 	return (new_node_cmd(ntk));
+}
+
+void	clear_token(t_token *token)
+{
+	t_token	*now;
+	t_token	*next;
+
+	now = token;
+	while (now != NULL)
+	{
+		next = now->next;
+		free(now->str);
+		free(now);
+		now = next;
+	}
 }
 
 t_node	*parser(t_token *token)
@@ -55,5 +67,6 @@ t_node	*parser(t_token *token)
 	ntk = ft_calloc(1, sizeof(t_now_token));
 	ntk->now = token;
 	node = expr(ntk);
+	clear_token(token);
 	return (node);
 }

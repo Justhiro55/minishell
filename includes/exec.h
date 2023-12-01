@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/29 15:03:03 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:48:57 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ typedef struct s_redirects	t_redirects;
 
 typedef struct s_node		t_node;
 
+// typedef struct s_info
+// {
+// 	char			**token;
+// 	struct s_env	*env;
+// }					t_info;
+
+typedef struct s_info
+{
+	int						status;
+	char					**token;
+	struct s_env			*env;
+}							t_info;
+
 typedef struct s_env
 {
 	char					*key;
@@ -40,6 +53,8 @@ typedef struct s_env
 # define EXIT_FAILURE_FORK 4
 # define EXIT_FAILURE_MALLOC 5
 # define EXIT_FAILURE_DUP 6
+
+void						parse(char *line, t_info *info, char **envp);
 
 int							ft_exec(char **command, char **envp, t_info *info,
 								t_node *node);
@@ -58,7 +73,8 @@ t_env						*command_export(char **token, t_info *info);
 void						command_ls(const char *dir_path);
 
 //redirect
-int	child_process(t_info info, char **envp, t_node *node);
+int							child_process(t_info info, char **envp,
+								t_node *node);
 
 ;
 void						execute_parent_process(t_info info, char **envp,
@@ -68,8 +84,8 @@ void						execute_child_process(t_info info, char **envp,
 void						execute_process(t_info info, char **envp,
 								t_node *node, int *fd);
 void						here_doc_mock(char *delimiter);
-void						restore_stdin_stdout(int stdin_backup,
-								int stdout_backup);
+void	restore_stdin_stdout(int stdin_backup,
+							int stdout_backup);
 
 //set
 void						set_node(t_node *node);

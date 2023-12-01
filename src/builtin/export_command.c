@@ -80,7 +80,6 @@ int	export_one_arg(t_info *info)
 t_env	*command_export(char **token, t_info *info)
 {
 	t_env	*new_node;
-	t_env	*temp_env;
 
 	if (token[1] == NULL)
 	{
@@ -95,7 +94,6 @@ t_env	*command_export(char **token, t_info *info)
 	new_node = env_lstnew(token[1]);
 	if (!new_node)
 		return (info->env);
-	temp_env = info->env;
 	if (export_node(info, *new_node) == 0)
 		env_add_back(info, new_node);
 	return (info->env);

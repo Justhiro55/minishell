@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:06:26 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/29 15:30:33 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:42:30 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,43 @@ int	is_metacharacter(char c)
 
 char	*get_env(char *key, t_env *env)
 {
-	if (key == NULL)
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	tmp = ft_strdup(key);
+	if (tmp == NULL)
 		return (NULL);
+	while (tmp[i] != '\0' && tmp[i] != '\"' && tmp[i] != '$')
+		i++;
+	tmp[i] = '\0';
 	while (env != NULL)
 	{
-		if (ft_strcmp(env->key, key) == 0)
+		if (ft_strcmp(env->key, tmp) == 0)
+		{
+			free(tmp);
 			return (env->value);
+		}
 		env = env->next;
 	}
+	free(tmp);
 	return (NULL);
 }
 
 int	is_variable(char **dst, char **rest, char *p, t_info *info)
 {
 	char	*value;
+	int		num;
 
-	if (*p == '$')
+	(void)p;
+	num = 1;
+	if (**rest == '$')
 	{
 		(*rest)++;
 		if (is_alpha_under(**rest))
 		{
+			if (get_env(*rest, info->env) == NULL)
+				return (-1);
 			value = ft_strdup(get_env(*rest, info->env));
 			if (value)
 			{
@@ -81,5 +98,5 @@ int	is_variable(char **dst, char **rest, char *p, t_info *info)
 		else
 			append_char(dst, '$');
 	}
-	return (0);
+	return (num);
 }
