@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:55:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/24 18:35:58 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:18:09 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,27 @@ void	free_redirects(t_redirects *redirects)
 	{
 		current = redirects;
 		redirects = redirects->next;
-		free(current->filename);
+		if (current->filename != NULL)
+			free(current->filename);
 		free(current);
 	}
 }
 
 void	free_node(t_node *node)
 {
+	int	i;
+
+	i = 0;
 	if (node)
 	{
+		while (node->data[i] != NULL && i < (int)node->row_size)
+		{
+			free(node->data[i]);
+			i++;
+		}
 		free(node->data);
-		free_redirects(node->redirects);
+		if (node->redirects != NULL)
+			free_redirects(node->redirects);
 		free_node(node->left);
 		free_node(node->right);
 		free(node);
