@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/25 14:09:17 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:38:31 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,19 @@ void	child_process(t_info info, char **envp, t_node *node)
 	ft_dup2(stdout_backup, STDOUT_FILENO);
 }
 
+void	deb_printf(t_node *node)
+{
+	printf("deb node [%s]\n", node->data[0]);
+}
+
 void	parse(char *line, t_info *info, char **envp)
 {
 	t_node	*node;
+	t_token *token;
 
 	info->token = ft_split(line, ' ');
-	node = parser(lexer_main(line));
+	token = lexer_main(line);
+	node = parser(token);
 	child_process(*info, envp, node);
 	free_info_token(info);
-	free_node(node);
 }
