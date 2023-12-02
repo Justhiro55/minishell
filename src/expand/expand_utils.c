@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:06:26 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/02 18:43:53 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:53:32 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	*get_env(char *key, t_env *env)
 int	is_variable(char **dst, char **rest, char *p, t_info *info)
 {
 	char	*value;
+	char	*value_iter;
 	int		num;
 
 	(void)p;
@@ -83,15 +84,24 @@ int	is_variable(char **dst, char **rest, char *p, t_info *info)
 				return (-1);
 			value = ft_strdup(get_env(*rest, info->env));
 			if (value)
-				while (*value != '\0')
-					append_char(dst, *(value++));
+			{
+				value_iter = value;
+				while (*value_iter != '\0')
+					append_char(dst, *(value_iter++));
+				free(value);
+			}
 		}
 		else if (**rest == '?')
 		{
 			*rest += 1;
 			value = ft_itoa(info->status);
-			while (*value != '\0')
-				append_char(dst, *(value++));
+			if (value)
+			{
+				value_iter = value;
+				while (*value_iter != '\0')
+					append_char(dst, *(value_iter++));
+				free(value);
+			}
 		}
 		else
 			append_char(dst, '$');

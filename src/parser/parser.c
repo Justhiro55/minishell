@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/01 16:52:11 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 20:01:12 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,11 @@ t_node	*parser(t_token *token)
 	t_node		*node;
 
 	ntk = ft_calloc(1, sizeof(t_now_token));
+	if (ntk == NULL)
+		return (NULL);
 	ntk->now = token;
 	node = expr(ntk);
 	clear_token(token);
+	free(ntk);
 	return (node);
 }

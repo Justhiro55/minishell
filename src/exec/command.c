@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/01 16:45:23 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 20:13:38 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	handle_redirections_for_child(t_node *node, t_redirects *redirects);
 void	free_redirects(t_redirects *redirects);
 void	free_node(t_node *node);
 void	free_info(t_info *info);
-void	free_info_token(t_info *info);
 
 void	exec_left_node(t_info info, char **envp, t_node *node, int *pipefd)
 {
@@ -97,17 +96,13 @@ int	child_process(t_info info, char **envp, t_node *node)
 	return (status != 0);
 }
 
-void	deb_printf(t_node *node)
-{
-	printf("deb node [%s]\n", node->data[0]);
-}
-
 void	parse(char *line, t_info *info, char **envp)
 {
 	t_node	*node;
 
-	info->token = ft_split(line, ' ');
 	node = parser(lexer_main(line));
+	add_history(line);
+	free(line);
 	info->status = child_process(*info, envp, node);
-	free_info_token(info);
+	free_node(node);
 }

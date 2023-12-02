@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/01 16:48:57 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:03:57 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,9 @@ typedef struct s_redirects	t_redirects;
 
 typedef struct s_node		t_node;
 
-// typedef struct s_info
-// {
-// 	char			**token;
-// 	struct s_env	*env;
-// }					t_info;
-
 typedef struct s_info
 {
 	int						status;
-	char					**token;
 	struct s_env			*env;
 }							t_info;
 

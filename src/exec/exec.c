@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/29 15:31:44 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:27:54 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	search_and_execute_command(char *command_name, char **tokens, char **envp,
 	}
 	return (result);
 }
+void	env_lstclear(t_env **lst);
 
 int	execute_command_from_path(char **command, char **envp, t_info *info,
 		t_node *node)

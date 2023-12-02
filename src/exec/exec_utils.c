@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:29:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/29 15:10:28 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:28:52 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ int	execute_command(char *command_path, char **tokens, char **envp)
 
 	parent = ft_fork();
 	if (!parent)
-	{
 		exit(execve(command_path, tokens, envp));
-	}
 	else
 	{
 		waitpid(parent, &status, 0);

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:55:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/25 14:18:09 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:30:55 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,29 +80,11 @@ void	free_env_list(t_env *env)
 	}
 }
 
-void	free_info_token(t_info *info)
-{
-	int	i;
-
-	if (info->token)
-	{
-		i = 0;
-		while (info->token[i] != NULL)
-		{
-			free(info->token[i]);
-			i++;
-		}
-		free(info->token);
-		info->token = NULL;
-	}
-}
-
 void	free_info(t_info *info)
 {
 	if (info)
 	{
 		env_lstclear(&info->env);
-		free_info_token(info);
 	}
 }
 
