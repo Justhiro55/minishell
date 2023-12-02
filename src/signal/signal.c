@@ -6,16 +6,13 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:20:55 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/01 20:21:24 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/02 11:48:18 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sig.h" 
+#include "sig.h"
 
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-
+volatile sig_atomic_t	g_signal = 0;
 
 void	sigint_handler_in_process(int sig)
 {

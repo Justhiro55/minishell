@@ -6,11 +6,14 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:21:54 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/01 20:21:55 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/02 11:19:04 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef SIG_H
+# define SIG_H
+
+# include "minishell.h"
 
 # include <signal.h>
 # include <readline/history.h>
@@ -19,3 +22,5 @@
 # include <stdlib.h>
 
 void				setup_signals(void);
+
+#endif

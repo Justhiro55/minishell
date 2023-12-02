@@ -6,13 +6,12 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:50:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/27 00:15:59 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/02 11:29:13 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
-
 
 # include "./token.h"
 # include "../func/libft/libft.h"
@@ -22,8 +21,7 @@
 # include "./parser.h"
 # include <stddef.h>
 
-typedef struct s_token t_token;
-
+typedef struct s_token	t_token;
 
 typedef struct s_tokeniser
 {
@@ -53,6 +51,6 @@ void		switch_quote_state(t_tokeniser *lex, char c);
 void		check_syntax(t_token *token);
 
 //token_utils.c
-t_token	*init_token(void);
+t_token		*init_token(void);
 
 #endif

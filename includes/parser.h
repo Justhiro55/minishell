@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:58 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/27 19:20:39 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 11:29:27 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 # include "./lexer.h"
 # include "./minishell.h"
 
-typedef struct s_token t_token; // 既存の宣言に合わせて型名を指定
-
+typedef struct s_token	t_token;
 
 typedef enum e_redirect_type
 {
@@ -56,7 +55,6 @@ typedef struct s_node
 	struct s_node	*left;
 }					t_node;
 
-
 t_node					*parser(t_token *token);
 typedef struct s_now_token
 {
@@ -65,6 +63,8 @@ typedef struct s_now_token
 
 //parser
 t_node					*cmd(t_now_token *ntk);
+t_redirects				*new_list_redirect(t_node *node, t_now_token *ntk);
+size_t					count_word_rd(t_now_token *ntk);
 
 //redirect
 int						is_redirect(t_now_token *ntk);

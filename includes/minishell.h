@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/27 13:24:43 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/02 11:17:13 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@
 # define EXIT_FAILURE_FORK 4
 # define EXIT_FAILURE_MALLOC 5
 
-struct s_env;
+// struct s_env;
 
 void				minishell(char **envp);
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
+#    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/27 19:49:52 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/12/02 11:15:29 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC = src/main.c \
 		src/lexer/syntax_error.c \
 		src/parser/parser.c \
 		src/parser/parser_redirect.c \
+		src/parser/parser_redirect_utils.c \
 		src/parser/parser_utils.c \
 		src/parser/parser_utils2.c \
 		src/signal/signal.c

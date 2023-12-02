@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:13:00 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/27 00:19:09 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/02 11:13:51 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,6 @@ int	is_redirect(t_now_token *ntk)
 	}
 	free(op);
 	return (0);
-}
-
-size_t	count_word_rd(t_now_token *ntk)
-{
-	t_token *token;
-	size_t	count;
-
-	count = 0;
-	token = ntk->now;
-	while (token->next != NULL && ntk->now->str[0] == '-')
-	{
-		count++;
-		token = token->next;
-	}
-	if (count == 0)
-		count = 1;
-	return (count);
 }
 
 t_node	*redirect_add_cmd(t_now_token *ntk, t_node *node)
@@ -116,14 +99,7 @@ t_node	*new_node_redirect(t_node *node, t_now_token *ntk)
 	char		*filename;
 	int			type;
 
-	redirect = ft_calloc(1, sizeof(t_redirects));
-	redirect->fd_backup = ft_dup(STDIN_FILENO);
-	node->redirects = redirect;
-	redirect->type = is_redirect(ntk);
-	ntk->now = ntk->now->next;
-	redirect->filename = ft_strdup(ntk->now->str);
-	ntk->now = ntk->now->next;
-	redirect->next = NULL;
+	redirect = new_list_redirect(node, ntk);
 	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0)
 	{
 		if (!is_redirect(ntk))
