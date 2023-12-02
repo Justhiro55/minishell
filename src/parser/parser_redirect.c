@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:13:00 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/25 21:13:11 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/27 00:19:09 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ t_redirects	*add_redirect(int type, char *filename, t_redirects *redirect)
 	t_redirects	*last;
 
 	add_rd = ft_calloc(1, sizeof(t_redirects));
-	// if (redirect->filename != NULL)
 	last = last_list(redirect);
 	last->next = add_rd;
 	add_rd->next = NULL;
@@ -128,9 +127,7 @@ t_node	*new_node_redirect(t_node *node, t_now_token *ntk)
 	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0)
 	{
 		if (!is_redirect(ntk))
-		{
 			redirect_add_cmd(ntk, node);
-		}
 		if (ntk->now == NULL || ft_strncmp(ntk->now->str, "|", 1) == 0)
 			break ;
 		type = is_redirect(ntk);
@@ -138,8 +135,7 @@ t_node	*new_node_redirect(t_node *node, t_now_token *ntk)
 		filename = ft_strdup(ntk->now->str);
 		ntk->now = ntk->now->next;
 		add_redirect(type, filename, redirect);
-		// printf(""re);
 	}
 	redirect_add_cmd(ntk, node);
-	return	(node);
+	return (node);
 }

@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:08:11 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/25 19:26:39 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:27:38 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ void	output_syntax_error(int i)
 
 void	check_rd(t_token *head, int rd_flag)
 {
-	t_token	*tmp;
-
-	tmp = head;
+	(void)head;
 	if (rd_flag > 0)
 		output_syntax_error(1);
 }
@@ -59,8 +57,6 @@ void	check_syntax(t_token *token)
 	head = token;
 	meta_flag = 0;
 	rd_flag = 0;
-	if (head->str != NULL)
-	printf("[%s]\n", head->str);
 	while (head->next != NULL)
 	{
 		if (head->type & PIPE)

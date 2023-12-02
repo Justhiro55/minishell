@@ -36,9 +36,7 @@ void	here_doc_mock(char *delimiter)
 void	here_doc_fork(t_redirects *redirects)
 {
 	pid_t		parent;
-	t_redirects	*tmp;
 
-	tmp = redirects;
 	parent = fork();
 	if (!parent)
 	{

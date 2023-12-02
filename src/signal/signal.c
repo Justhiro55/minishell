@@ -5,13 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 16:42:03 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/01 16:42:42 by kotainou         ###   ########.fr       */
+/*   Created: 2023/12/01 20:20:55 by kotainou          #+#    #+#             */
+/*   Updated: 2023/12/01 20:21:24 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "sig.h" 
+
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+
 
 void	sigint_handler_in_process(int sig)
 {
@@ -47,6 +51,6 @@ void	setup_signals(void)
 {
 	if (signal(SIGINT, sigint_handler_nonl) == SIG_ERR)
 		exit(EXIT_FAILURE);
-// 	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
-// 		exit(EXIT_FAILURE);
+	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
+		exit(EXIT_FAILURE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:15:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/24 14:49:54 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/11/27 00:12:59 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,4 @@ void	clear_list(t_token *token)
 		p = next;
 	}
 	free(p);
-}
-
-t_token	*init_token(void)
-{
-	t_token	*token;
-
-	token = malloc(sizeof(t_token));
-	if (token == NULL)
-		exit(1);
-	ft_memset(token, 0, sizeof(t_token));
-	return (token);
 }

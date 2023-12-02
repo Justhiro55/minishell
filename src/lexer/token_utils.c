@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig.h                                              :+:      :+:    :+:   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 20:21:54 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/01 20:21:55 by kotainou         ###   ########.fr       */
+/*   Created: 2023/11/27 00:12:19 by kotainou          #+#    #+#             */
+/*   Updated: 2023/11/27 00:16:27 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/lexer.h"
 
-# include <signal.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <unistd.h>
-# include <stdlib.h>
+t_token	*init_token(void)
+{
+	t_token	*token;
 
-void				setup_signals(void);
+	token = malloc(sizeof(t_token));
+	if (token == NULL)
+		exit(1);
+	ft_memset(token, 0, sizeof(t_token));
+	return (token);
+}

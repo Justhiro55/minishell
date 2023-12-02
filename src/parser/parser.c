@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/25 19:51:36 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:28:05 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ t_node	*expr(t_now_token *ntk)
 
 t_node	*cmd(t_now_token *ntk)
 {
-	char	*cmd;
-
-	cmd = ft_strdup(ntk->now->str);
 	if (ntk->now->next != NULL && ft_strncmp(ntk->now->next->str, "|", 1) != 0)
 	{
 		return (new_node_cmdname(ntk));
@@ -49,7 +46,7 @@ t_node	*cmd(t_now_token *ntk)
 
 void	clear_token(t_token *token)
 {
-	t_token *now;
+	t_token	*now;
 	t_token	*next;
 
 	now = token;
@@ -70,7 +67,6 @@ t_node	*parser(t_token *token)
 	ntk = ft_calloc(1, sizeof(t_now_token));
 	ntk->now = token;
 	node = expr(ntk);
-	clear_token(token);
-	printf("node = [%s]\n", node->data[0]);
+	// clear_token(token);
 	return (node);
 }
