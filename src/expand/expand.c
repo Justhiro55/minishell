@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:13:34 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/01 19:43:33 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:41:30 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int	append_double_quote(char **dst, char **rest, char *p, t_info *info)
 			{
 				if (is_variable(dst, rest, p, info) == -1)
 					return (-1);
+				while (**rest != '\0' && **rest != '\"')
+					(*rest)++;
+				// (*rest)++;
 			}
 			else
 				append_char(dst, *((*rest)++));
@@ -37,6 +40,7 @@ int	append_double_quote(char **dst, char **rest, char *p, t_info *info)
 
 void	append_single_quote(char **dst, char **rest, char *p)
 {
+	// printf("before\ndst:%s, rest:%s\n", *dst, *rest);
 	if (*p == '\'')
 	{
 		(*rest)++;
@@ -45,6 +49,7 @@ void	append_single_quote(char **dst, char **rest, char *p)
 		if (**rest == '\'')
 			(*rest)++;
 	}
+	// printf("after\ndst:%s, rest:%s\n", *dst, *rest);
 }
 
 void	expand_variable_tok(char **str, t_info *info)
@@ -63,19 +68,19 @@ void	expand_variable_tok(char **str, t_info *info)
 		if (*p == '\'')
 		{
 			append_single_quote(&new_word, &p, p);
-			p += ft_strlen(p);
+			// p += ft_strlen(p);
 		}
-		if (*p == '\"')
+		else if (*p == '\"')
 		{
 			append_double_quote(&new_word, &p, p, info);
-			p += ft_strlen(p);
+			// while (*p != '\0' && *p != '\"' && *p != '$' && *p != '\'')
+			// 	p++;
 		}
 		else if (*p == '$')
 		{
 			is_variable(&new_word, &p, p, info);
-			while (*p != '\0' && *p != '\"' && *p != '$')
+			while (*p != '\0' && *p != '\"' && *p != '$' && *p != '\'')
 				p++;
-			// p += ft_strlen(new_word);
 		}
 		else
 			append_char(&new_word, *p++);

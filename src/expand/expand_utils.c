@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:06:26 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/01 19:42:30 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:23:48 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,8 @@ int	is_variable(char **dst, char **rest, char *p, t_info *info)
 				return (-1);
 			value = ft_strdup(get_env(*rest, info->env));
 			if (value)
-			{
-				while (*value != '\0' && is_alpha_under(*value))
+				while (*value != '\0')
 					append_char(dst, *(value++));
-			}
 		}
 		else if (**rest == '?')
 		{
