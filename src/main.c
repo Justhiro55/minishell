@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/01 16:29:29 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/02 20:12:49 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,12 @@ void	minishell(char **envp)
 
 	line = NULL;
 	set_env(&info, envp);
-	setup_signals();
+	// setup_signals();
 	while (1)
 	{
 		line = readline("$> ");
 		if (line != NULL && strlen(line) != 0 && line[0] != '\0')
 			parse(line, &info, envp);
-		add_history(line);
-		free(line);
 		// if (signal(SIGINT, sig_int_input) == SIG_ERR)
 		// {
 		// 	ft_putstr_fd(strerror(errno), STDERR);

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/02 20:26:14 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:38:30 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ t_env	*env_lstnew(char *envp)
 	if (new_node)
 	{
 		content = ft_split(envp, '=');
-		new_node->key = content[0];
+		new_node->key = strdup(content[0]);
 		if (content[1] == NULL)
-			new_node->value = "";
+			new_node->value = strdup("");
 		else
-			new_node->value = content[1];
+			new_node->value = strdup(content[1]);
 		new_node->next = NULL;
+		ft_free_array(content);
 	}
 	return (new_node);
 }
@@ -62,6 +63,7 @@ void	set_env(t_info *info, char **envp)
 	t_env	*new_node;
 
 	last = NULL;
+	info->status = 0;
 	info->env = NULL;
 	while (*envp != NULL)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/27 13:25:01 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:03:57 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ typedef struct s_node		t_node;
 
 typedef struct s_info
 {
-	char			**token;
-	struct s_env	*env;
-}					t_info;
+	int						status;
+	struct s_env			*env;
+}							t_info;
 
 typedef struct s_env
 {
@@ -66,8 +66,9 @@ t_env						*command_export(char **token, t_info *info);
 void						command_ls(const char *dir_path);
 
 //redirect
-void						child_process(t_info info, char **envp,
+int							child_process(t_info info, char **envp,
 								t_node *node);
+
 ;
 void						execute_parent_process(t_info info, char **envp,
 								t_node *node, int *fd);
@@ -76,8 +77,8 @@ void						execute_child_process(t_info info, char **envp,
 void						execute_process(t_info info, char **envp,
 								t_node *node, int *fd);
 void						here_doc_mock(char *delimiter);
-void						restore_stdin_stdout(int stdin_backup,
-								int stdout_backup);
+void	restore_stdin_stdout(int stdin_backup,
+							int stdout_backup);
 
 //set
 void						set_node(t_node *node);
@@ -107,5 +108,8 @@ void						ft_dup2(int old_fd, int new_fd);
 void						ft_pipe(int fd[2]);
 pid_t						ft_fork(void);
 void						here_doc_fork(t_redirects *redirects);
+void						append_char(char **s, char c);
+int							is_alpha_under(char c);
+int							is_metacharacter(char c);
 
 #endif

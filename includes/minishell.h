@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/27 13:24:43 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:48:51 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../func/libft/libft.h"
+# include "./exec.h"
+# include "./lexer.h"
+# include "./token.h"
 # include "lexer.h"
 # include "parser.h"
 # include <dirent.h>
@@ -32,11 +36,6 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-# include "../func/libft/libft.h"
-# include "./exec.h"
-# include "./lexer.h"
-# include "./token.h"
-
 // typedef struct s_info
 // {
 // 	char			**token;
@@ -55,6 +54,8 @@
 # define EXIT_FAILURE_MALLOC 5
 
 struct s_env;
+
+# include "exec.h"
 
 void				minishell(char **envp);
 

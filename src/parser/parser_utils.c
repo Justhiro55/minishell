@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/27 19:36:46 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:46:39 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ size_t	count_word(t_now_token *ntk)
 		count++;
 	return (count);
 }
+
+char	*check_text(char *text);
 
 t_node	*new_node_cmdname(t_now_token *ntk)
 {

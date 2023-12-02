@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/27 19:49:52 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/12/01 16:48:16 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,8 @@ SRC = src/main.c \
 		src/parser/parser_redirect.c \
 		src/parser/parser_utils.c \
 		src/parser/parser_utils2.c \
+		src/expand/expand.c \
+		src/expand/expand_utils.c \
 		src/signal/signal.c
 
 OBJ_DIR = obj
@@ -73,6 +75,9 @@ all: $(NAME)
 $(OBJ_DIR)/%.o: src/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJ_DIR)/%.o: src/expand/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+	
 $(OBJ_DIR)/%.o: src/exec/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
