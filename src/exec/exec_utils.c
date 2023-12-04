@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:29:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/02 19:28:52 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:54:48 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	builtin_command(char **command, t_info *info, t_node *node)
 		command_env(command, *info);
 	else if (ft_strcmp(command[0], "export") == 0)
 		command_export(command, info);
+	else if (ft_strcmp(command[0], "unset") == 0)
+		command_unset(command, info);
 	else
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:06:26 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/02 19:53:32 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/04 13:01:18 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	append_char(char **s, char c)
 	*s = new;
 }
 
-int	is_metacharacter(char c)
-{
-	return (c && strchr("|&;()<> \t\n", c));
-}
+// int	is_metacharacter(char c)
+// {
+// 	return (c && strchr("|&;()<> \t\n", c));
+// }
 
 char	*get_env(char *key, t_env *env)
 {

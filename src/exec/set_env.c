@@ -6,28 +6,59 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/02 19:38:30 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:57:10 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
+char	*ft_strndup(const char *s, size_t n);
+
+void	remove_quotes_in_place(char *str)
+{
+	int	read_index;
+	int	write_index;
+
+	read_index = 0;
+	write_index = 0;
+	while (str[read_index] != '\0')
+	{
+		if (str[read_index] != '"' && str[read_index] != '\'')
+		{
+			str[write_index] = str[read_index];
+			write_index++;
+		}
+		read_index++;
+	}
+	str[write_index] = '\0';
+}
+
 t_env	*env_lstnew(char *envp)
 {
-	char	**content;
 	t_env	*new_node;
+	char	*separator;
+	int		key_length;
 
 	new_node = (t_env *)malloc(sizeof(t_env));
+	remove_quotes_in_place(envp);
 	if (new_node)
 	{
-		content = ft_split(envp, '=');
-		new_node->key = strdup(content[0]);
-		if (content[1] == NULL)
-			new_node->value = strdup("");
+		separator = ft_strchr(envp, '=');
+		remove_quotes_in_place(separator);
+		if (separator != NULL)
+		{
+			key_length = separator - envp;
+			new_node->key = ft_strndup(envp, key_length);
+			new_node->value = ft_strdup(separator + 1);
+		}
 		else
-			new_node->value = strdup(content[1]);
+		{
+			new_node->key = ft_strdup(envp);
+			new_node->value = ft_strdup("");
+		}
 		new_node->next = NULL;
-		ft_free_array(content);
+		// ft_free_array(content);
+		// free(separator);
 	}
 	return (new_node);
 }

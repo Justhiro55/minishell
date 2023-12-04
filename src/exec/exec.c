@@ -6,38 +6,13 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/02 19:27:54 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:54:39 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	execute_from_path(char **path, char *command_name, char **tokens,
-		char **envp)
-{
-	int		i;
-	char	*command_path;
-	int		result;
-
-	i = 0;
-	result = 1;
-	while (path[i])
-	{
-		command_path = set_command_path(path[i], command_name);
-		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
-		{
-			result = execute_command(command_path, tokens, envp);
-			free(command_path);
-			return (result);
-		}
-		free(command_path);
-		i++;
-	}
-	command_not_found(command_name);
-	return (result);
-}
-
-int	search_and_execute_command(char *command_name, char **tokens, char **envp,
+int	execute_from_path(char *command_name, char **tokens, char **envp,
 		char **path)
 {
 	int		i;
@@ -83,7 +58,7 @@ int	execute_command_from_path(char **command, char **envp, t_info *info,
 		path = ft_split(env->value, ':');
 	if (!env || !path)
 		return (ERROR);
-	result = search_and_execute_command(command[0], command, envp, path);
+	result = execute_from_path(command[0], command, envp, path);
 	ft_free_array(path);
 	if (result == 1)
 		command_not_found(command[0]);

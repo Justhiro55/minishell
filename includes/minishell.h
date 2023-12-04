@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/01 16:48:51 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 20:18:02 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # define STDERR 2
 # define MINISHELL "MINISHELL$ "
 
+# define SUCCESS 0
 # define ERROR 1
 
 # define EXIT_FAILURE_FILE 2

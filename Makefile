@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/12/01 16:48:16 by hhagiwar         ###   ########.fr        #
+#    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
+#    Updated: 2023/12/04 12:57:14 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,13 +30,15 @@ SRC = src/main.c \
 		src/exec/redirect_utils.c \
 		src/exec/redirect_utils2.c \
 		src/exec/exit_process.c \
+		src/exec/set_env.c \
+		src/exec/set_env_utils.c \
 		src/builtin/cd_command.c \
 		src/builtin/echo_command.c \
 		src/builtin/env_command.c \
 		src/builtin/exit_command.c \
+		src/builtin/exit_utils.c \
 		src/builtin/pwd_command.c \
-		src/builtin/set_env.c \
-		src/builtin/ls_command.c \
+		src/builtin/unset_command.c \
 		src/builtin/export_command.c \
 		src/lexer/lexer.c \
 		src/lexer/token.c \
@@ -106,6 +108,7 @@ clean:
 fclean: clean 
 	@$(RM) $(RMFLAGS) $(NAME) a.out
 	@make fclean -C func/${LIBFTDIR}
+	@rm -f test_outfile
 	@printf "\e[38;5;208m\nsuccessfully deleted🗑\e[0m\n\n"
 
 party:

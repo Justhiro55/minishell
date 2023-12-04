@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls_command.c                                       :+:      :+:    :+:   */
+/*   set_env_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 15:48:20 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/07 18:24:48 by hhagiwar         ###   ########.fr       */
+/*   Created: 2023/11/25 17:22:43 by hhagiwar          #+#    #+#             */
+/*   Updated: 2023/11/25 17:22:57 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	command_ls(const char *dir_path)
+char	*ft_strndup(const char *s, size_t n)
 {
-	DIR				*dir;
-	struct dirent	*entry;
+	char	*copy;
+	size_t	i;
 
-	dir = opendir(dir_path);
-	if (dir == NULL)
+	i = 0;
+	copy = (char *)malloc(n + 1);
+	if (!copy)
 	{
-		perror("opendir");
-		exit(EXIT_FAILURE);
+		return (NULL);
 	}
-	entry = readdir(dir);
-	while (entry != NULL)
+	while (i < n && s[i] != '\0')
 	{
-		if (entry->d_name[0] != '.')
-		{
-			printf("%s\n", entry->d_name);
-		}
+		copy[i] = s[i];
+		i++;
 	}
-	closedir(dir);
+	copy[i] = '\0';
+	return (copy);
 }

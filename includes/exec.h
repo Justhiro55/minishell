@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/02 19:03:57 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 20:17:59 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int							command_echo(char **token);
 int							command_pwd(char **token);
 int							command_cd(char **token);
 int							command_env(char **token, t_info info);
-t_env						*command_export(char **token, t_info *info);
-void						command_ls(const char *dir_path);
+int							command_export(char **token, t_info *info);
+int							command_unset(char **token, t_info *info);
 
 //redirect
 int							child_process(t_info info, char **envp,
@@ -94,6 +94,11 @@ void						env_add_back(t_info *info, t_env *new_node);
 void						free_cmd(char ***cmd, int cmd_count);
 void						free_fd(int **pipefd, int pipe_num);
 void						free_fd(int **pipefd, int pipe_num);
+void						free_redirects(t_redirects *redirects);
+void						free_node(t_node *node);
+void						env_lstclear(t_env **lst);
+void						free_info_token(t_info *info);
+void						free_info(t_info *info);
 
 //util
 int							execute_command(char *command_path, char **tokens,
@@ -108,6 +113,7 @@ void						ft_dup2(int old_fd, int new_fd);
 void						ft_pipe(int fd[2]);
 pid_t						ft_fork(void);
 void						here_doc_fork(t_redirects *redirects);
+char						*ft_strndup(const char *s, size_t n);
 void						append_char(char **s, char c);
 int							is_alpha_under(char c);
 int							is_metacharacter(char c);
