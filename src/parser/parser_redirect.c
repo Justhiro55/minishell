@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:13:00 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/24 19:40:20 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 20:04:01 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,25 @@ int	is_redirect(t_now_token *ntk)
 	op = ft_strdup(ntk->now->str);
 	if (ft_strncmp("<", op, ft_strlen(op)) == 0)
 	{
+		free(op);
 		return (REDIRECT_INPUT);
 	}
 	else if (ft_strncmp(">", op, ft_strlen(op)) == 0)
 	{
+		free(op);
 		return (REDIRECT_OUTPUT);
 	}
 	else if (ft_strncmp("<<", op, ft_strlen(op)) == 0)
 	{
+		free(op);
 		return (REDIRECT_HEREDOC);
 	}
 	else if (ft_strncmp(">>", op, ft_strlen(op)) == 0)
 	{
+		free(op);
 		return (REDIRECT_APPEND_OUTPUT);
 	}
+	free(op);
 	return (0);
 }
 
@@ -97,7 +102,6 @@ t_redirects	*add_redirect(int type, char *filename, t_redirects *redirect)
 	t_redirects	*last;
 
 	add_rd = ft_calloc(1, sizeof(t_redirects));
-	// if (redirect->filename != NULL)
 	last = last_list(redirect);
 	last->next = add_rd;
 	add_rd->next = NULL;
@@ -123,9 +127,7 @@ t_node	*new_node_redirect(t_node *node, t_now_token *ntk)
 	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0)
 	{
 		if (!is_redirect(ntk))
-		{
 			redirect_add_cmd(ntk, node);
-		}
 		if (ntk->now == NULL || ft_strncmp(ntk->now->str, "|", 1) == 0)
 			break ;
 		type = is_redirect(ntk);
@@ -133,8 +135,7 @@ t_node	*new_node_redirect(t_node *node, t_now_token *ntk)
 		filename = ft_strdup(ntk->now->str);
 		ntk->now = ntk->now->next;
 		add_redirect(type, filename, redirect);
-		// printf(""re);
 	}
 	redirect_add_cmd(ntk, node);
-	return	(node);
+	return (node);
 }

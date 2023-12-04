@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:07:34 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/11 19:48:40 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/11/27 00:06:37 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	skip_space(t_tokeniser *tk, char *line)
 {
 	while (line[tk->str_i] == ' ')
 	{
-		// if (tk->quoted)
-		// 	return ;
 		tk->str_i++;
 	}
 }
@@ -41,7 +39,6 @@ size_t	redi_size(t_tokeniser *tk, char *line)
 	c = line[tk->str_i];
 	if (c == '<' || c == '>' || line[tk->str_i + 1])
 	{
-		
 		if (line[tk->str_i] == line[tk->str_i + 1])
 			return (2);
 	}
@@ -50,16 +47,7 @@ size_t	redi_size(t_tokeniser *tk, char *line)
 
 int	check_space(t_tokeniser *tk, char *line)
 {
-	// char	c;
-
-	// (void)tk;
 	(void)line;
-	// if (quote & 0x01)
-	// c = line[tk->str_i + tk->str_len];
-	// if (quote & CHAR_DQUOTE && c == '"')
-	// 	return (1);
-	// if (quote & CHAR_QUOTE && c == '\'')
-	// 	return (1);
 	if (tk->quoted)
 		return (1);
 	return (0);

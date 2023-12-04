@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:15:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/24 14:49:54 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:57:15 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ t_token	*tokenadd_back(t_token *head, char *str, int type)
 	t_token	*new;
 	t_token	*last;
 
+	if (head == NULL || head->str == NULL)
+		return (token_new(str, type));
 	new = token_new(str, type);
-	if (head->str == NULL)
-		return (new);
 	last = token_last(head);
 	new->prev = last;
 	last->next = new;
@@ -76,20 +76,8 @@ void	clear_list(t_token *token)
 	while (p != NULL)
 	{
 		next = p->next;
-		free(token->str);
+		free(p->str);
 		free(p);
 		p = next;
 	}
-	free(p);
-}
-
-t_token	*init_token(void)
-{
-	t_token	*token;
-
-	token = malloc(sizeof(t_token));
-	if (token == NULL)
-		exit(1);
-	ft_memset(token, 0, sizeof(t_token));
-	return (token);
 }

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:29 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/27 20:16:43 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:58:11 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	n_option(char **token)
 	return (i);
 }
 
-bool	is_metacharacter(char c)
+int	is_metacharacter(char c)
 {
 	return (c && strchr("|&;()<> \t\n", c));
 }

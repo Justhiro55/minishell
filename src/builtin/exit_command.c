@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:55:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/25 17:29:40 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/04 13:00:22 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,15 @@ int	is_outside_long_range(char *str)
 		str++;
 	}
 	return (0);
+}
+
+void	free_info(t_info *info)
+{
+	if (info)
+	{
+		env_lstclear(&info->env);
+	}
+	// return (0);
 }
 
 int	command_exit(char **token, t_info *info, t_node *node)

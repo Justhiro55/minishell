@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/25 14:20:41 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 20:18:02 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../func/libft/libft.h"
 # include "./exec.h"
 # include "./lexer.h"
-# include "./minishell.h"
 # include "./token.h"
 # include "lexer.h"
 # include "parser.h"
@@ -37,6 +36,12 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+// typedef struct s_info
+// {
+// 	char			**token;
+// 	struct s_env	*env;
+// }					t_info;
+
 # define STDOUT 1
 # define STDERR 2
 # define MINISHELL "MINISHELL$ "
@@ -51,21 +56,16 @@
 
 struct s_env;
 
-typedef struct s_info
-{
-	char			**token;
-	struct s_env	*env;
-}					t_info;
-
 # include "exec.h"
 
 void				minishell(char **envp);
-void				parse(char *line, t_info *info, char **envp);
 
 //signal
 void				sig_int_input(int signum);
 void				sig_quit_input(int signum);
 
 void				exit_process(int status);
+
+void				setup_signals(void);
 
 #endif

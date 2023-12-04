@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/25 17:23:13 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 20:17:59 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ typedef struct s_redirects	t_redirects;
 
 typedef struct s_node		t_node;
 
+typedef struct s_info
+{
+	int						status;
+	struct s_env			*env;
+}							t_info;
+
 typedef struct s_env
 {
 	char					*key;
@@ -40,6 +46,8 @@ typedef struct s_env
 # define EXIT_FAILURE_FORK 4
 # define EXIT_FAILURE_MALLOC 5
 # define EXIT_FAILURE_DUP 6
+
+void						parse(char *line, t_info *info, char **envp);
 
 int							ft_exec(char **command, char **envp, t_info *info,
 								t_node *node);
@@ -58,8 +66,9 @@ int							command_export(char **token, t_info *info);
 int							command_unset(char **token, t_info *info);
 
 //redirect
-void						child_process(t_info info, char **envp,
+int							child_process(t_info info, char **envp,
 								t_node *node);
+
 ;
 void						execute_parent_process(t_info info, char **envp,
 								t_node *node, int *fd);
@@ -68,8 +77,8 @@ void						execute_child_process(t_info info, char **envp,
 void						execute_process(t_info info, char **envp,
 								t_node *node, int *fd);
 void						here_doc_mock(char *delimiter);
-void						restore_stdin_stdout(int stdin_backup,
-								int stdout_backup);
+void	restore_stdin_stdout(int stdin_backup,
+							int stdout_backup);
 
 //set
 void						set_node(t_node *node);
@@ -105,5 +114,8 @@ void						ft_pipe(int fd[2]);
 pid_t						ft_fork(void);
 void						here_doc_fork(t_redirects *redirects);
 char						*ft_strndup(const char *s, size_t n);
+void						append_char(char **s, char c);
+int							is_alpha_under(char c);
+int							is_metacharacter(char c);
 
 #endif

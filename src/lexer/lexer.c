@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:20:47 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/24 19:02:09 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:58:00 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,19 @@ void	cre_tokeniser(t_tokeniser *tk, char *line)
 	tk->head_list = tokenadd_back(tk->head_list, ft_substr(line, tk->str_i,
 				tk->str_len), tk->quoted);
 	tk->str_i += tk->str_len;
+	skip_space(tk, line);
+}
+
+void	clear_tokeniser(t_tokeniser *tk)
+{
+	free(tk->str);
 }
 
 t_token	*lexer_main(char *line)
 {
 	t_tokeniser	*tokeniser;
-	size_t		i;
-	int			flag;
+	t_token		*token;
 
-	(void)line;
-	i = 0;
-	flag = 0;
 	tokeniser = init_tokeniser();
 	tokeniser->str_i = 0;
 	while (line[tokeniser->str_i] != '\0')
@@ -86,5 +88,8 @@ t_token	*lexer_main(char *line)
 		cre_tokeniser(tokeniser, line);
 	}
 	check_syntax(tokeniser->head_list);
-	return (tokeniser->head_list);
+	token = tokeniser->head_list;
+	clear_tokeniser(tokeniser);
+	free(tokeniser);
+	return (token);
 }
