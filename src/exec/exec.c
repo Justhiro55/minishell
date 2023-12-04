@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/04 21:42:46 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/04 21:49:54 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,14 @@ int	execute_command_from_path(char **command, char **envp, t_info *info,
 	if (env)
 		path = ft_split(env->value, ':');
 	if (!env || !path)
-		return (ERROR);
-	result = execute_from_path(command[0], command, envp, path);
-	ft_free_array(path);
-	if (result == 1)
-		command_not_found(command[0]);
+		printf("%s: command not found\n", command[0]);
+	else
+	{
+		result = execute_from_path(command[0], command, envp, path);
+		ft_free_array(path);
+		if (result == 1)
+			command_not_found(command[0]);
+	}
 	return (result);
 }
 
