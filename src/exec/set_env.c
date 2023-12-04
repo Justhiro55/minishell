@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/04 12:57:10 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/04 13:15:47 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ t_env	*env_lstnew(char *envp)
 	if (new_node)
 	{
 		separator = ft_strchr(envp, '=');
-		remove_quotes_in_place(separator);
-		if (separator != NULL)
+		if (separator != NULL && separator != 0)
 		{
+			remove_quotes_in_place(separator);
 			key_length = separator - envp;
 			new_node->key = ft_strndup(envp, key_length);
-			new_node->value = ft_strdup(separator + 1);
+			if (separator + 1 != '\0')
+				new_node->value = ft_strdup(separator + 1);
 		}
 		else
 		{
