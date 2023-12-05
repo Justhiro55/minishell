@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/02 20:17:59 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:46:15 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void						execute_child_process(t_info info, char **envp,
 void						execute_process(t_info info, char **envp,
 								t_node *node, int *fd);
 void						here_doc_mock(char *delimiter);
-void	restore_stdin_stdout(int stdin_backup,
-							int stdout_backup);
+void						restore_stdin_stdout(int stdin_backup,
+								int stdout_backup);
 
 //set
 void						set_node(t_node *node);

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:13:00 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/02 20:04:01 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:53:23 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_redirect(t_now_token *ntk)
 
 size_t	count_word_rd(t_now_token *ntk)
 {
-	t_token *token;
+	t_token	*token;
 	size_t	count;
 
 	count = 0;

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/04 20:44:34 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:48:09 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 		cmd = ft_strdup(ntk->now->str);
 		check_text(cmd);
 		node->data[i] = ft_strdup(cmd);
-		// if (cmd != NULL)
-		// 	free(cmd);
+		if (ntk->now->next != NULL)
+			free(cmd);
 		i++;
 		node->data[i] = NULL;
 		ntk->now = ntk->now->next;

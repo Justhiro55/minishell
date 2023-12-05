@@ -6,21 +6,20 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:58 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/01 16:44:34 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:47:40 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "./token.h"
 # include "../func/libft/libft.h"
 # include "./exec.h"
 # include "./lexer.h"
 # include "./minishell.h"
+# include "./token.h"
 
-typedef struct s_token t_token; // 既存の宣言に合わせて型名を指定
-
+typedef struct s_token	t_token;
 
 typedef enum e_redirect_type
 {
@@ -48,14 +47,13 @@ typedef struct s_redirects
 
 typedef struct s_node
 {
-	t_nodetype		type;
-	char			**data;
-	size_t			row_size;
-	t_redirects		*redirects;
-	struct s_node	*right;
-	struct s_node	*left;
-}					t_node;
-
+	t_nodetype			type;
+	char				**data;
+	size_t				row_size;
+	t_redirects			*redirects;
+	struct s_node		*right;
+	struct s_node		*left;
+}						t_node;
 
 t_node					*parser(t_token *token);
 typedef struct s_now_token

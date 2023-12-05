@@ -6,7 +6,7 @@
 #    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/12/04 12:57:14 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/12/04 21:06:18 by hhagiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRC = src/main.c \
 		src/parser/parser_utils2.c \
 		src/expand/expand.c \
 		src/expand/expand_utils.c \
+		src/expand/expand_utils2.c \
 		src/signal/signal.c
 
 OBJ_DIR = obj

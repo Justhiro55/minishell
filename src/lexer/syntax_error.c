@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:08:11 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/27 18:27:38 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:53:04 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,11 @@ void	check_syntax(t_token *token)
 		if (head->type & REDIRECT)
 		{
 			check_rd(head, rd_flag);
-			meta_flag = 0;
 			rd_flag = 1;
 		}
 		else
-		{
-			meta_flag = 0;
 			rd_flag = 0;
-		}
+		meta_flag = 0;
 		head = head->next;
 	}
 }
