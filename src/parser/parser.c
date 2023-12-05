@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/02 10:58:29 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/04 22:44:26 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,10 @@ t_node	*cmd(t_now_token *ntk)
 	return (new_node_cmd(ntk));
 }
 
-void	clear_token(t_token *token)
+void	free_ntk(t_now_token *ntk)
 {
-	t_token	*now;
-	t_token	*next;
-
-	now = token;
-	while (now != NULL)
-	{
-		next = now->next;
-		free(now->str);
-		free(now);
-		now = next;
-	}
+	free(ntk->now);
+	free(ntk);
 }
 
 t_node	*parser(t_token *token)
@@ -67,6 +58,7 @@ t_node	*parser(t_token *token)
 	ntk = ft_calloc(1, sizeof(t_now_token));
 	ntk->now = token;
 	node = expr(ntk);
-	clear_token(token);
+	free(ntk);
+	clear_list(token);
 	return (node);
 }

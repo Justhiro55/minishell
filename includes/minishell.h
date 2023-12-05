@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/02 11:17:13 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:14:35 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # include "./exec.h"
 # include "./lexer.h"
 # include "./token.h"
+# include "sig.h"
 
 // typedef struct s_info
 // {

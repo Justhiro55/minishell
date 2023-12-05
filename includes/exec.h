@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/27 13:25:01 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:27:58 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_node		t_node;
 typedef struct s_info
 {
 	char			**token;
+	int				status;
 	struct s_env	*env;
 }					t_info;
 

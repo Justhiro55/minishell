@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:08:11 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/02 11:42:42 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/04 22:47:26 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	output_syntax_error(int i)
 	(void)i;
 	error = ft_strdup("syntax error\n");
 	write(1, error, ft_strlen(error));
+	free(error);
 	exit(1);
 }
 

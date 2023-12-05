@@ -6,7 +6,7 @@
 #    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/12/02 11:15:29 by kotainou         ###   ########.fr        #
+#    Updated: 2023/12/04 21:16:42 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ INCLUDES_DIR = ./includes
 INC	=	$(addprefix -I,$(INCLUDES_DIR)) -I $(RL_INCDIR)
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(RL_INCDIR)
 LDFLAGS = -L $(RL_LIBDIR) -lreadline
-# CFLAGS += -g -fsanitize=address
+CFLAGS += -g #-fsanitize=address
 
 RM = rm
 RMFLAGS = -f
