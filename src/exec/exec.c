@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/04 12:54:39 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/06 21:06:48 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	execute_from_path(char *command_name, char **tokens, char **envp,
 	int		result;
 	char	*command_path;
 
-	result = 1;
+	result = -2;
 	command_path = NULL;
 	i = 0;
 	while (path[i])
@@ -60,7 +60,7 @@ int	execute_command_from_path(char **command, char **envp, t_info *info,
 		return (ERROR);
 	result = execute_from_path(command[0], command, envp, path);
 	ft_free_array(path);
-	if (result == 1)
+	if (result == -2)
 		command_not_found(command[0]);
 	return (result);
 }
