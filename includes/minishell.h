@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/04 20:14:35 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:35:55 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 # define EXIT_FAILURE_MALLOC 5
 
 // struct s_env;
+extern int	g_signal;
 
 void				minishell(char **envp);
 

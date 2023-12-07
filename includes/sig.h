@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:21:54 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/04 21:47:01 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:34:00 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ typedef struct s_node		t_node;
 void				setup_signals(void);
 void				signals_exec(t_node *node, t_info *info);
 void				signal_ctrl(void);
+void				change_signal(int flag);
+void				sigint_handler_nonl(int sig);
+void				sigin_handler_heredoc(int sig);
 
 #endif

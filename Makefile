@@ -6,7 +6,7 @@
 #    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/12/04 21:16:42 by kotainou         ###   ########.fr        #
+#    Updated: 2023/12/07 16:42:00 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ SRC = src/main.c \
 		src/parser/parser_redirect_utils.c \
 		src/parser/parser_utils.c \
 		src/parser/parser_utils2.c \
-		src/signal/signal.c
+		src/signal/signal.c \
+		src/signal/change_signal.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))

@@ -6,13 +6,13 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:20:55 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/05 18:21:30 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:37:56 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sig.h"
 
-volatile sig_atomic_t	g_signal = 0;
+int	g_signal = 0;
 
 void	signal_ctrl(void)
 {
@@ -46,6 +46,13 @@ void	sigint_handler_nonl(int sig)
 	g_signal = 1;
 }
 
+void	sigin_handler_heredoc(int sig)
+{
+	(void)sig;
+	close(0);
+	g_signal = SIGINT;
+}
+
 void	setup_signals(void)
 {
 	if (signal(SIGINT, sigint_handler_nonl) == SIG_ERR)
@@ -59,6 +66,7 @@ void	setup_signals(void)
 		exit(EXIT_FAILURE);
 	}
 }
+
 
 void	exec(t_node *node, t_info *info)
 {
