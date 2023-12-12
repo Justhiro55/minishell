@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:20:47 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/02 19:58:00 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:38:42 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ void	cre_tokeniser(t_tokeniser *tk, char *line)
 void	clear_tokeniser(t_tokeniser *tk)
 {
 	free(tk->str);
+
+	free(tk);
 }
 
-t_token	*lexer_main(char *line)
+t_token	*lexer_main(char *line, t_tokeniser	*tokeniser)
 {
-	t_tokeniser	*tokeniser;
 	t_token		*token;
 
-	tokeniser = init_tokeniser();
 	tokeniser->str_i = 0;
 	while (line[tokeniser->str_i] != '\0')
 	{
@@ -89,7 +89,6 @@ t_token	*lexer_main(char *line)
 	}
 	check_syntax(tokeniser->head_list);
 	token = tokeniser->head_list;
-	clear_tokeniser(tokeniser);
 	free(tokeniser);
 	return (token);
 }

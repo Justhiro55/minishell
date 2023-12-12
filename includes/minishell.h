@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/04 20:47:18 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:49:17 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "./token.h"
 # include "exec.h"
 # include "lexer.h"
+// # include "leakdetect.h"
 # include "parser.h"
 # include <dirent.h>
 # include <errno.h>
@@ -48,6 +49,9 @@
 # define EXIT_FAILURE_PIPE 3
 # define EXIT_FAILURE_FORK 4
 # define EXIT_FAILURE_MALLOC 5
+
+// 
+// #define free leak_detect_free
 
 void	minishell(char **envp);
 

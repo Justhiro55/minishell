@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/04 20:28:20 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:39:17 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@ t_node	*expr(t_now_token *ntk)
 	while (1)
 	{
 		if (ntk->now != NULL && ntk->now->str != NULL)
+		{
 			op = ft_strdup(ntk->now->str);
+		}
 		else
+		{
 			op = ft_strdup("");
+		}
 		if (ft_strncmp("|", op, 1) == 0)
 		{
 			ntk->now = ntk->now->next;
@@ -34,6 +38,7 @@ t_node	*expr(t_now_token *ntk)
 			free(op);
 			return (node);
 		}
+		// free(op);
 	}
 	return (node);
 }
@@ -73,6 +78,7 @@ t_node	*parser(t_token *token)
 	ntk->now = token;
 	node = expr(ntk);
 	clear_token(token);
+	// free(ntk->now);
 	free(ntk);
 	return (node);
 }

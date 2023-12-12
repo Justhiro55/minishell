@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:29:23 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/04 20:54:36 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:39:13 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*check_text(char *text)
 	}
 	if (flag)
 		error_parser();
+	// free(text);
 	return (NULL);
 }
 

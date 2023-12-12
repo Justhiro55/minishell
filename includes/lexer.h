@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:50:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/04 20:46:28 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 08:55:24 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_tokeniser
 	t_token				*head_list;
 }						t_tokeniser;
 
-t_token					*lexer_main(char *line);
+t_token					*lexer_main(char *line, t_tokeniser	*tokeniser);
 t_token					*tokenadd_back(t_token *head, char *str, int type);
 t_token					*tokenlast(t_token *lst);
 t_token					*init_token(void);
@@ -49,6 +49,7 @@ void					clear_list(t_token *token);
 void					switch_quote_state(t_tokeniser *lex, char c);
 
 void					check_syntax(t_token *token);
+void					clear_tokeniser(t_tokeniser *tk);
 
 //token_utils.c
 t_token					*init_token(void);
