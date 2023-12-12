@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/01 16:46:39 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:39:10 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ size_t	count_word(t_now_token *ntk)
 
 	token = ntk->now;
 	count = 0;
-	while (token->next != NULL && ft_strncmp(token->next->str, "|", 1) != 0
+	while (token != NULL && ft_strncmp(token->str, "|", 1) != 0
 		&& is_redirect_token(token) == 0)
 	{
 		count++;
@@ -72,8 +72,6 @@ size_t	count_word(t_now_token *ntk)
 		count++;
 	return (count);
 }
-
-char	*check_text(char *text);
 
 t_node	*new_node_cmdname(t_now_token *ntk)
 {
@@ -90,7 +88,8 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 			return (new_node_redirect(node, ntk));
 		cmd = ft_strdup(ntk->now->str);
 		check_text(cmd);
-		node->data[i] = ft_strdup(cmd);
+		node->data[i] = ft_strdup(ntk->now->str);
+		free(cmd);
 		i++;
 		node->data[i] = NULL;
 		ntk->now = ntk->now->next;

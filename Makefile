@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+         #
+#    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/12/04 12:57:14 by hhagiwar         ###   ########.fr        #
+#    Updated: 2023/12/12 02:33:20 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CC = cc
 INCLUDES_DIR = ./includes
 INC	=	$(addprefix -I,$(INCLUDES_DIR)) -I $(RL_INCDIR)
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(RL_INCDIR)
+# -Wall -Wextra -Werror
 LDFLAGS = -L $(RL_LIBDIR) -lreadline
 # CFLAGS += -g -fsanitize=address
 
@@ -51,7 +52,9 @@ SRC = src/main.c \
 		src/parser/parser_utils2.c \
 		src/expand/expand.c \
 		src/expand/expand_utils.c \
-		src/signal/signal.c
+		src/expand/expand_utils2.c \
+		src/signal/signal.c \
+		src/signal/leakdetect.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))

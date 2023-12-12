@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/02 20:18:02 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:49:17 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 # include "./exec.h"
 # include "./lexer.h"
 # include "./token.h"
+# include "exec.h"
 # include "lexer.h"
+// # include "leakdetect.h"
 # include "parser.h"
 # include <dirent.h>
 # include <errno.h>
@@ -36,12 +38,6 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-// typedef struct s_info
-// {
-// 	char			**token;
-// 	struct s_env	*env;
-// }					t_info;
-
 # define STDOUT 1
 # define STDERR 2
 # define MINISHELL "MINISHELL$ "
@@ -54,18 +50,17 @@
 # define EXIT_FAILURE_FORK 4
 # define EXIT_FAILURE_MALLOC 5
 
-struct s_env;
+// 
+// #define free leak_detect_free
 
-# include "exec.h"
-
-void				minishell(char **envp);
+void	minishell(char **envp);
 
 //signal
-void				sig_int_input(int signum);
-void				sig_quit_input(int signum);
+void	sig_int_input(int signum);
+void	sig_quit_input(int signum);
 
-void				exit_process(int status);
+void	exit_process(int status);
 
-void				setup_signals(void);
+void	setup_signals(void);
 
 #endif

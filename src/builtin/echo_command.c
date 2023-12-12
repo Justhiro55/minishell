@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:29 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/04 12:58:11 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:37:16 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	n_option(char **token)
 
 int	is_metacharacter(char c)
 {
-	return (c && strchr("|&;()<> \t\n", c));
+	return (c && ft_strchr("|&;()<> \t\n", c));
 }
 
 int	check_arg(char **str)

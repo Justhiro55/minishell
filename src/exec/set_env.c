@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/04 13:15:47 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:38:13 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ t_env	*env_lstnew(char *envp)
 			new_node->value = ft_strdup("");
 		}
 		new_node->next = NULL;
-		// ft_free_array(content);
-		// free(separator);
 	}
 	return (new_node);
 }

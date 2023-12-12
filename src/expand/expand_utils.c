@@ -3,44 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:06:26 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/04 13:01:18 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:38:16 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	is_alpha_under(char c)
-{
-	return ((('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z')) || c == '_');
-}
-
-void	append_char(char **s, char c)
-{
-	size_t	size;
-	char	*new;
-
-	size = 2;
-	if (*s)
-		size += ft_strlen(*s);
-	new = (char *)malloc(size * sizeof(char));
-	if (new == NULL)
-		exit_process(EXIT_FAILURE_MALLOC);
-	if (*s)
-		ft_strlcpy(new, *s, size);
-	new[size - 2] = c;
-	new[size - 1] = '\0';
-	if (*s)
-		free(*s);
-	*s = new;
-}
-
-// int	is_metacharacter(char c)
-// {
-// 	return (c && strchr("|&;()<> \t\n", c));
-// }
+int	handle_special_char(char **dst, char **rest, t_info *info);
+int	is_alpha_under(char c);
+void	append_char(char **s, char c);
 
 char	*get_env(char *key, t_env *env)
 {
@@ -67,44 +41,57 @@ char	*get_env(char *key, t_env *env)
 	return (NULL);
 }
 
-int	is_variable(char **dst, char **rest, char *p, t_info *info)
+int	handle_env_variable(char **dst, char **rest, t_info *info)
 {
 	char	*value;
 	char	*value_iter;
-	int		num;
 
+	if (get_env(*rest, info->env) == NULL)
+		return (-1);
+	value = ft_strdup(get_env(*rest, info->env));
+	if (value)
+	{
+		value_iter = value;
+		while (*value_iter != '\0')
+			append_char(dst, *(value_iter++));
+		free(value);
+	}
+	return (0);
+}
+
+int	handle_special_char(char **dst, char **rest, t_info *info)
+{
+	char	*value;
+	char	*value_iter;
+
+	*rest += 1;
+	value = ft_itoa(info->status);
+	if (value)
+	{
+		value_iter = value;
+		while (*value_iter != '\0')
+			append_char(dst, *(value_iter++));
+		free(value);
+	}
+	return (0);
+}
+
+int	is_variable(char **dst, char **rest, char *p, t_info *info)
+{
 	(void)p;
-	num = 1;
 	if (**rest == '$')
 	{
 		(*rest)++;
 		if (is_alpha_under(**rest))
 		{
-			if (get_env(*rest, info->env) == NULL)
-				return (-1);
-			value = ft_strdup(get_env(*rest, info->env));
-			if (value)
-			{
-				value_iter = value;
-				while (*value_iter != '\0')
-					append_char(dst, *(value_iter++));
-				free(value);
-			}
+			return (handle_env_variable(dst, rest, info));
 		}
 		else if (**rest == '?')
 		{
-			*rest += 1;
-			value = ft_itoa(info->status);
-			if (value)
-			{
-				value_iter = value;
-				while (*value_iter != '\0')
-					append_char(dst, *(value_iter++));
-				free(value);
-			}
+			return (handle_special_char(dst, rest, info));
 		}
 		else
 			append_char(dst, '$');
 	}
-	return (num);
+	return (1);
 }

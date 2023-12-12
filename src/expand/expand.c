@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:13:34 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/02 18:49:29 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:38:22 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,10 @@ void	expand_variable(t_node *node, t_info *info)
 	if (node == NULL)
 		return ;
 	while (node->data[i] != NULL)
-		expand_variable_tok(&(node->data[i++]), info);
+	{
+		expand_variable_tok(&(node->data[i]), info);
+		i++;
+	}
 	while (redirects != NULL)
 	{
 		if (redirects != NULL && redirects->type != REDIRECT_HEREDOC)

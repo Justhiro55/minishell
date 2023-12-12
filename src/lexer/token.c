@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:15:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/02 19:57:15 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:38:56 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,20 @@ t_token	*tokenadd_back(t_token *head, char *str, int type)
 	return (head);
 }
 
-void	printtoken(t_token *token)
-{
-	t_token	*p;
+// void	printtoken(t_token *token)
+// {
+// 	t_token	*p;
 
-	p = token;
-	printf("\n--print token--\n");
-	while (p != NULL)
-	{
-		printf("str = [%s]\n", p->str);
-		printf("type = [%d]\n", p->type);
-		p = p->next;
-	}
-	printf("\n");
-}
+// 	p = token;
+// 	printf("\n--print token--\n");
+// 	while (p != NULL)
+// 	{
+// 		printf("str = [%s]\n", p->str);
+// 		printf("type = [%d]\n", p->type);
+// 		p = p->next;
+// 	}
+// 	printf("\n");
+// }
 
 void	clear_list(t_token *token)
 {

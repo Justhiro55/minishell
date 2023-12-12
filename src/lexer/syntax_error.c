@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:08:11 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/27 18:27:38 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:38:47 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	output_syntax_error(int i)
 	(void)i;
 	error = ft_strdup("syntax error\n");
 	write(1, error, ft_strlen(error));
+	free(error);
 	exit(1);
 }
 
@@ -68,14 +69,11 @@ void	check_syntax(t_token *token)
 		if (head->type & REDIRECT)
 		{
 			check_rd(head, rd_flag);
-			meta_flag = 0;
 			rd_flag = 1;
 		}
 		else
-		{
-			meta_flag = 0;
 			rd_flag = 0;
-		}
+		meta_flag = 0;
 		head = head->next;
 	}
 }

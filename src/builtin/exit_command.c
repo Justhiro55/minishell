@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:55:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/04 13:00:22 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:37:25 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	free_info(t_info *info)
 	{
 		env_lstclear(&info->env);
 	}
-	// return (0);
 }
 
 int	command_exit(char **token, t_info *info, t_node *node)
@@ -83,7 +82,7 @@ int	command_exit(char **token, t_info *info, t_node *node)
 	if (token[1] == NULL)
 		status = 0;
 	else if (contains_non_numeric(token[1]) == 1
-			|| is_outside_long_range(token[1]) == 1)
+		|| is_outside_long_range(token[1]) == 1)
 		status = print_error_and_return(token[1]);
 	else if (token[2] == NULL)
 	{

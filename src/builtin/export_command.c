@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/04 13:15:51 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:37:32 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,4 @@ int	command_export(char **token, t_info *info)
 		}
 	}
 	return (result);
-	// new_node = env_lstnew(token[1]);
-	// if (!new_node)
-	// 	return (info->env);
-	// if (export_node(info, *new_node) == 0)
-	// 	env_add_back(info, new_node);
-	// return (info->env);
 }
