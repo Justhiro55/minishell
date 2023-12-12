@@ -6,13 +6,15 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:50:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/12 08:55:24 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:04:40 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
+
+# include "./token.h"
 # include "../func/libft/libft.h"
 # include "./exec.h"
 # include "./lexer.h"
@@ -52,6 +54,6 @@ void					check_syntax(t_token *token);
 void					clear_tokeniser(t_tokeniser *tk);
 
 //token_utils.c
-t_token					*init_token(void);
+t_token	*init_token(void);
 
 #endif

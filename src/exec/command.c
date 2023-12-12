@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:41:06 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:59:09 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	exec_pipe(t_info info, char **envp, t_node *node)
 	parent2 = ft_fork();
 	if (parent2 == 0)
 	{
+		wait(NULL);
 		exec_right_node(info, envp, node->right, pipefd);
 		exit(0);
 	}
@@ -89,7 +90,8 @@ int	child_process(t_info info, char **envp, t_node *node)
 	{
 		expand_variable(node, &info);
 		handle_redirections_for_child(node, node->redirects);
-		status = ft_exec(node->data, envp, &info, node);
+		if (g_signal != SIGINT)
+			ft_exec(node->data, envp, &info, node);
 	}
 	ft_dup2(stdin_backup, STDIN_FILENO);
 	ft_dup2(stdout_backup, STDOUT_FILENO);

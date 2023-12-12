@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:08:11 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/12 17:38:47 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:00:07 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,16 @@ void	check_rd(t_token *head, int rd_flag)
 		output_syntax_error(1);
 }
 
-void	check_meta(t_token *head, int meta_flag, int rd_flag)
+void	check_meta(t_token *head, int *meta_flag, int *rd_flag)
 {
 	if (ft_strlen(head->str) > 1)
 		output_syntax_error(2);
 	if (head->prev == NULL)
 		output_syntax_error(3);
-	if (meta_flag > 0 || rd_flag > 0)
+	if (*meta_flag > 0 || *rd_flag > 0)
 		output_syntax_error(4);
+	*meta_flag = 1;
+	*rd_flag = 0;
 }
 
 void	check_eof(t_token *head, int meta_flag, int rd_flag)
@@ -61,11 +63,7 @@ void	check_syntax(t_token *token)
 	while (head->next != NULL)
 	{
 		if (head->type & PIPE)
-		{
-			check_meta(head, meta_flag, rd_flag);
-			meta_flag = 1;
-			rd_flag = 0;
-		}
+			check_meta(head, &meta_flag, &rd_flag);
 		if (head->type & REDIRECT)
 		{
 			check_rd(head, rd_flag);

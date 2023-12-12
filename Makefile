@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/09/24 19:00:50 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/12/12 02:33:20 by kotainou         ###   ########.fr        #
+#    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
+#    Updated: 2023/12/12 18:03:45 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INC	=	$(addprefix -I,$(INCLUDES_DIR)) -I $(RL_INCDIR)
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(RL_INCDIR)
 # -Wall -Wextra -Werror
 LDFLAGS = -L $(RL_LIBDIR) -lreadline
-# CFLAGS += -g -fsanitize=address
+CFLAGS += -g #-fsanitize=address
 
 RM = rm
 RMFLAGS = -f
@@ -48,8 +48,11 @@ SRC = src/main.c \
 		src/lexer/syntax_error.c \
 		src/parser/parser.c \
 		src/parser/parser_redirect.c \
+		src/parser/parser_redirect_utils.c \
 		src/parser/parser_utils.c \
 		src/parser/parser_utils2.c \
+		src/signal/signal.c \
+		src/signal/change_signal.c
 		src/expand/expand.c \
 		src/expand/expand_utils.c \
 		src/expand/expand_utils2.c \

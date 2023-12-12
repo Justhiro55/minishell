@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/12 17:53:04 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:02:07 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_node	*new_node(char *str, t_node *left, t_node *right)
 	node = ft_calloc(1, sizeof(t_node));
 	node->data = (char **)ft_calloc(1, sizeof(char *));
 	node->data[0] = ft_strdup(str);
+	node->data[1] = NULL;
 	node->left = left;
 	node->right = right;
 	node->row_size = 1;
@@ -91,7 +92,7 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 			return (new_node_redirect(node, ntk));
 		cmd = ft_strdup(ntk->now->str);
 		check_text(cmd);
-		node->data[i] = ft_strdup(ntk->now->str);
+		node->data[i] = ft_strdup(cmd);
 		free(cmd);
 		i++;
 		node->data[i] = NULL;

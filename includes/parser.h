@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:58 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/04 20:47:40 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:05:53 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ typedef struct s_redirects
 
 typedef struct s_node
 {
-	t_nodetype			type;
-	char				**data;
-	size_t				row_size;
-	t_redirects			*redirects;
-	struct s_node		*right;
-	struct s_node		*left;
-}						t_node;
+	t_nodetype		type;
+	char			**data;
+	size_t			row_size;
+	t_redirects		*redirects;
+	struct s_node	*right;
+	struct s_node	*left;
+}					t_node;
 
 t_node					*parser(t_token *token);
 typedef struct s_now_token
@@ -63,6 +63,8 @@ typedef struct s_now_token
 
 //parser
 t_node					*cmd(t_now_token *ntk);
+t_redirects				*new_list_redirect(t_node *node, t_now_token *ntk);
+size_t					count_word_rd(t_now_token *ntk);
 
 //redirect
 int						is_redirect(t_now_token *ntk);

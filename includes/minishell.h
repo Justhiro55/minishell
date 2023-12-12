@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 13:49:17 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:05:12 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+# include "../func/libft/libft.h"
+# include "./exec.h"
+# include "./lexer.h"
+# include "./token.h"
+
+// typedef struct s_info
+// {
+// 	char			**token;
+// 	struct s_env	*env;
+// }					t_info;
+
 # define STDOUT 1
 # define STDERR 2
 # define MINISHELL "MINISHELL$ "
@@ -50,8 +61,7 @@
 # define EXIT_FAILURE_FORK 4
 # define EXIT_FAILURE_MALLOC 5
 
-// 
-// #define free leak_detect_free
+struct s_env;
 
 void	minishell(char **envp);
 
