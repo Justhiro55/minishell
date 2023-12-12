@@ -3,29 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/02 20:26:14 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:38:13 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
+char	*ft_strndup(const char *s, size_t n);
+
+void	remove_quotes_in_place(char *str)
+{
+	int	read_index;
+	int	write_index;
+
+	read_index = 0;
+	write_index = 0;
+	while (str[read_index] != '\0')
+	{
+		if (str[read_index] != '"' && str[read_index] != '\'')
+		{
+			str[write_index] = str[read_index];
+			write_index++;
+		}
+		read_index++;
+	}
+	str[write_index] = '\0';
+}
+
 t_env	*env_lstnew(char *envp)
 {
-	char	**content;
 	t_env	*new_node;
+	char	*separator;
+	int		key_length;
 
 	new_node = (t_env *)malloc(sizeof(t_env));
+	remove_quotes_in_place(envp);
 	if (new_node)
 	{
-		content = ft_split(envp, '=');
-		new_node->key = content[0];
-		if (content[1] == NULL)
-			new_node->value = "";
+		separator = ft_strchr(envp, '=');
+		if (separator != NULL && separator != 0)
+		{
+			remove_quotes_in_place(separator);
+			key_length = separator - envp;
+			new_node->key = ft_strndup(envp, key_length);
+			if (separator + 1 != '\0')
+				new_node->value = ft_strdup(separator + 1);
+		}
 		else
-			new_node->value = content[1];
+		{
+			new_node->key = ft_strdup(envp);
+			new_node->value = ft_strdup("");
+		}
 		new_node->next = NULL;
 	}
 	return (new_node);
@@ -62,6 +93,7 @@ void	set_env(t_info *info, char **envp)
 	t_env	*new_node;
 
 	last = NULL;
+	info->status = 0;
 	info->env = NULL;
 	while (*envp != NULL)
 	{

@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   set_env_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/01 15:14:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 16:45:33 by kotainou         ###   ########.fr       */
+/*   Created: 2023/11/25 17:22:43 by hhagiwar          #+#    #+#             */
+/*   Updated: 2023/12/12 17:38:09 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/exec.h"
 
-size_t	ft_strlen(const char *s)
+char	*ft_strndup(const char *s, size_t n)
 {
-	size_t	len;
+	char	*copy;
+	size_t	i;
 
-	len = 0;
-	if (!s)
-		return (len);
-	while (s[len] != '\0')
+	i = 0;
+	copy = (char *)malloc(n + 1);
+	if (!copy)
 	{
-		len++;
+		return (NULL);
 	}
-	return (len);
+	while (i < n && s[i] != '\0')
+	{
+		copy[i] = s[i];
+		i++;
+	}
+	copy[i] = '\0';
+	return (copy);
 }

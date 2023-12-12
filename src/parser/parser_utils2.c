@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:29:23 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/02 15:12:02 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:02:17 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*check_text(char *text)
 	}
 	if (flag)
 		error_parser();
+	// free(text);
 	return (NULL);
 }
 

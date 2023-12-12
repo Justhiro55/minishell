@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/04 19:27:58 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:04:13 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ typedef struct s_node		t_node;
 
 typedef struct s_info
 {
-	char			**token;
-	int				status;
-	struct s_env	*env;
-}					t_info;
+	int						status;
+	struct s_env			*env;
+}							t_info;
 
 typedef struct s_env
 {
@@ -63,12 +62,13 @@ int							command_echo(char **token);
 int							command_pwd(char **token);
 int							command_cd(char **token);
 int							command_env(char **token, t_info info);
-t_env						*command_export(char **token, t_info *info);
-void						command_ls(const char *dir_path);
+int							command_export(char **token, t_info *info);
+int							command_unset(char **token, t_info *info);
 
 //redirect
-void						child_process(t_info info, char **envp,
+int							child_process(t_info info, char **envp,
 								t_node *node);
+
 ;
 void						execute_parent_process(t_info info, char **envp,
 								t_node *node, int *fd);
@@ -94,6 +94,11 @@ void						env_add_back(t_info *info, t_env *new_node);
 void						free_cmd(char ***cmd, int cmd_count);
 void						free_fd(int **pipefd, int pipe_num);
 void						free_fd(int **pipefd, int pipe_num);
+void						free_redirects(t_redirects *redirects);
+void						free_node(t_node *node);
+void						env_lstclear(t_env **lst);
+void						free_info_token(t_info *info);
+void						free_info(t_info *info);
 
 //util
 int							execute_command(char *command_path, char **tokens,
@@ -108,5 +113,9 @@ void						ft_dup2(int old_fd, int new_fd);
 void						ft_pipe(int fd[2]);
 pid_t						ft_fork(void);
 void						here_doc_fork(t_redirects *redirects);
+char						*ft_strndup(const char *s, size_t n);
+void						append_char(char **s, char c);
+int							is_alpha_under(char c);
+int							is_metacharacter(char c);
 
 #endif

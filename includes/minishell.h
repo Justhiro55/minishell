@@ -6,14 +6,20 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/07 19:35:55 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:05:12 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../func/libft/libft.h"
+# include "./exec.h"
+# include "./lexer.h"
+# include "./token.h"
+# include "exec.h"
 # include "lexer.h"
+// # include "leakdetect.h"
 # include "parser.h"
 # include <dirent.h>
 # include <errno.h>
@@ -36,7 +42,6 @@
 # include "./exec.h"
 # include "./lexer.h"
 # include "./token.h"
-# include "sig.h"
 
 // typedef struct s_info
 // {
@@ -48,6 +53,7 @@
 # define STDERR 2
 # define MINISHELL "MINISHELL$ "
 
+# define SUCCESS 0
 # define ERROR 1
 
 # define EXIT_FAILURE_FILE 2
@@ -55,17 +61,16 @@
 # define EXIT_FAILURE_FORK 4
 # define EXIT_FAILURE_MALLOC 5
 
-// struct s_env;
-extern int	g_signal;
+struct s_env;
 
-void				minishell(char **envp);
+void	minishell(char **envp);
 
 //signal
-void				sig_int_input(int signum);
-void				sig_quit_input(int signum);
+void	sig_int_input(int signum);
+void	sig_quit_input(int signum);
 
-void				exit_process(int status);
+void	exit_process(int status);
 
-void				setup_signals(void);
+void	setup_signals(void);
 
 #endif

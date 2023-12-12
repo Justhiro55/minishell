@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:07:34 by kotainou          #+#    #+#             */
-/*   Updated: 2023/11/27 00:06:37 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:38:25 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_tokeniser	*init_tokeniser(void)
 	if (tokeniser == NULL)
 		exit(1);
 	ft_memset(tokeniser, 0, sizeof(t_tokeniser));
-	tokeniser->head_list = init_token();
+	// tokeniser->head_list = init_token();
 	return (tokeniser);
 }
 

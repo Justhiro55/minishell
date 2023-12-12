@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:15:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/06 21:40:52 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:00:31 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ t_token	*tokenadd_back(t_token *head, char *str, int type)
 	t_token	*new;
 	t_token	*last;
 
+	if (head == NULL || head->str == NULL)
+		return (token_new(str, type));
 	new = token_new(str, type);
-	if (head->str == NULL)
-		return (new);
 	last = token_last(head);
 	new->prev = last;
 	last->next = new;
@@ -80,5 +80,4 @@ void	clear_list(t_token *token)
 		free(p);
 		p = next;
 	}
-	free(p);
 }

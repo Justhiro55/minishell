@@ -6,7 +6,7 @@
 #    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/12/07 16:42:00 by kotainou         ###   ########.fr        #
+#    Updated: 2023/12/12 18:03:45 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CC = cc
 INCLUDES_DIR = ./includes
 INC	=	$(addprefix -I,$(INCLUDES_DIR)) -I $(RL_INCDIR)
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(RL_INCDIR)
+# -Wall -Wextra -Werror
 LDFLAGS = -L $(RL_LIBDIR) -lreadline
 CFLAGS += -g #-fsanitize=address
 
@@ -30,13 +31,15 @@ SRC = src/main.c \
 		src/exec/redirect_utils.c \
 		src/exec/redirect_utils2.c \
 		src/exec/exit_process.c \
+		src/exec/set_env.c \
+		src/exec/set_env_utils.c \
 		src/builtin/cd_command.c \
 		src/builtin/echo_command.c \
 		src/builtin/env_command.c \
 		src/builtin/exit_command.c \
+		src/builtin/exit_utils.c \
 		src/builtin/pwd_command.c \
-		src/builtin/set_env.c \
-		src/builtin/ls_command.c \
+		src/builtin/unset_command.c \
 		src/builtin/export_command.c \
 		src/lexer/lexer.c \
 		src/lexer/token.c \
@@ -50,6 +53,11 @@ SRC = src/main.c \
 		src/parser/parser_utils2.c \
 		src/signal/signal.c \
 		src/signal/change_signal.c
+		src/expand/expand.c \
+		src/expand/expand_utils.c \
+		src/expand/expand_utils2.c \
+		src/signal/signal.c \
+		src/signal/leakdetect.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
@@ -75,6 +83,9 @@ all: $(NAME)
 $(OBJ_DIR)/%.o: src/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJ_DIR)/%.o: src/expand/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+	
 $(OBJ_DIR)/%.o: src/exec/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -103,6 +114,7 @@ clean:
 fclean: clean 
 	@$(RM) $(RMFLAGS) $(NAME) a.out
 	@make fclean -C func/${LIBFTDIR}
+	@rm -f test_outfile
 	@printf "\e[38;5;208m\nsuccessfully deleted🗑\e[0m\n\n"
 
 party:

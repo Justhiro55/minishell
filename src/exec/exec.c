@@ -6,45 +6,20 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/04 21:23:01 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:59:16 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	execute_from_path(char **path, char *command_name, char **tokens,
-		char **envp)
-{
-	int		i;
-	char	*command_path;
-	int		result;
-
-	i = 0;
-	result = 1;
-	while (path[i])
-	{
-		command_path = set_command_path(path[i], command_name);
-		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
-		{
-			result = execute_command(command_path, tokens, envp);
-			free(command_path);
-			return (result);
-		}
-		free(command_path);
-		i++;
-	}
-	command_not_found(command_name);
-	return (result);
-}
-
-int	search_and_execute_command(char *command_name, char **tokens, char **envp,
+int	execute_from_path(char *command_name, char **tokens, char **envp,
 		char **path)
 {
 	int		i;
 	int		result;
 	char	*command_path;
 
-	result = 1;
+	result = -2;
 	command_path = NULL;
 	i = 0;
 	while (path[i])
@@ -61,6 +36,7 @@ int	search_and_execute_command(char *command_name, char **tokens, char **envp,
 	}
 	return (result);
 }
+void	env_lstclear(t_env **lst);
 
 int	execute_command_from_path(char **command, char **envp, t_info *info,
 		t_node *node)
@@ -82,21 +58,28 @@ int	execute_command_from_path(char **command, char **envp, t_info *info,
 		path = ft_split(env->value, ':');
 	if (!env || !path)
 		return (ERROR);
-	result = search_and_execute_command(command[0], command, envp, path);
+	result = execute_from_path(command[0], command, envp, path);
 	ft_free_array(path);
-	if (result == 1)
+	if (result == -2)
 		command_not_found(command[0]);
 	return (result);
 }
 
 int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 {
+	int	status;
+
+	status = 0;
 	if (command == NULL || command[0] == NULL)
 		return (1);
-	if (command[0][0] == '/')
+	if (command[0][0] == '/' || command[0][0] == '.')
 	{
 		if (access(command[0], F_OK) == 0 && access(command[0], X_OK) == 0)
 			return (execute_command(command[0], command, envp));
+		else
+			perror(command[0]);
 	}
-	return (execute_command_from_path(command, envp, info, node));
+	else
+		status = execute_command_from_path(command, envp, info, node);
+	return (status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42Tokyo.jp>     +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/11/24 18:34:24 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:37:32 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ int	export_node(t_info *info, t_env new_node)
 		if (ft_strcmp(tmp->key, new_node.key) == 0)
 		{
 			tmp->value = new_node.value;
-			return (1);
+			return (ERROR);
 		}
 		tmp = tmp->next;
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 int	export_one_arg(t_info *info)
@@ -71,30 +71,40 @@ int	export_one_arg(t_info *info)
 	tmp = info->env;
 	while (tmp != NULL)
 	{
-		printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+		if (tmp->value != NULL && tmp->value[0] != '\0')
+			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+		else
+			printf("declare -x %s\n", tmp->key);
 		tmp = tmp->next;
 	}
-	return (0);
+	return (SUCCESS);
 }
 
-t_env	*command_export(char **token, t_info *info)
+int	command_export(char **token, t_info *info)
 {
 	t_env	*new_node;
+	int		result;
+	int		i;
 
+	i = 1;
+	result = SUCCESS;
 	if (token[1] == NULL)
+		return (export_one_arg(info));
+	else if (export_error(token) == ERROR)
+		return (error_export_msg(token[1]));
+	while (token[i] && (i++))
 	{
-		export_one_arg(info);
-		return (NULL);
+		if (token[i - 1][0] != '_')
+		{
+			if (ft_isalpha(token[i - 1][0]) == 0)
+				result = error_export_msg(token[i - 1]);
+			else
+			{
+				new_node = env_lstnew(token[i - 1]);
+				if (new_node && export_node(info, *new_node) == SUCCESS)
+					env_add_back(info, new_node);
+			}
+		}
 	}
-	if (export_error(token) == ERROR)
-	{
-		printf("ERROR\n");
-		return (info->env);
-	}
-	new_node = env_lstnew(token[1]);
-	if (!new_node)
-		return (info->env);
-	if (export_node(info, *new_node) == 0)
-		env_add_back(info, new_node);
-	return (info->env);
+	return (result);
 }

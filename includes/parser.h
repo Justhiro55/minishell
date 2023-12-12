@@ -6,18 +6,18 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:58 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/02 11:29:27 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:05:53 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "./token.h"
 # include "../func/libft/libft.h"
 # include "./exec.h"
 # include "./lexer.h"
 # include "./minishell.h"
+# include "./token.h"
 
 typedef struct s_token	t_token;
 
