@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/12 17:39:10 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:53:04 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,20 @@ t_node	*new_node_cmd(t_now_token *ntk)
 int	is_redirect_token(t_token *ntk)
 {
 	char	*op;
+	int		type;
 
+	type = 0;
 	op = ft_strdup(ntk->str);
 	if (ft_strncmp("<", op, ft_strlen(op)) == 0)
-		return (REDIRECT_INPUT);
+		type = REDIRECT_INPUT;
 	else if (ft_strncmp(">", op, ft_strlen(op)) == 0)
-		return (REDIRECT_OUTPUT);
+		type = REDIRECT_OUTPUT;
 	else if (ft_strncmp("<<", op, ft_strlen(op)) == 0)
-		return (REDIRECT_HEREDOC);
+		type = REDIRECT_HEREDOC;
 	else if (ft_strncmp(">>", op, ft_strlen(op)) == 0)
-		return (REDIRECT_APPEND_OUTPUT);
-	return (0);
+		type = REDIRECT_APPEND_OUTPUT;
+	free(op);
+	return (type);
 }
 
 size_t	count_word(t_now_token *ntk)
