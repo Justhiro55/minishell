@@ -19,7 +19,7 @@ int	execute_from_path(char *command_name, char **tokens, char **envp,
 	int		result;
 	char	*command_path;
 
-	result = 1;
+	result = -2;
 	command_path = NULL;
 	i = 0;
 	while (path[i])
@@ -57,14 +57,11 @@ int	execute_command_from_path(char **command, char **envp, t_info *info,
 	if (env)
 		path = ft_split(env->value, ':');
 	if (!env || !path)
-		printf("%s: command not found\n", command[0]);
-	else
-	{
-		result = execute_from_path(command[0], command, envp, path);
-		ft_free_array(path);
-		if (result == 1)
-			command_not_found(command[0]);
-	}
+		return (ERROR);
+	result = execute_from_path(command[0], command, envp, path);
+	ft_free_array(path);
+	if (result == -2)
+		command_not_found(command[0]);
 	return (result);
 }
 
