@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:37:32 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:03:17 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,20 @@ int	error_export_msg(char *str)
 	return (ERROR);
 }
 
-int	export_error(char **token)
+int	export_error(char *token)
 {
 	int	i;
-	int	j;
 
-	i = 1;
-	j = 0;
-	while (token[i] != NULL)
+	i = 0;
+	while (token[i] != '\0')
 	{
-		while (token[i][j] != '\0')
+		if (token[i] == '=')
 		{
-			if (token[i][j] == '=')
-			{
-				if (j == 0)
-					return (error_export_msg(token[i]));
-			}
-			break ;
-			j++;
+			if (i == 0)
+				return (ERROR);
 		}
-		if (j == (int)ft_strlen(token[i]))
-			return (ERROR);
-		j = 0;
 		i++;
+		break ;
 	}
 	return (0);
 }
@@ -69,12 +60,17 @@ int	export_one_arg(t_info *info)
 	t_env	*tmp;
 
 	tmp = info->env;
+	if (tmp == NULL)
+	{
+		printf("declare -x PWD=\"%s\"\n", getcwd(NULL, 0));
+		printf("declare -x SHLVL=\"1\"\n");
+	}
 	while (tmp != NULL)
 	{
 		if (tmp->value != NULL && tmp->value[0] != '\0')
 			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		else
-			printf("declare -x %s\n", tmp->key);
+			printf("declare -x %s=\"\"\n", tmp->key);
 		tmp = tmp->next;
 	}
 	return (SUCCESS);
@@ -90,20 +86,16 @@ int	command_export(char **token, t_info *info)
 	result = SUCCESS;
 	if (token[1] == NULL)
 		return (export_one_arg(info));
-	else if (export_error(token) == ERROR)
-		return (error_export_msg(token[1]));
 	while (token[i] && (i++))
 	{
-		if (token[i - 1][0] != '_')
+		if ((ft_isalpha(token[i - 1][0]) == 0 && token[i - 1][0] != '_')
+			|| token[i - 1][0] == '=')
+			result = error_export_msg(token[i - 1]);
+		else
 		{
-			if (ft_isalpha(token[i - 1][0]) == 0)
-				result = error_export_msg(token[i - 1]);
-			else
-			{
-				new_node = env_lstnew(token[i - 1]);
-				if (new_node && export_node(info, *new_node) == SUCCESS)
-					env_add_back(info, new_node);
-			}
+			new_node = env_lstnew(token[i - 1]);
+			if (new_node && export_node(info, *new_node) == SUCCESS)
+				env_add_back(info, new_node);
 		}
 	}
 	return (result);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:55:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:37:34 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:32:14 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 int	command_pwd(char **token)
 {
-	if (token[1] != NULL)
+	char	*cwd;
+
+	(void)token;
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
 	{
-		ft_putstr_fd("pwd: too many arguments\n", STDERR);
+		perror("getcwd");
 		return (ERROR);
 	}
-	else
-	{
-		ft_putstr_fd(getcwd(NULL, 0), STDOUT);
-		ft_putstr_fd("\n", STDOUT);
-	}
+	ft_putstr_fd(cwd, STDOUT);
+	ft_putstr_fd("\n", STDOUT);
+	free(cwd);
 	return (SUCCESS);
 }
