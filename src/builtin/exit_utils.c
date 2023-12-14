@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 15:24:26 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:37:28 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:18:19 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,29 +65,3 @@ void	env_lstclear(t_env **lst)
 	}
 	*lst = NULL;
 }
-
-// void	free_info_token(t_info *info)
-// {
-// 	int	i;
-
-// 	if (info->token)
-// 	{
-// 		i = 0;
-// 		while (info->token[i] != NULL)
-// 		{
-// 			free(info->token[i]);
-// 			i++;
-// 		}
-// 		// free(info->token);
-// 		// info->token = NULL;
-// 	}
-// }
-
-// void	free_info(t_info *info)
-// {
-// 	if (info)
-// 	{
-// 		env_lstclear(&info->env);
-// 		// free_info_token(info);
-// 	}
-// }

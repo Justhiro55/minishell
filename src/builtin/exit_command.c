@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:55:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:37:25 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:22:34 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ int	contains_non_numeric(const char *str)
 	return (0);
 }
 
-int	print_error_and_return(char *str)
+int	print_error_and_return(char *str, t_node *node, t_info *info)
 {
 	ft_putstr_fd("exit: ", STDERR);
 	ft_putstr_fd(str, STDERR);
 	ft_putstr_fd(": numeric argument required\n", STDERR);
-	return (255);
+	free_node(node);
+	free_info(info);
+	exit(255);
 }
 
 int	is_outside_long_range(char *str)
@@ -78,12 +80,11 @@ int	command_exit(char **token, t_info *info, t_node *node)
 	int	status;
 
 	status = -1;
-	ft_putstr_fd("exit\n", STDERR);
 	if (token[1] == NULL)
 		status = 0;
 	else if (contains_non_numeric(token[1]) == 1
-		|| is_outside_long_range(token[1]) == 1)
-		status = print_error_and_return(token[1]);
+		|| is_outside_long_range(token[1]) == 1 || token[1][0] == '\0')
+		status = print_error_and_return(token[1], node, info);
 	else if (token[2] == NULL)
 	{
 		if (ft_atoi(token[1]) < 0)
@@ -93,6 +94,7 @@ int	command_exit(char **token, t_info *info, t_node *node)
 	}
 	else
 		ft_putstr_fd("exit: too many arguments\n", STDERR);
+	ft_putstr_fd("exit\n", STDERR);
 	if (status != -1)
 	{
 		free_node(node);
