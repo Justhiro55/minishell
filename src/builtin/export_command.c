@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:37:32 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:33:51 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,13 @@ int	command_export(char **token, t_info *info)
 		return (error_export_msg(token[1]));
 	while (token[i] && (i++))
 	{
-		if (token[i - 1][0] != '_')
+		if (ft_isalpha(token[i - 1][0]) == 0 && token[i - 1][0] != '_')
+			result = error_export_msg(token[i - 1]);
+		else
 		{
-			if (ft_isalpha(token[i - 1][0]) == 0)
-				result = error_export_msg(token[i - 1]);
-			else
-			{
-				new_node = env_lstnew(token[i - 1]);
-				if (new_node && export_node(info, *new_node) == SUCCESS)
-					env_add_back(info, new_node);
-			}
+			new_node = env_lstnew(token[i - 1]);
+			if (new_node && export_node(info, *new_node) == SUCCESS)
+				env_add_back(info, new_node);
 		}
 	}
 	return (result);
