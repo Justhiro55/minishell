@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 19:48:59 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:03:17 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ int	export_one_arg(t_info *info)
 	t_env	*tmp;
 
 	tmp = info->env;
+	if (tmp == NULL)
+	{
+		printf("declare -x PWD=\"%s\"\n", getcwd(NULL, 0));
+		printf("declare -x SHLVL=\"1\"\n");
+	}
 	while (tmp != NULL)
 	{
 		if (tmp->value != NULL && tmp->value[0] != '\0')
