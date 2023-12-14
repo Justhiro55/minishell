@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:56 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:37:22 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:29:49 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,18 @@ int	command_env(char **token, t_info info)
 {
 	if (token[1] != NULL)
 	{
-		ft_putstr_fd("env: too many arguments\n", STDERR);
+		printf("env: %s: No such file or directory\n", token[1]);
 		return (ERROR);
 	}
-	if (token[1] == NULL)
+	if (info.env == NULL)
 	{
-		if (info.env == NULL)
-		{
-			return (SUCCESS);
-		}
-		while (info.env != NULL)
-		{
-			if (info.env->value[0] != '\0')
-				printf("%s=%s\n", info.env->key, info.env->value);
-			info.env = info.env->next;
-		}
+		return (SUCCESS);
+	}
+	while (info.env != NULL)
+	{
+		if (info.env->value[0] != '\0')
+			printf("%s=%s\n", info.env->key, info.env->value);
+		info.env = info.env->next;
 	}
 	return (SUCCESS);
 }
