@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 21:54:25 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:59:42 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,25 @@ void	env_lstclear(t_env **lst);
 
 int	execute_no_env(char **command, char **envp, t_node *node, t_info *info)
 {
-	int		status;
 	char	*newCommand;
 
-	status = 0;
 	(void)node;
 	if (info->env == NULL)
 	{
 		newCommand = (char *)malloc(strlen("/bin/") + strlen(command[0]) + 1);
 		if (newCommand != NULL)
 		{
-			strcpy(newCommand, "/bin/");
-			strcat(newCommand, command[0]);
+			ft_strlcpy(newCommand, "/bin/", ft_strlen("/bin/")
+				+ ft_strlen(command[0]) + 1);
+			ft_strlcat(newCommand, command[0], ft_strlen("/bin/")
+				+ ft_strlen(command[0]) + 1);
 			free(command[0]);
 			command[0] = newCommand;
 			if (access(command[0], F_OK) == 0 && access(command[0], X_OK) == 0)
 				return (execute_command(command[0], command, envp));
 		}
 	}
-	else
-		command_not_found(command[0]);
-	return (status);
+	return (command_not_found(command[0]));
 }
 
 int	execute_command_from_path(char **command, char **envp, t_info *info,
