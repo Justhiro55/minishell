@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 19:33:51 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:42:23 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,20 @@ int	error_export_msg(char *str)
 	return (ERROR);
 }
 
-int	export_error(char **token)
+int	export_error(char *token)
 {
 	int	i;
-	int	j;
 
-	i = 1;
-	j = 0;
-	while (token[i] != NULL)
+	i = 0;
+	while (token[i] != '\0')
 	{
-		while (token[i][j] != '\0')
+		if (token[i] == '=')
 		{
-			if (token[i][j] == '=')
-			{
-				if (j == 0)
-					return (error_export_msg(token[i]));
-			}
-			break ;
-			j++;
+			if (i == 0)
+				return (ERROR);
 		}
-		if (j == (int)ft_strlen(token[i]))
-			return (ERROR);
-		j = 0;
 		i++;
+		break ;
 	}
 	return (0);
 }
@@ -90,11 +81,10 @@ int	command_export(char **token, t_info *info)
 	result = SUCCESS;
 	if (token[1] == NULL)
 		return (export_one_arg(info));
-	else if (export_error(token) == ERROR)
-		return (error_export_msg(token[1]));
 	while (token[i] && (i++))
 	{
-		if (ft_isalpha(token[i - 1][0]) == 0 && token[i - 1][0] != '_')
+		if ((ft_isalpha(token[i - 1][0]) == 0 && token[i - 1][0] != '_')
+			|| token[i - 1][0] == '=')
 			result = error_export_msg(token[i - 1]);
 		else
 		{
