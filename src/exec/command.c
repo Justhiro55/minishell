@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:59:09 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:10:40 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_redirects(t_redirects *redirects);
 void	free_node(t_node *node);
 void	free_info(t_info *info);
 
-void	exec_left_node(t_info info, char **envp, t_node *node, int *pipefd)
+void	exec_left_node(t_info *info, char **envp, t_node *node, int *pipefd)
 {
 	int	status;
 
@@ -30,7 +30,7 @@ void	exec_left_node(t_info info, char **envp, t_node *node, int *pipefd)
 	exit(status);
 }
 
-void	exec_right_node(t_info info, char **envp, t_node *node, int *pipefd)
+void	exec_right_node(t_info *info, char **envp, t_node *node, int *pipefd)
 {
 	int	status;
 
@@ -43,7 +43,7 @@ void	exec_right_node(t_info info, char **envp, t_node *node, int *pipefd)
 	exit(status);
 }
 
-int	exec_pipe(t_info info, char **envp, t_node *node)
+int	exec_pipe(t_info *info, char **envp, t_node *node)
 {
 	int		pipefd[2];
 	pid_t	parent1;
@@ -73,7 +73,7 @@ int	exec_pipe(t_info info, char **envp, t_node *node)
 
 void	expand_variable(t_node *node, t_info *info);
 
-int	child_process(t_info info, char **envp, t_node *node)
+int	child_process(t_info *info, char **envp, t_node *node)
 {
 	int	stdin_backup;
 	int	stdout_backup;
@@ -88,10 +88,10 @@ int	child_process(t_info info, char **envp, t_node *node)
 		status = exec_pipe(info, envp, node);
 	else
 	{
-		expand_variable(node, &info);
+		expand_variable(node, info);
 		handle_redirections_for_child(node, node->redirects);
 		if (g_signal != SIGINT)
-			ft_exec(node->data, envp, &info, node);
+			status = ft_exec(node->data, envp, info, node);
 	}
 	ft_dup2(stdin_backup, STDIN_FILENO);
 	ft_dup2(stdout_backup, STDOUT_FILENO);
@@ -107,6 +107,6 @@ void	parse(char *line, t_info *info, char **envp)
 	node = parser(lexer_main(line, tokeniser));
 	add_history(line);
 	free(line);
-	info->status = child_process(*info, envp, node);
+	info->status = child_process(info, envp, node);
 	free_node(node);
 }

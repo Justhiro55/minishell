@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 18:04:13 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:57:13 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int							command_export(char **token, t_info *info);
 int							command_unset(char **token, t_info *info);
 
 //redirect
-int							child_process(t_info info, char **envp,
+int							child_process(t_info *info, char **envp,
 								t_node *node);
 
 ;
