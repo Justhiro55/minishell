@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:29:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:59:14 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:17:09 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	builtin_command(char **command, t_info *info, t_node *node)
 	else if (ft_strcmp(command[0], "pwd") == 0)
 		command_pwd(command);
 	else if (ft_strcmp(command[0], "cd") == 0)
-		command_cd(command);
+		command_cd(command, info);
 	else if (ft_strcmp(command[0], "env") == 0)
 		command_env(command, *info);
 	else if (ft_strcmp(command[0], "export") == 0)

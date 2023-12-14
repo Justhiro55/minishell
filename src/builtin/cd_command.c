@@ -3,24 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   cd_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:53:36 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:37:11 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:23:00 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	command_cd(char **token)
+int	command_cd(char **token, t_info *info)
 {
 	if (token[1] == NULL || ft_strcmp(token[1], "~") == 0)
 	{
-		chdir(getenv("HOME"));
-		return (0);
+		if (info->env == NULL)
+		{
+			printf("bash: cd: HOME not set\n");
+			return (ERROR);
+		}
+		else
+			chdir(getenv("HOME"));
+		return (SUCCESS);
 	}
-	if (token[2] != NULL)
-		return (1);
 	if (chdir(token[1]) == -1)
 	{
 		ft_putstr_fd("cd: ", STDERR);
@@ -29,5 +33,5 @@ int	command_cd(char **token)
 		ft_putstr_fd(strerror(errno), STDERR);
 		ft_putstr_fd("\n", STDERR);
 	}
-	return (0);
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 18:57:13 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:17:00 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void						parse(char *line, t_info *info, char **envp);
 int							ft_exec(char **command, char **envp, t_info *info,
 								t_node *node);
 
-//builtin-command
+// builtin-command
 int							builtin_command(char **command, t_info *info,
 								t_node *node);
 int							command_exit(char **token, t_info *info,
@@ -60,12 +60,12 @@ int							command_exit(char **token, t_info *info,
 int							command_not_found(char *line);
 int							command_echo(char **token);
 int							command_pwd(char **token);
-int							command_cd(char **token);
+int							command_cd(char **token, t_info *info);
 int							command_env(char **token, t_info info);
 int							command_export(char **token, t_info *info);
 int							command_unset(char **token, t_info *info);
 
-//redirect
+// redirect
 int							child_process(t_info *info, char **envp,
 								t_node *node);
 
@@ -80,17 +80,17 @@ void						here_doc_mock(char *delimiter);
 void						restore_stdin_stdout(int stdin_backup,
 								int stdout_backup);
 
-//set
+// set
 void						set_node(t_node *node);
 void						set_env(t_info *info, char **envp);
 void						set_token(t_info *info, char *line);
 
-//env
+// env
 t_env						*env_lstlast(t_env *lst);
 t_env						*env_lstnew(char *envp);
 void						env_add_back(t_info *info, t_env *new_node);
 
-//free
+// free
 void						free_cmd(char ***cmd, int cmd_count);
 void						free_fd(int **pipefd, int pipe_num);
 void						free_fd(int **pipefd, int pipe_num);
@@ -100,7 +100,7 @@ void						env_lstclear(t_env **lst);
 void						free_info_token(t_info *info);
 void						free_info(t_info *info);
 
-//util
+// util
 int							execute_command(char *command_path, char **tokens,
 								char **envp);
 void						exit_process(int status);
