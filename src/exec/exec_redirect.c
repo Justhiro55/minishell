@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:59:07 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:07:03 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	set_redirects(int stdin_backup, int stdout_backup, int pipefd[2],
 	close(pipefd[PIPE_WRITE]);
 }
 
-void	handle_redirections_for_child(t_node *node, t_redirects *redirects)
+void	handle_redirections_for_child(t_node *node,
+	t_redirects *redirects)
 {
 	int	stdin_backup;
 	int	stdout_backup;

@@ -6,30 +6,24 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:20:55 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/07 19:37:56 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:23:24 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sig.h"
+#include "../../includes/sig.h"
 
 int	g_signal = 0;
+
+void	error_signal(void)
+{
+	ft_putstr_fd(strerror(errno), STDERR);
+	exit(EXIT_FAILURE);
+}
 
 void	signal_ctrl(void)
 {
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	exit(0);
-}
-
-void	sigint_handler_in_process(int sig)
-{
-	(void) sig;
-	printf("\n");
-}
-
-void	sigquit_handler_in_process(int sig)
-{
-	(void) sig;
-	printf("Quit: %d\n", sig);
 }
 
 void	sigint_handler_nonl(int sig)
@@ -46,83 +40,41 @@ void	sigint_handler_nonl(int sig)
 	g_signal = 1;
 }
 
-void	sigin_handler_heredoc(int sig)
+static void	sigin_handler_heredoc(int sig)
 {
 	(void)sig;
 	close(0);
 	g_signal = SIGINT;
 }
 
-void	setup_signals(void)
+void	change_signal(int flag)
 {
-	if (signal(SIGINT, sigint_handler_nonl) == SIG_ERR)
+	if (flag == 0)
 	{
-		ft_putstr_fd(strerror(errno), STDERR);
-		exit(EXIT_FAILURE);
+		if (signal(SIGINT, sigint_handler_nonl) == SIG_ERR)
+			error_signal();
+		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+			error_signal();
 	}
-	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+	if (flag == 1)
 	{
-		ft_putstr_fd(strerror(errno), STDERR);
-		exit(EXIT_FAILURE);
+		if (signal(SIGINT, sigin_handler_heredoc) == SIG_ERR)
+			error_signal();
+		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+			error_signal();
 	}
 }
 
-
-void	exec(t_node *node, t_info *info)
-{
-	if (node == NULL)
-		return ;
-	if (node->type)
-		;
-	(void)info;
-}
-
-void	signals_exec_next(t_node *node, t_info *info)
-{
-	if (node == NULL)
-	{
-	}
-	exec(node, info);
-	setup_signals();
-}
-
-void	signals_exec(t_node *node, t_info *info)
-{
-	if (g_signal == 1)
-	{
-		g_signal = 0;
-	}
-	else if (g_signal == 130 || g_signal == 131)
-	{
-		g_signal = 0;
-	}
-	signals_exec_next(node, info);
-}
-
-void	exec_in_signal(int sig)
-{
-	if (sig == SIGINT)
-	{
-		write(STDERR_FILENO, "\n", 1);
-		g_signal = 130;
-	}
-	else if (sig == SIGQUIT)
-	{
-		write(STDIN_FILENO, "Quit: 3\n", 9);
-		g_signal = 131;
-	}
-}
-
-void	setup_exec_signal(void)
-{
-	if (signal(SIGINT, exec_in_signal) == SIG_ERR)
-	{
-		ft_putstr_fd(strerror(errno), STDERR);
-		exit(EXIT_FAILURE);
-	}
-	if (signal(SIGQUIT, exec_in_signal) == SIG_ERR)
-	{
-		ft_putstr_fd(strerror(errno), STDERR);
-		exit(EXIT_FAILURE);
-	}
-}
+// void	setup_signals(void)
+// {
+// 	if (signal(SIGINT, sigint_handler_nonl) == SIG_ERR)
+// 	{
+// 		ft_putstr_fd(strerror(errno), STDERR);
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+// 	{
+// 		ft_putstr_fd(strerror(errno), STDERR);
+// 		exit(EXIT_FAILURE);
+// 	}
+// }

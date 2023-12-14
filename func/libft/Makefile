@@ -6,7 +6,7 @@
 #    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 15:17:46 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/11/25 22:37:53 by kotainou         ###   ########.fr        #
+#    Updated: 2023/12/14 16:26:46 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ ifdef WITH_BONUS
     OBJS += ${OBJS_B}
 endif
 
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 # CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 RM = rm

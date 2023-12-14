@@ -6,13 +6,13 @@
 #    By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 13:53:25 by hhagiwar          #+#    #+#              #
-#    Updated: 2023/12/12 18:03:45 by kotainou         ###   ########.fr        #
+#    Updated: 2023/12/14 16:26:35 by kotainou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = minishell
-CC = cc
+CC = gcc
 INCLUDES_DIR = ./includes
 INC	=	$(addprefix -I,$(INCLUDES_DIR)) -I $(RL_INCDIR)
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(RL_INCDIR)
@@ -33,6 +33,9 @@ SRC = src/main.c \
 		src/exec/exit_process.c \
 		src/exec/set_env.c \
 		src/exec/set_env_utils.c \
+		src/expand/expand.c \
+		src/expand/expand_utils.c \
+		src/expand/expand_utils2.c \
 		src/builtin/cd_command.c \
 		src/builtin/echo_command.c \
 		src/builtin/env_command.c \
@@ -52,12 +55,7 @@ SRC = src/main.c \
 		src/parser/parser_utils.c \
 		src/parser/parser_utils2.c \
 		src/signal/signal.c \
-		src/signal/change_signal.c
-		src/expand/expand.c \
-		src/expand/expand_utils.c \
-		src/expand/expand_utils2.c \
-		src/signal/signal.c \
-		src/signal/leakdetect.c
+		# src/signal/leakdetect.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))

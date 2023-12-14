@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 18:05:12 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:20:27 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "./exec.h"
 # include "./lexer.h"
 # include "./token.h"
+# include "./sig.h"
 # include "exec.h"
 # include "lexer.h"
 // # include "leakdetect.h"
@@ -48,6 +49,8 @@
 // 	char			**token;
 // 	struct s_env	*env;
 // }					t_info;
+
+extern int		g_signal;
 
 # define STDOUT 1
 # define STDERR 2

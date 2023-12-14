@@ -6,10 +6,11 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 18:03:17 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:33:36 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/sig.h"
 #include "../includes/exec.h"
 #include "../includes/minishell.h"
 
@@ -37,18 +38,7 @@ void	minishell(char **envp)
 			signal_ctrl();
 		change_signal(0);
 		add_history(line);
-		free(line);
 		g_signal = 0;
-		// if (signal(SIGINT, sig_int_input) == SIG_ERR)
-		// {
-		// 	ft_putstr_fd(strerror(errno), STDERR);
-		// 	exit(1);
-		// }
-		// if (signal(SIGQUIT, sig_quit_input) == SIG_ERR)
-		// {
-		// 	ft_putstr_fd(strerror(errno), STDERR);
-		// 	exit(1);
-		// }
 	}
 }
 
@@ -71,7 +61,7 @@ void	minishell(char **envp)
 // 	ft_putstr_fd("\b\b  \b\b", STDERR);
 // }
 
-__attribute__((destructor)) static void destructor()
-{
-	system("leaks -q minishell");
-}
+// __attribute__((destructor)) static void destructor()
+// {
+// 	system("leaks -q minishell");
+// }

@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:36:21 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/12 17:44:59 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:01:51 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@
 // 	return p;
 // }
 
-// void	*leak_detelc_ft_calloc(size_t i, size_t num, const char *file, unsigned int line)
+// void	*leak_detelc_ft_calloc(size_t i, size_t num,
+	// const char *file, unsigned int line)
 // {
 // 	void	*p;
 
@@ -58,7 +59,9 @@
 // 	return p;
 // }
 
-// char	*leak_detelc_strdup(const char *str, const char *file, unsigned int line)
+// char	*leak_detelc_strdup(const char *str,
+	// const char *file,
+	//unsigned int line)
 // {
 // 	char	*p;
 

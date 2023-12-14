@@ -6,14 +6,14 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:06:26 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:38:16 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:07:51 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	handle_special_char(char **dst, char **rest, t_info *info);
-int	is_alpha_under(char c);
+int		handle_special_char(char **dst, char **rest, t_info *info);
+int		is_alpha_under(char c);
 void	append_char(char **s, char c);
 
 char	*get_env(char *key, t_env *env)
