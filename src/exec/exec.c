@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 19:57:49 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:54:25 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,31 @@ int	execute_from_path(char *command_name, char **tokens, char **envp,
 }
 void	env_lstclear(t_env **lst);
 
+int	execute_no_env(char **command, char **envp, t_node *node, t_info *info)
+{
+	int		status;
+	char	*newCommand;
+
+	status = 0;
+	(void)node;
+	if (info->env == NULL)
+	{
+		newCommand = (char *)malloc(strlen("/bin/") + strlen(command[0]) + 1);
+		if (newCommand != NULL)
+		{
+			strcpy(newCommand, "/bin/");
+			strcat(newCommand, command[0]);
+			free(command[0]);
+			command[0] = newCommand;
+			if (access(command[0], F_OK) == 0 && access(command[0], X_OK) == 0)
+				return (execute_command(command[0], command, envp));
+		}
+	}
+	else
+		command_not_found(command[0]);
+	return (status);
+}
+
 int	execute_command_from_path(char **command, char **envp, t_info *info,
 		t_node *node)
 {
@@ -57,7 +82,7 @@ int	execute_command_from_path(char **command, char **envp, t_info *info,
 	if (env)
 		path = ft_split(env->value, ':');
 	if (!env || !path)
-		return (command_not_found(command[0]));
+		return (execute_no_env(command, envp, node, info));
 	result = execute_from_path(command[0], command, envp, path);
 	ft_free_array(path);
 	if (result == -2)
