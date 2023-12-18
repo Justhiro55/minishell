@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 18:04:19 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:11:57 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_node	*parser(t_token *token, t_info *info)
 	t_now_token	*ntk;
 	t_node		*node;
 
+	(void)info;
 	ntk = ft_calloc(1, sizeof(t_now_token));
 	if (ntk == NULL)
 		return (NULL);

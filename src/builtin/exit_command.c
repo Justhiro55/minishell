@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:55:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 17:50:15 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:15:24 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ int	command_exit(char **token, t_info *info, t_node *node)
 	}
 	else
 		ft_putstr_fd("exit: too many arguments\n", STDERR);
-	ft_putstr_fd("exit\n", STDERR);
 	if (status != -1)
 	{
+		ft_putstr_fd("exit\n", STDERR);
 		free_node(node);
 		free_info(info);
 		exit(status);
