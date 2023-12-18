@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:07:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 19:16:10 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:26:05 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_dup(int fd)
 
 	new_fd = dup(fd);
 	if (new_fd == -1)
-		exit(EXIT_FAILURE_DUP);
+		exit(1);
 	return (new_fd);
 }
 
@@ -47,13 +47,15 @@ void	ft_dup2(int old_fd, int new_fd)
 	if (old_fd == new_fd)
 		return ;
 	if (dup2(old_fd, new_fd) == -1)
-		exit(EXIT_FAILURE_DUP);
+	{
+		exit(1);
+	}
 }
 
 void	ft_pipe(int fd[2])
 {
 	if (pipe(fd) == -1)
-		exit_process(EXIT_FAILURE_PIPE);
+		exit_process(1);
 }
 
 pid_t	ft_fork(void)
@@ -62,6 +64,6 @@ pid_t	ft_fork(void)
 
 	pid = fork();
 	if (pid == -1)
-		exit_process(EXIT_FAILURE_FILE);
+		exit_process(1);
 	return (pid);
 }
