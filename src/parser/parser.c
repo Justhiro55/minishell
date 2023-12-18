@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 15:50:50 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:04:19 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	free_ntk(t_now_token *ntk)
 	free(ntk);
 }
 
-t_node	*parser(t_token *token)
+t_node	*parser(t_token *token, t_info *info)
 {
 	t_now_token	*ntk;
 	t_node		*node;

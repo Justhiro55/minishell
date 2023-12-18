@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:58 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 12:50:59 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:40:32 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "./token.h"
 
 typedef struct s_token	t_token;
+typedef struct s_info	t_info;
 
 typedef enum e_redirect_type
 {
@@ -55,7 +56,7 @@ typedef struct s_node
 	struct s_node	*left;
 }					t_node;
 
-t_node					*parser(t_token *token);
+t_node					*parser(t_token *token, t_info *info);
 typedef struct s_now_token
 {
 	t_token				*now;

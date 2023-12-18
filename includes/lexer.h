@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:50:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/14 16:06:06 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:08:35 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stddef.h>
 
 typedef struct s_token	t_token;
+typedef struct s_info	t_info;
 
 typedef struct s_tokeniser
 {
@@ -34,7 +35,8 @@ typedef struct s_tokeniser
 	t_token				*head_list;
 }						t_tokeniser;
 
-t_token					*lexer_main(char *line, t_tokeniser	*tokeniser);
+t_token					*lexer_main(char *line, t_tokeniser	*tokeniser,
+							t_info *info);
 t_token					*tokenadd_back(t_token *head, char *str, int type);
 t_token					*tokenlast(t_token *lst);
 t_token					*init_token(void);
@@ -49,10 +51,11 @@ int						check_space(t_tokeniser *tk, char *line);
 void					clear_list(t_token *token);
 void					switch_quote_state(t_tokeniser *lex, char c);
 
-void					check_syntax(t_token *token);
+int						check_syntax(t_token *token, t_info *info);
 void					clear_tokeniser(t_tokeniser *tk);
 
 //token_utils.c
 t_token					*init_token(void);
+int						syntax_error(t_info *info);
 
 #endif
