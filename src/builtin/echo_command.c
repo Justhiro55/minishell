@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:29 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:37:16 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:37:15 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	n_option(char **token)
 
 int	is_metacharacter(char c)
 {
-	return (c && ft_strchr("|&;()<> \t\n", c));
+	return (c && strchr("|&;()<> \t\n", c));
 }
 
 int	check_arg(char **str)
@@ -49,7 +49,8 @@ int	check_arg(char **str)
 	{
 		while (str[i][j] != '\0')
 		{
-			if (is_metacharacter(str[i][j]))
+			if (is_metacharacter(str[i][j]) && (str[i][0] != '\"'
+					&& str[i][0] != '\''))
 			{
 				ft_putstr_fd("syntax error near unexpected token \'", STDOUT);
 				ft_putchar_fd(str[i][j], STDOUT);
@@ -75,7 +76,7 @@ int	command_echo(char **token)
 		return (0);
 	}
 	if (check_arg(token) == ERROR)
-		return (ERROR);
+		return (258);
 	n_set = n_option(token);
 	i = n_set;
 	while (token[i])

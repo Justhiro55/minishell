@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:13:34 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 14:33:58 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 16:03:56 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	append_double_quote(char **dst, char **rest, char *p, t_info *info)
 {
 	if (*p == '\"')
 	{
-		(*rest)++;
+		append_char(dst, *((*rest)++));
 		while (**rest && **rest != '\"')
 		{
 			if (**rest == '$')
@@ -32,7 +32,7 @@ int	append_double_quote(char **dst, char **rest, char *p, t_info *info)
 				append_char(dst, *((*rest)++));
 		}
 		if (**rest == '\"')
-			(*rest)++;
+			append_char(dst, *((*rest)++));
 	}
 	return (0);
 }
@@ -41,11 +41,11 @@ void	append_single_quote(char **dst, char **rest, char *p)
 {
 	if (*p == '\'')
 	{
-		(*rest)++;
+		append_char(dst, *((*rest)++));
 		while (**rest && **rest != '\'')
 			append_char(dst, *((*rest)++));
 		if (**rest == '\'')
-			(*rest)++;
+			append_char(dst, *((*rest)++));
 	}
 }
 
@@ -89,10 +89,7 @@ void	expand_variable(t_node *node, t_info *info)
 	if (node == NULL)
 		return ;
 	while (node->data[i] != NULL)
-	{
-		expand_variable_tok(&(node->data[i]), info);
-		i++;
-	}
+		expand_variable_tok(&(node->data[i++]), info);
 	while (redirects != NULL)
 	{
 		if (redirects != NULL && redirects->type != REDIRECT_HEREDOC)
