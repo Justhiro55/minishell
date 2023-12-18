@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 14:13:48 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:08:23 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ size_t	count_word(t_now_token *ntk)
 		&& is_redirect_token(token->str) == 0)
 		token = token_next(token, &count);
 	i = 0;
-	if (token != NULL && is_redirect_token(token->str))
+	if (token != NULL && token->next != NULL && is_redirect_token(token->str))
 	{
 		while (token != NULL && i < 2)
 		{
@@ -85,6 +85,8 @@ size_t	count_word(t_now_token *ntk)
 	while (token != NULL && ft_strncmp(token->str, "|", 1) != 0
 		&& is_redirect_token(token->str) == 0)
 		token = token_next(token, &count);
+	if (is_redirect_token(token->str) != 0 && token->next == NULL)
+		count++;
 	if (count == 0)
 		count++;
 	return (count);

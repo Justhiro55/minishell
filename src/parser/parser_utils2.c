@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:29:23 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 15:51:28 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 16:17:54 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	error_parser(void)
 {
-	ft_putstr_fd("error\n", 1);
+	ft_putstr_fd("syntax error near unexpected token `\"'\n", 1);
 	exit(1);
 }
 
