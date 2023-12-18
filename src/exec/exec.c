@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 16:04:18 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:53:54 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ int	execute_command_from_path(char **command, char **envp, t_info *info,
 	result = execute_from_path(command[0], command, envp, path);
 	ft_free_array(path);
 	if (result == -2)
+	{
+		result = 127;
 		command_not_found(command[0]);
+	}
 	return (result);
 }
 
@@ -100,7 +103,10 @@ int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 		if (access(command[0], F_OK) == 0 && access(command[0], X_OK) == 0)
 			return (execute_command(command[0], command, envp));
 		else
-			perror(command[0]);
+		{
+			printf("%s: No such file or directory\n", command[0]);
+			return (127);
+		}
 	}
 	else
 		status = execute_command_from_path(command, envp, info, node);

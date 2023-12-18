@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 18:11:36 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:13:02 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,28 @@ void	free_redirects(t_redirects *redirects);
 void	free_node(t_node *node);
 void	free_info(t_info *info);
 
-void	exec_left_node(t_info *info, char **envp, t_node *node, int *pipefd)
+int 	exec_left_node(t_info *info, char **envp, t_node *node, int *pipefd)
 {
 	int	status;
 
 	status = 0;
 	close(pipefd[PIPE_READ]);
-	ft_dup2(pipefd[PIPE_WRITE], STDOUT_FILENO);
+	if (ft_dup2(pipefd[PIPE_WRITE], STDOUT_FILENO) == -1)
+		exit(1);
 	close(pipefd[PIPE_WRITE]);
 	if (node != NULL)
 		status = child_process(info, envp, node);
 	exit(status);
 }
 
-void	exec_right_node(t_info *info, char **envp, t_node *node, int *pipefd)
+int 	exec_right_node(t_info *info, char **envp, t_node *node, int *pipefd)
 {
 	int	status;
 
 	status = 0;
 	close(pipefd[PIPE_WRITE]);
-	ft_dup2(pipefd[PIPE_READ], STDIN_FILENO);
+	if (ft_dup2(pipefd[PIPE_READ], STDIN_FILENO) == -1)
+		exit(1);
 	close(pipefd[PIPE_READ]);
 	if (node != NULL)
 		status = child_process(info, envp, node);

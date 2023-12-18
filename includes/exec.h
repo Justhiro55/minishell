@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 14:37:15 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:16:34 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ t_env						*find_env_path(t_info *info);
 char						*set_command_path(char *path, char *command);
 int							open_file(t_redirects *redirects);
 int							ft_dup(int fd);
-void						ft_dup2(int old_fd, int new_fd);
-void						ft_pipe(int fd[2]);
+void 						ft_dup2(int old_fd, int new_fd);
+void 						ft_pipe(int fd[2]);
 pid_t						ft_fork(void);
 void						here_doc_fork(t_redirects *redirects);
 char						*ft_strndup(const char *s, size_t n);

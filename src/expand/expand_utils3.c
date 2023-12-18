@@ -3,44 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:32:06 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 14:33:01 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:57:46 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sig.h"
-
-// void	expand_variable_tok(char **str, t_info *info)
-// {
-// 	char	*new_word;
-// 	char	*p;
-
-// 	if (*str == NULL)
-// 		return ;
-// 	p = *str;
-// 	new_word = ft_calloc(1, sizeof(char));
-// 	if (new_word == NULL)
-// 		exit_process(EXIT_FAILURE_MALLOC);
-// 	while (*p)
-// 	{
-// 		if (*p == '\'')
-// 			append_single_quote(&new_word, &p, p);
-// 		else if (*p == '\"')
-// 			append_double_quote(&new_word, &p, p, info);
-// 		else if (*p == '$')
-// 		{
-// 			is_variable(&new_word, &p, p, info);
-// 			while (*p != '\0' && *p != '\"' && *p != '$' && *p != '\'')
-// 				p++;
-// 		}
-// 		else
-// 			append_char(&new_word, *p++);
-// 	}
-// 	free(*str);
-// 	*str = new_word;
-// }
 
 void	process_single_quote(char **new_word, char **p)
 {
