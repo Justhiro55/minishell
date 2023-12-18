@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 19:10:40 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:35:58 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	child_process(t_info *info, char **envp, t_node *node)
 	}
 	ft_dup2(stdin_backup, STDIN_FILENO);
 	ft_dup2(stdout_backup, STDOUT_FILENO);
-	return (status != 0);
+	return (status);
 }
 
 void	parse(char *line, t_info *info, char **envp)

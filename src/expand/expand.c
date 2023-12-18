@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:13:34 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 12:37:53 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:35:35 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	append_double_quote(char **dst, char **rest, char *p, t_info *info)
 {
 	if (*p == '\"')
 	{
-		(*rest)++;
+		append_char(dst, *((*rest)++));
 		while (**rest && **rest != '\"')
 		{
 			if (**rest == '$')
@@ -32,7 +32,7 @@ int	append_double_quote(char **dst, char **rest, char *p, t_info *info)
 				append_char(dst, *((*rest)++));
 		}
 		if (**rest == '\"')
-			(*rest)++;
+			append_char(dst, *((*rest)++));
 	}
 	return (0);
 }
@@ -41,12 +41,20 @@ void	append_single_quote(char **dst, char **rest, char *p)
 {
 	if (*p == '\'')
 	{
-		(*rest)++;
+		append_char(dst, *((*rest)++));
 		while (**rest && **rest != '\'')
 			append_char(dst, *((*rest)++));
 		if (**rest == '\'')
-			(*rest)++;
+			append_char(dst, *((*rest)++));
 	}
+}
+
+void	expand_variable_tok_util(char **new_word, char **p, char *original_p,
+		t_info *info)
+{
+	is_variable(new_word, p, original_p, info);
+	while (**p != '\0' && **p != '\"' && **p != '$' && **p != '\'')
+		(*p)++;
 }
 
 void	expand_variable_tok(char **str, t_info *info)
@@ -68,9 +76,7 @@ void	expand_variable_tok(char **str, t_info *info)
 			append_double_quote(&new_word, &p, p, info);
 		else if (*p == '$')
 		{
-			is_variable(&new_word, &p, p, info);
-			while (*p != '\0' && *p != '\"' && *p != '$' && *p != '\'')
-				p++;
+			expand_variable_tok_util(&new_word, &p, p, info);
 		}
 		else
 			append_char(&new_word, *p++);
@@ -89,10 +95,7 @@ void	expand_variable(t_node *node, t_info *info)
 	if (node == NULL)
 		return ;
 	while (node->data[i] != NULL)
-	{
-		expand_variable_tok(&(node->data[i]), info);
-		i++;
-	}
+		expand_variable_tok(&(node->data[i++]), info);
 	while (redirects != NULL)
 	{
 		if (redirects != NULL && redirects->type != REDIRECT_HEREDOC)

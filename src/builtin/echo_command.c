@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:29 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 14:20:47 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:37:15 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,22 @@ int	n_option(char **token)
 
 int	is_metacharacter(char c)
 {
-	return (c && ft_strchr("|&;()<> \t\n", c));
+	return (c && strchr("|&;()<> \t\n", c));
 }
 
 int	check_arg(char **str)
 {
 	int	i;
 	int	j;
-	int	flag;
 
 	i = 0;
 	j = 0;
-	flag = 0;
 	while (str[i] != NULL)
 	{
-		printf("test:%c\n", str[i][0]);
-		if (str[i][0] == '\"' || str[i][0] == '\'')
-			flag = 1;
 		while (str[i][j] != '\0')
 		{
-			if (is_metacharacter(str[i][j]) && flag == 0)
+			if (is_metacharacter(str[i][j]) && (str[i][0] != '\"'
+					&& str[i][0] != '\''))
 			{
 				ft_putstr_fd("syntax error near unexpected token \'", STDOUT);
 				ft_putchar_fd(str[i][j], STDOUT);
@@ -63,7 +59,6 @@ int	check_arg(char **str)
 			}
 			j++;
 		}
-		flag = 0;
 		j = 0;
 		i++;
 	}
@@ -75,14 +70,13 @@ int	command_echo(char **token)
 	int	i;
 	int	n_set;
 
-	printf("%s\n", token[1]);
 	if (token[1] == NULL)
 	{
 		ft_putstr_fd("\n", STDOUT);
 		return (0);
 	}
 	if (check_arg(token) == ERROR)
-		return (ERROR);
+		return (258);
 	n_set = n_option(token);
 	i = n_set;
 	while (token[i])
