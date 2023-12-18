@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:29 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 15:37:15 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:41:55 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ int	n_option(char **token)
 
 	i = 1;
 	j = 2;
-	while (token[i] && token[i][0] == '-' && token[i][1] == 'n')
+	while (token[i])
 	{
+		remove_quotes_in_place(token[i]);
+		if (!(token[i][0] == '-' && token[i][1] == 'n'))
+			break ;
 		j = 2;
 		while (token[i][j] == 'n')
 			j++;
