@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 12:31:38 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:59:09 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	minishell(char **envp)
 		if (line == NULL)
 			signal_ctrl();
 		change_signal(0);
+		check_signal(&info);
 		g_signal = 0;
 	}
 }
@@ -60,7 +61,7 @@ void	minishell(char **envp)
 // 	ft_putstr_fd("\b\b  \b\b", STDERR);
 // }
 
-__attribute__((destructor)) static void destructor()
-{
-	system("leaks -q minishell");
-}
+// __attribute__((destructor)) static void destructor()
+// {
+// 	system("leaks -q minishell");
+// }

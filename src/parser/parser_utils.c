@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 14:05:44 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:13:48 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_node	*new_node(char *str, t_node *left, t_node *right)
 	node->right = right;
 	node->row_size = 1;
 	node->type = NODE_PIPE;
-	// free(str);
 	return (node);
 }
 
@@ -59,7 +58,7 @@ int	is_redirect_token(char *op)
 
 t_token	*token_next(t_token *token, size_t *count)
 {
-	*count +=1 ;
+	*count = *count + 1;
 	return (token->next);
 }
 
@@ -73,11 +72,7 @@ size_t	count_word(t_now_token *ntk)
 	count = 0;
 	while (token != NULL && ft_strncmp(token->str, "|", 1) != 0
 		&& is_redirect_token(token->str) == 0)
-	{
-		// token_next(token, &count);
-		count++;
-		token = token->next;
-	}
+		token = token_next(token, &count);
 	i = 0;
 	if (token != NULL && is_redirect_token(token->str))
 	{
@@ -89,10 +84,7 @@ size_t	count_word(t_now_token *ntk)
 	}
 	while (token != NULL && ft_strncmp(token->str, "|", 1) != 0
 		&& is_redirect_token(token->str) == 0)
-	{
-		count++;
-		token = token->next;
-	}
+		token = token_next(token, &count);
 	if (count == 0)
 		count++;
 	return (count);

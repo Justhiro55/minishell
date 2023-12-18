@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:13:00 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 12:28:54 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:28:24 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_node	*redirect_add_cmd(t_now_token *ntk, t_node *node)
 	size_t	i;
 
 	i = 0;
-	if (node->data[0] == NULL)
+	if (ntk->now != NULL && node->data[0] == NULL)
 	{
 		node->data[i] = ft_strdup(ntk->now->str);
 		ntk->now = ntk->now->next;
@@ -98,8 +98,8 @@ t_node	*new_node_redirect(t_node *node, t_now_token *ntk)
 
 	rd_count = 0;
 	redirect = new_list_redirect(node, ntk, &rd_count);
-	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0 
-		& rd_count > 1)
+	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0
+		&& rd_count > 1)
 	{
 		if (!is_redirect(ntk))
 			redirect_add_cmd(ntk, node);

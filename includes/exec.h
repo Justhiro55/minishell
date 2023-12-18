@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:23:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 21:17:00 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:37:15 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,12 @@ char						*ft_strndup(const char *s, size_t n);
 void						append_char(char **s, char c);
 int							is_alpha_under(char c);
 int							is_metacharacter(char c);
+void						expand_variable_tok(char **str, t_info *info);
+int							append_double_quote(char **dst, char **rest,
+								char *p, t_info *info);
+void						append_single_quote(char **dst, char **rest,
+								char *p);
+int							is_variable(char **dst, char **rest, char *p,
+								t_info *info);
 
 #endif

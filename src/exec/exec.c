@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 21:59:42 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:17:27 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,20 @@ void	env_lstclear(t_env **lst);
 
 int	execute_no_env(char **command, char **envp, t_node *node, t_info *info)
 {
-	char	*newCommand;
+	char	*new_command;
 
 	(void)node;
 	if (info->env == NULL)
 	{
-		newCommand = (char *)malloc(strlen("/bin/") + strlen(command[0]) + 1);
-		if (newCommand != NULL)
+		new_command = (char *)malloc(strlen("/bin/") + strlen(command[0]) + 1);
+		if (new_command != NULL)
 		{
-			ft_strlcpy(newCommand, "/bin/", ft_strlen("/bin/")
+			ft_strlcpy(new_command, "/bin/", ft_strlen("/bin/")
 				+ ft_strlen(command[0]) + 1);
-			ft_strlcat(newCommand, command[0], ft_strlen("/bin/")
+			ft_strlcat(new_command, command[0], ft_strlen("/bin/")
 				+ ft_strlen(command[0]) + 1);
 			free(command[0]);
-			command[0] = newCommand;
+			command[0] = new_command;
 			if (access(command[0], F_OK) == 0 && access(command[0], X_OK) == 0)
 				return (execute_command(command[0], command, envp));
 		}

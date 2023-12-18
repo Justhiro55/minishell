@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:13:34 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 12:37:53 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:33:58 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,35 +49,35 @@ void	append_single_quote(char **dst, char **rest, char *p)
 	}
 }
 
-void	expand_variable_tok(char **str, t_info *info)
-{
-	char	*new_word;
-	char	*p;
+// void	expand_variable_tok(char **str, t_info *info)
+// {
+// 	char	*new_word;
+// 	char	*p;
 
-	if (*str == NULL)
-		return ;
-	p = *str;
-	new_word = ft_calloc(1, sizeof(char));
-	if (new_word == NULL)
-		exit_process(EXIT_FAILURE_MALLOC);
-	while (*p)
-	{
-		if (*p == '\'')
-			append_single_quote(&new_word, &p, p);
-		else if (*p == '\"')
-			append_double_quote(&new_word, &p, p, info);
-		else if (*p == '$')
-		{
-			is_variable(&new_word, &p, p, info);
-			while (*p != '\0' && *p != '\"' && *p != '$' && *p != '\'')
-				p++;
-		}
-		else
-			append_char(&new_word, *p++);
-	}
-	free(*str);
-	*str = new_word;
-}
+// 	if (*str == NULL)
+// 		return ;
+// 	p = *str;
+// 	new_word = ft_calloc(1, sizeof(char));
+// 	if (new_word == NULL)
+// 		exit_process(EXIT_FAILURE_MALLOC);
+// 	while (*p)
+// 	{
+// 		if (*p == '\'')
+// 			append_single_quote(&new_word, &p, p);
+// 		else if (*p == '\"')
+// 			append_double_quote(&new_word, &p, p, info);
+// 		else if (*p == '$')
+// 		{
+// 			is_variable(&new_word, &p, p, info);
+// 			while (*p != '\0' && *p != '\"' && *p != '$' && *p != '\'')
+// 				p++;
+// 		}
+// 		else
+// 			append_char(&new_word, *p++);
+// 	}
+// 	free(*str);
+// 	*str = new_word;
+// }
 
 void	expand_variable(t_node *node, t_info *info)
 {

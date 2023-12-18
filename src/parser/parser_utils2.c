@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:29:23 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 12:45:59 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:51:28 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_node	*new_node_cmdname(t_now_token *ntk)
 	node->data = (char **)ft_calloc(count_word(ntk) + 1, sizeof(char *));
 	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0)
 	{
-		if (is_redirect(ntk))
+		if (is_redirect(ntk) && ntk->now->next != NULL)
 			return (new_node_redirect(node, ntk));
 		if (ntk->now == NULL)
 			break ;

@@ -6,13 +6,13 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:20:55 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/14 16:23:24 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:03:34 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/sig.h"
 
-int	g_signal = 0;
+volatile sig_atomic_t	g_signal = 0;
 
 void	error_signal(void)
 {

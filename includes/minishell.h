@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:55:59 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 16:20:27 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:03:14 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 // 	struct s_env	*env;
 // }					t_info;
 
-extern int		g_signal;
+extern volatile sig_atomic_t		g_signal;
 
 # define STDOUT 1
 # define STDERR 2
@@ -63,8 +63,6 @@ extern int		g_signal;
 # define EXIT_FAILURE_PIPE 3
 # define EXIT_FAILURE_FORK 4
 # define EXIT_FAILURE_MALLOC 5
-
-struct s_env;
 
 void	minishell(char **envp);
 

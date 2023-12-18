@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:56 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 20:11:16 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:42:32 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int	command_env(char **token, t_info info)
 	while (info.env != NULL)
 	{
 		printf("%s=%s\n", info.env->key, info.env->value);
-		info.env
-		 = info.env->next;
+		info.env = info.env->next;
 	}
 	return (SUCCESS);
 }

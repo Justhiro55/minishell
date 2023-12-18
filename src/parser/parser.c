@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 12:44:35 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:50:50 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,9 @@ t_node	*expr(t_now_token *ntk)
 	while (1)
 	{
 		if (ntk->now != NULL && ntk->now->str != NULL)
-		{
 			op = ft_strdup(ntk->now->str);
-		}
 		else
-		{
 			op = ft_strdup("");
-		}
 		if (ft_strncmp("|", op, 1) == 0)
 		{
 			ntk->now = ntk->now->next;
