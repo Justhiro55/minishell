@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:29:23 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/14 16:25:23 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 12:45:59 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,34 @@ char	*check_text(char *text)
 	}
 	if (flag)
 		error_parser();
-	// free(text);
 	return (NULL);
+}
+
+t_node	*new_node_cmdname(t_now_token *ntk)
+{
+	t_node	*node;
+	char	*cmd;
+	size_t	i;
+
+	i = 0;
+	node = ft_calloc(1, sizeof(t_node));
+	node->data = (char **)ft_calloc(count_word(ntk) + 1, sizeof(char *));
+	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0)
+	{
+		if (is_redirect(ntk))
+			return (new_node_redirect(node, ntk));
+		if (ntk->now == NULL)
+			break ;
+		cmd = ft_strdup(ntk->now->str);
+		check_text(cmd);
+		node->data[i] = ft_strdup(cmd);
+		free(cmd);
+		i++;
+		node->data[i] = NULL;
+		ntk->now = ntk->now->next;
+	}
+	node->row_size = i;
+	return (node);
 }
 
 // void	printTree(t_node *root, size_t depth)
@@ -87,7 +113,9 @@ char	*check_text(char *text)
 // 	{
 // 		while (root->data[cmd_i] != NULL)
 // 		{
-// 			printf(" cmd = [%s]", root->data[cmd_i]);
+// 			if (cmd_i == 0)
+// 				printf("cmd = ");
+// 			printf(" [%s]", root->data[cmd_i]);
 // 			cmd_i++;
 // 		}
 // 		while (tmp != NULL)

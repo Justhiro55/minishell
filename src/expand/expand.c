@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:13:34 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:38:22 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 12:37:53 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	expand_variable_tok(char **str, t_info *info)
 	if (*str == NULL)
 		return ;
 	p = *str;
-	new_word = calloc(1, sizeof(char));
+	new_word = ft_calloc(1, sizeof(char));
 	if (new_word == NULL)
 		exit_process(EXIT_FAILURE_MALLOC);
-	while (*p && !is_metacharacter(*p))
+	while (*p)
 	{
 		if (*p == '\'')
 			append_single_quote(&new_word, &p, p);

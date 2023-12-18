@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:13:00 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/12 18:01:37 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 12:28:54 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,26 @@
 
 int	is_redirect(t_now_token *ntk)
 {
-	char	*op;
+	int		type;
 
-	op = ft_strdup(ntk->now->str);
-	if (ft_strncmp("<", op, ft_strlen(op)) == 0)
+	type = 0;
+	if (ft_strncmp("<", ntk->now->str, ft_strlen(ntk->now->str)) == 0)
 	{
-		free(op);
-		return (REDIRECT_INPUT);
+		type = REDIRECT_INPUT;
 	}
-	else if (ft_strncmp(">", op, ft_strlen(op)) == 0)
+	else if (ft_strncmp(">", ntk->now->str, ft_strlen(ntk->now->str)) == 0)
 	{
-		free(op);
-		return (REDIRECT_OUTPUT);
+		type = REDIRECT_OUTPUT;
 	}
-	else if (ft_strncmp("<<", op, ft_strlen(op)) == 0)
+	else if (ft_strncmp("<<", ntk->now->str, ft_strlen(ntk->now->str)) == 0)
 	{
-		free(op);
-		return (REDIRECT_HEREDOC);
+		type = REDIRECT_HEREDOC;
 	}
-	else if (ft_strncmp(">>", op, ft_strlen(op)) == 0)
+	else if (ft_strncmp(">>", ntk->now->str, ft_strlen(ntk->now->str)) == 0)
 	{
-		free(op);
-		return (REDIRECT_APPEND_OUTPUT);
+		type = REDIRECT_APPEND_OUTPUT;
 	}
-	free(op);
-	return (0);
+	return (type);
 }
 
 t_node	*redirect_add_cmd(t_now_token *ntk, t_node *node)
@@ -53,9 +48,10 @@ t_node	*redirect_add_cmd(t_now_token *ntk, t_node *node)
 		node->data[i + 1] = NULL;
 		i++;
 	}
-	else
-		return (node);
-	while (ntk->now != NULL && ntk->now->str[0] == '-')
+	while (node->data[i] != NULL)
+		i++;
+	while (ntk->now != NULL && ft_strncmp("|", ntk->now->str, 1) != 0
+		&& is_redirect(ntk) == 0)
 	{
 		node->data[i] = ft_strdup(ntk->now->str);
 		ntk->now = ntk->now->next;
@@ -98,9 +94,12 @@ t_node	*new_node_redirect(t_node *node, t_now_token *ntk)
 	t_redirects	*redirect;
 	char		*filename;
 	int			type;
+	int			rd_count;
 
-	redirect = new_list_redirect(node, ntk);
-	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0)
+	rd_count = 0;
+	redirect = new_list_redirect(node, ntk, &rd_count);
+	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0 
+		& rd_count > 1)
 	{
 		if (!is_redirect(ntk))
 			redirect_add_cmd(ntk, node);

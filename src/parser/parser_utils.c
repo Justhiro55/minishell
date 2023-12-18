@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:23:50 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/12 18:02:07 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:05:44 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_node	*new_node(char *str, t_node *left, t_node *right)
 	node->right = right;
 	node->row_size = 1;
 	node->type = NODE_PIPE;
+	// free(str);
 	return (node);
 }
 
@@ -40,13 +41,11 @@ t_node	*new_node_cmd(t_now_token *ntk)
 	return (node);
 }
 
-int	is_redirect_token(t_token *ntk)
+int	is_redirect_token(char *op)
 {
-	char	*op;
 	int		type;
 
 	type = 0;
-	op = ft_strdup(ntk->str);
 	if (ft_strncmp("<", op, ft_strlen(op)) == 0)
 		type = REDIRECT_INPUT;
 	else if (ft_strncmp(">", op, ft_strlen(op)) == 0)
@@ -55,19 +54,41 @@ int	is_redirect_token(t_token *ntk)
 		type = REDIRECT_HEREDOC;
 	else if (ft_strncmp(">>", op, ft_strlen(op)) == 0)
 		type = REDIRECT_APPEND_OUTPUT;
-	free(op);
 	return (type);
+}
+
+t_token	*token_next(t_token *token, size_t *count)
+{
+	*count +=1 ;
+	return (token->next);
 }
 
 size_t	count_word(t_now_token *ntk)
 {
 	t_token	*token;
 	size_t	count;
+	size_t	i;
 
 	token = ntk->now;
 	count = 0;
 	while (token != NULL && ft_strncmp(token->str, "|", 1) != 0
-		&& is_redirect_token(token) == 0)
+		&& is_redirect_token(token->str) == 0)
+	{
+		// token_next(token, &count);
+		count++;
+		token = token->next;
+	}
+	i = 0;
+	if (token != NULL && is_redirect_token(token->str))
+	{
+		while (token != NULL && i < 2)
+		{
+			token = token->next;
+			i++;
+		}
+	}
+	while (token != NULL && ft_strncmp(token->str, "|", 1) != 0
+		&& is_redirect_token(token->str) == 0)
 	{
 		count++;
 		token = token->next;
@@ -75,29 +96,4 @@ size_t	count_word(t_now_token *ntk)
 	if (count == 0)
 		count++;
 	return (count);
-}
-
-t_node	*new_node_cmdname(t_now_token *ntk)
-{
-	t_node	*node;
-	char	*cmd;
-	size_t	i;
-
-	i = 0;
-	node = ft_calloc(1, sizeof(t_node));
-	node->data = (char **)ft_calloc(count_word(ntk) + 1, sizeof(char *));
-	while (ntk->now != NULL && ft_strncmp(ntk->now->str, "|", 1) != 0)
-	{
-		if (is_redirect(ntk))
-			return (new_node_redirect(node, ntk));
-		cmd = ft_strdup(ntk->now->str);
-		check_text(cmd);
-		node->data[i] = ft_strdup(cmd);
-		free(cmd);
-		i++;
-		node->data[i] = NULL;
-		ntk->now = ntk->now->next;
-	}
-	node->row_size = i;
-	return (node);
 }

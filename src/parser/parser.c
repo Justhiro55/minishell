@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:39 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/14 16:09:08 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 12:44:35 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_node	*expr(t_now_token *ntk)
 			free(op);
 			return (node);
 		}
-		// free(op);
+		free(op);
 	}
 	return (node);
 }

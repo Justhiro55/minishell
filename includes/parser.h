@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:10:58 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/12 18:05:53 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/18 12:50:59 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,13 @@ typedef struct s_now_token
 
 //parser
 t_node					*cmd(t_now_token *ntk);
-t_redirects				*new_list_redirect(t_node *node, t_now_token *ntk);
+t_redirects				*new_list_redirect(t_node *node,
+							t_now_token *ntk, int *rd_count);
 size_t					count_word_rd(t_now_token *ntk);
 
 //redirect
 int						is_redirect(t_now_token *ntk);
+int						is_redirect_token(char *op);
 t_node					*new_node_redirect(t_node *node, t_now_token *ntk);
 
 //utils.
@@ -77,5 +79,6 @@ t_node					*new_node_cmdname(t_now_token *ntk);
 void					printTree(t_node *root, size_t depth);
 char					*create_text(char *text, size_t str_size);
 char					*check_text(char *text);
+size_t					count_word(t_now_token *ntk);
 
 #endif
