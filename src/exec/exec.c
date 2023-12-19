@@ -6,13 +6,13 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 18:48:03 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:17:10 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	remove_quotes_in_place(char *str);
+void	remove_quotes(char *str);
 
 int	execute_from_path(char *command_name, char **tokens, char **envp,
 		char **path)
@@ -24,13 +24,13 @@ int	execute_from_path(char *command_name, char **tokens, char **envp,
 	result = -2;
 	command_path = NULL;
 	i = 0;
+	while (tokens[i] != NULL && tokens[i][0] != '\0')
+		remove_quotes(tokens[i++]);
 	while (path[i])
 	{
 		command_path = set_command_path(path[i], command_name);
 		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
 		{
-			if (tokens[1] != NULL && tokens[1][0] != '\0')
-				remove_quotes_in_place(tokens[1]);
 			result = execute_command(command_path, tokens, envp);
 			free(command_path);
 			return (result);
@@ -105,11 +105,7 @@ int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 	if (command[0][0] == '/' || command[0][0] == '.')
 	{
 		if (access(command[0], F_OK) == 0 && access(command[0], X_OK) == 0)
-		{
-			if (command[1] != NULL && command[1][0] != '\0')
-				remove_quotes_in_place(command[1]);
 			return (execute_command(command[0], command, envp));
-		}
 		else
 		{
 			printf("No such file or directory\n");

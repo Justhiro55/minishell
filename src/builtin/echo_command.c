@@ -6,13 +6,13 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:29 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 18:24:56 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:15:45 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	remove_quotes_in_place(char *str);
+void	remove_quotes(char *str);
 
 int	n_option(char **token)
 {
@@ -23,7 +23,7 @@ int	n_option(char **token)
 	j = 2;
 	while (token[i])
 	{
-		remove_quotes_in_place(token[i]);
+		remove_quotes(token[i]);
 		if (!(token[i][0] == '-' && token[i][1] == 'n'))
 			break ;
 		j = 2;
@@ -84,7 +84,7 @@ int	command_echo(char **token)
 	i = n_set;
 	while (token[i])
 	{
-		remove_quotes_in_place(token[i]);
+		remove_quotes(token[i]);
 		ft_putstr_fd(token[i], STDOUT);
 		if (token[i + 1])
 			ft_putstr_fd(" ", STDOUT);

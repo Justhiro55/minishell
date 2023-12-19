@@ -6,13 +6,13 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:07:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 17:45:43 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:15:45 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	remove_quotes_in_place(char *str);
+void	remove_quotes(char *str);
 
 int	open_file(t_redirects *redirects)
 {
@@ -22,7 +22,7 @@ int	open_file(t_redirects *redirects)
 	if (redirects == NULL)
 		return (status);
 	if (redirects->filename != NULL && redirects->filename[0] != '\0')
-		remove_quotes_in_place(redirects->filename);
+		remove_quotes(redirects->filename);
 	if (redirects->type == REDIRECT_INPUT)
 		status = (open(redirects->filename, O_RDONLY, 0));
 	if (redirects->type == REDIRECT_OUTPUT)

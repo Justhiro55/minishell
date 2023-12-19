@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 18:01:14 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:15:45 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strndup(const char *s, size_t n);
 
-void	remove_quotes_in_place(char *str)
+void	remove_quotes(char *str)
 {
 	int	read_index;
 	int	write_index;
@@ -40,13 +40,13 @@ t_env	*env_lstnew(char *envp)
 	int		key_length;
 
 	new_node = (t_env *)malloc(sizeof(t_env));
-	remove_quotes_in_place(envp);
+	remove_quotes(envp);
 	if (new_node)
 	{
 		separator = ft_strchr(envp, '=');
 		if (separator != NULL && separator[0] != 0)
 		{
-			remove_quotes_in_place(separator);
+			remove_quotes(separator);
 			key_length = separator - envp;
 			new_node->key = ft_strndup(envp, key_length);
 			if (separator + 1 != '\0')
