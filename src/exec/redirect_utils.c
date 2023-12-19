@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:07:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 19:26:05 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 15:22:05 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,15 @@ int	ft_dup(int fd)
 	return (new_fd);
 }
 
-void	ft_dup2(int old_fd, int new_fd)
+int	ft_dup2(int old_fd, int new_fd)
 {
 	if (old_fd == new_fd)
-		return ;
+		return (0);
 	if (dup2(old_fd, new_fd) == -1)
 	{
-		exit(1);
+		return (1);
 	}
+	return (0);
 }
 
 void	ft_pipe(int fd[2])

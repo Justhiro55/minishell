@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 19:23:02 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:32:00 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ int	here_doc(char *delimiter, int pipefd[2])
 		write(pipefd[PIPE_WRITE], "\n", 1);
 		free(line);
 	}
-	ft_dup2(stdout_backup, STDOUT_FILENO);
+	if (ft_dup2(stdout_backup, STDOUT_FILENO) == 1)
+		return (1);
 	wait(NULL);
-	return (1);
+	return (0);
 }
 
 int	update_stdin(int *stdin_backup, t_redirects *redirects)
@@ -45,16 +46,23 @@ int	update_stdin(int *stdin_backup, t_redirects *redirects)
 	return (0);
 }
 
-void	set_redirects(int stdin_backup, int stdout_backup, int pipefd[2],
+int	set_redirects(int stdin_backup, int stdout_backup, int pipefd[2],
 		int heredoc_flag)
 {
 	if (heredoc_flag == 0)
-		ft_dup2(stdin_backup, STDIN_FILENO);
+	{
+		if (ft_dup2(stdin_backup, STDIN_FILENO) == 1)
+			return (1);
+	}
 	else
-		ft_dup2(pipefd[PIPE_READ], STDIN_FILENO);
+	{
+		if (ft_dup2(pipefd[PIPE_READ], STDIN_FILENO) == 1)
+			return (1);
+	}
 	ft_dup2(stdout_backup, STDOUT_FILENO);
 	close(pipefd[PIPE_READ]);
 	close(pipefd[PIPE_WRITE]);
+	return (0);
 }
 
 void	init_redirections(int *heredoc_flag, int *stdio_backup,
@@ -65,7 +73,7 @@ void	init_redirections(int *heredoc_flag, int *stdio_backup,
 	*stdout_backup = dup(STDOUT_FILENO);
 }
 
-void	handle_redirections_for_child(t_node *node, t_redirects *redirects)
+int	handle_redirections_for_child(t_node *node, t_redirects *redirects)
 {
 	int	stdin_backup;
 	int	stdout_backup;
@@ -89,7 +97,7 @@ void	handle_redirections_for_child(t_node *node, t_redirects *redirects)
 		}
 		redirects = redirects->next;
 		if (g_signal == SIGINT)
-			return ;
+			return (1);
 	}
-	set_redirects(stdin_backup, stdout_backup, pipefd, heredoc_flag);
+	return (set_redirects(stdin_backup, stdout_backup, pipefd, heredoc_flag));
 }

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 18:53:54 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 15:48:44 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	execute_command_from_path(char **command, char **envp, t_info *info,
 	env = NULL;
 	result = 1;
 	if (builtin_command(command, info, node) == 0)
-		return (info->status);
+		return (info->status % 255);
 	if (command != NULL && command[0] != NULL && command[0][0] == '/'
 		&& access(command[0], F_OK) == 0 && access(command[0], X_OK) == 0)
 		return (execute_command(command[0], command, envp));
