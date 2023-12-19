@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:06:26 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 17:42:13 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:43:39 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char	*get_env(char *key, t_env *env)
 	tmp = ft_strdup(key);
 	if (tmp == NULL)
 		return (NULL);
-	while (tmp[i] != '\0' && tmp[i] != '\"' && tmp[i] != '$' && tmp[i] != ' ')
+	while (tmp[i] != '\0' && tmp[i] != '\"' && tmp[i] != '$' && tmp[i] != ' '
+		&& tmp[i] != '\'')
 		i++;
 	tmp[i] = '\0';
 	while (env != NULL)

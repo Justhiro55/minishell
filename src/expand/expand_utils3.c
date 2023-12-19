@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:32:06 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/19 17:28:01 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:43:53 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	process_variable(char **new_word, char **p, t_info *info)
 		return ;
 	while (**p != '\0' && **p != '\"' && **p != '$' && **p != '\'')
 		(*p)++;
+
 }
 
 void	expand_variable_tok(char **str, t_info *info)

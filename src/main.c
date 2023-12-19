@@ -6,13 +6,13 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 16:33:59 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:44:45 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/sig.h"
 #include "../includes/exec.h"
 #include "../includes/minishell.h"
+#include "../includes/sig.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -32,7 +32,7 @@ void	minishell(char **envp)
 	while (1)
 	{
 		line = readline("$> ");
-		if (line != NULL && strlen(line) != 0 && line[0] != '\0')
+		if (line != NULL || strlen(line) != 0 || line[0] != '\0')
 			parse(line, &info, envp);
 		else if (line == NULL)
 		{
@@ -64,7 +64,7 @@ void	minishell(char **envp)
 // 	ft_putstr_fd("\b\b  \b\b", STDERR);
 // }
 
-// __attribute__((destructor)) static void destructor()
-// {
-// 	system("leaks -q minishell");
-// }
+__attribute__((destructor)) static void destructor()
+{
+	system("leaks -q minishell");
+}
