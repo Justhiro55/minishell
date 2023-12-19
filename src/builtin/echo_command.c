@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:29 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 19:15:45 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 19:29:35 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	n_option(char **token)
 
 int	is_metacharacter(char c)
 {
-	return (c && strchr("|&;()<> \t\n", c));
+	return (c && ft_strchr("|&;()<> \t\n", c));
 }
 
 int	check_arg(char **str)
