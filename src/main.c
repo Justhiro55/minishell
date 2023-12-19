@@ -35,7 +35,10 @@ void	minishell(char **envp)
 		if (line != NULL && strlen(line) != 0 && line[0] != '\0')
 			parse(line, &info, envp);
 		else if (line == NULL)
+		{
+			free(line);
 			signal_ctrl();
+		}
 		change_signal(0);
 		check_signal(&info);
 		g_signal = 0;
@@ -61,7 +64,7 @@ void	minishell(char **envp)
 // 	ft_putstr_fd("\b\b  \b\b", STDERR);
 // }
 
-// __attribute__((destructor)) static void destructor()
-// {
-// 	system("leaks -q minishell");
-// }
+__attribute__((destructor)) static void destructor()
+{
+	system("leaks -q minishell");
+}

@@ -96,8 +96,10 @@ int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 	int	status;
 
 	status = 0;
-	if (command == NULL || command[0] == NULL)
+	if (command == NULL || command[0] == NULL || (int)command[0][0] == 0)
 		return (1);
+	if(command[0]==NULL)
+		printf("success\n");
 	if (command[0][0] == '/' || command[0][0] == '.')
 	{
 		if (access(command[0], F_OK) == 0 && access(command[0], X_OK) == 0)
