@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:38:13 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:01:14 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_env	*env_lstnew(char *envp)
 	if (new_node)
 	{
 		separator = ft_strchr(envp, '=');
-		if (separator != NULL && separator != 0)
+		if (separator != NULL && separator[0] != 0)
 		{
 			remove_quotes_in_place(separator);
 			key_length = separator - envp;

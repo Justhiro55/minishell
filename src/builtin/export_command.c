@@ -6,11 +6,13 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 20:03:17 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:05:34 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+int	ft_strchr_export(const char *s, int c);
 
 int	error_export_msg(char *str)
 {
@@ -89,7 +91,8 @@ int	command_export(char **token, t_info *info)
 	while (token[i] && (i++))
 	{
 		if ((ft_isalpha(token[i - 1][0]) == 0 && token[i - 1][0] != '_')
-			|| token[i - 1][0] == '=')
+			|| token[i - 1][0] == '=' || token[i - 1][ft_strlen(token[i - 1])
+			- 1] == '-' || ft_strchr_export(token[i - 1], '=') == 1)
 			result = error_export_msg(token[i - 1]);
 		else
 		{

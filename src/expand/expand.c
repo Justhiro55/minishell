@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:13:34 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 18:37:02 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:38:23 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ int		is_variable(char **dst, char **rest, char *p, t_info *info);
 
 int	append_double_quote(char **dst, char **rest, char *p, t_info *info)
 {
+	int	status;
+
+	status = 0;
 	if (*p == '\"')
 	{
 		append_char(dst, *((*rest)++));
@@ -23,9 +26,11 @@ int	append_double_quote(char **dst, char **rest, char *p, t_info *info)
 		{
 			if (**rest == '$')
 			{
-				if (is_variable(dst, rest, p, info) == -1)
+				status = is_variable(dst, rest, p, info);
+				if (status == -1)
 					return (-1);
-				while (**rest != '\0' && **rest != '\"')
+				while (status != 1 && **rest != '\0' && **rest != '\"'
+					&& **rest != ' ' && **rest != '$')
 					(*rest)++;
 			}
 			else
@@ -49,7 +54,7 @@ void	append_single_quote(char **dst, char **rest, char *p)
 	}
 }
 
-void	expand_variable(t_node *node, t_info *info)
+int	expand_variable(t_node *node, t_info *info)
 {
 	int			i;
 	t_redirects	*redirects;
@@ -57,7 +62,7 @@ void	expand_variable(t_node *node, t_info *info)
 	i = 0;
 	redirects = node->redirects;
 	if (node == NULL)
-		return ;
+		return (0);
 	while (node->data[i] != NULL)
 		expand_variable_tok(&(node->data[i++]), info);
 	while (redirects != NULL)
@@ -66,4 +71,5 @@ void	expand_variable(t_node *node, t_info *info)
 			expand_variable_tok(&redirects->filename, info);
 		redirects = redirects->next;
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 16:33:19 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:48:09 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void	parse(char *line, t_info *info, char **envp)
 	node = parser(token, info);
 	add_history(line);
 	free(line);
-	(void)envp;
 	info->status = child_process(info, envp, node);
 	free_node(node);
 }

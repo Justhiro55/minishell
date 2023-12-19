@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:32:06 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 18:57:46 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:28:01 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	process_double_quote(char **new_word, char **p, t_info *info)
 
 void	process_variable(char **new_word, char **p, t_info *info)
 {
-	is_variable(new_word, p, *p, info);
+	if (is_variable(new_word, p, *p, info) == 1)
+		return ;
 	while (**p != '\0' && **p != '\"' && **p != '$' && **p != '\'')
 		(*p)++;
 }

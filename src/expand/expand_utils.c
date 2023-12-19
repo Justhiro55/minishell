@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 20:06:26 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 16:07:51 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:42:13 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_env(char *key, t_env *env)
 	tmp = ft_strdup(key);
 	if (tmp == NULL)
 		return (NULL);
-	while (tmp[i] != '\0' && tmp[i] != '\"' && tmp[i] != '$')
+	while (tmp[i] != '\0' && tmp[i] != '\"' && tmp[i] != '$' && tmp[i] != ' ')
 		i++;
 	tmp[i] = '\0';
 	while (env != NULL)
@@ -47,7 +47,7 @@ int	handle_env_variable(char **dst, char **rest, t_info *info)
 	char	*value_iter;
 
 	if (get_env(*rest, info->env) == NULL)
-		return (-1);
+		return (0);
 	value = ft_strdup(get_env(*rest, info->env));
 	if (value)
 	{
@@ -73,7 +73,7 @@ int	handle_special_char(char **dst, char **rest, t_info *info)
 			append_char(dst, *(value_iter++));
 		free(value);
 	}
-	return (0);
+	return (1);
 }
 
 int	is_variable(char **dst, char **rest, char *p, t_info *info)
@@ -93,5 +93,5 @@ int	is_variable(char **dst, char **rest, char *p, t_info *info)
 		else
 			append_char(dst, '$');
 	}
-	return (1);
+	return (0);
 }

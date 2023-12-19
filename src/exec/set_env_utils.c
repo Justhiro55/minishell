@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   set_env_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:22:43 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:38:09 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:05:34 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+int	ft_strchr_export(const char *s, int c)
+{
+	char	tmp;
+
+	tmp = '\0';
+	while (*s)
+	{
+		if (*s == (char)c)
+		{
+			if (tmp == '-')
+				return (1);
+		}
+		tmp = *s;
+		s++;
+	}
+	if (*s == '\0' && c == '\0')
+		return (0);
+	return (0);
+}
 
 char	*ft_strndup(const char *s, size_t n)
 {

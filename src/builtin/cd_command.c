@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:53:36 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 21:23:28 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:17:21 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	command_cd(char **token, t_info *info)
 		ft_putstr_fd(": ", STDERR);
 		ft_putstr_fd(strerror(errno), STDERR);
 		ft_putstr_fd("\n", STDERR);
+		return (ERROR);
 	}
 	return (SUCCESS);
 }

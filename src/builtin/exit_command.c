@@ -6,18 +6,21 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:55:28 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 18:15:24 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:58:07 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	contains_non_numeric(const char *str)
+void	remove_quotes_in_place(char *str);
+
+int	contains_non_numeric(char *str)
 {
 	size_t	i;
 
 	if (str == NULL || *str == '\0')
 		return (0);
+	remove_quotes_in_place(str);
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
@@ -49,6 +52,7 @@ int	is_outside_long_range(char *str)
 		return (1);
 	negative = 0;
 	value = 0;
+	remove_quotes_in_place(str);
 	if (*str == '-')
 	{
 		negative = 1;
