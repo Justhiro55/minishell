@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 16:32:00 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/20 14:43:13 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	here_doc(char *delimiter, int pipefd[2])
 	if (ft_dup2(stdout_backup, STDOUT_FILENO) == 1)
 		return (1);
 	wait(NULL);
-	return (0);
+	return (1);
 }
 
 int	update_stdin(int *stdin_backup, t_redirects *redirects)
