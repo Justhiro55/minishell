@@ -49,7 +49,7 @@ int	execute_no_env(char **command, char **envp, t_node *node, t_info *info)
 	(void)node;
 	if (info->env == NULL)
 	{
-		new_command = (char *)malloc(strlen("/bin/") + strlen(command[0]) + 1);
+		new_command = (char *)malloc(ft_strlen("/bin/") + ft_strlen(command[0]) + 1);
 		if (new_command != NULL)
 		{
 			ft_strlcpy(new_command, "/bin/", ft_strlen("/bin/")
