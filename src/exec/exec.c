@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 19:17:10 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:08:34 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	execute_no_env(char **command, char **envp, t_node *node, t_info *info)
 	(void)node;
 	if (info->env == NULL)
 	{
-		new_command = (char *)malloc(ft_strlen("/bin/") + ft_strlen(command[0]) + 1);
+		new_command = (char *)malloc(ft_strlen("/bin/") + ft_strlen(command[0])
+				+ 1);
 		if (new_command != NULL)
 		{
 			ft_strlcpy(new_command, "/bin/", ft_strlen("/bin/")

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/21 14:58:52 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:08:20 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ void	minishell(char **envp)
 	while (1)
 	{
 		line = readline("$> ");
-		if (line != NULL || ft_strlen(line) != 0 || line[0] != '\0')
-			parse(line, &info, envp);
-		else if (line == NULL)
+		if (line == NULL)
 		{
 			free(line);
 			signal_ctrl();
 		}
+		else if (line[0] == '\0')
+			free(line);
+		else
+			parse(line, &info, envp);
 		change_signal(0);
 		check_signal(&info);
 		g_signal = 0;
