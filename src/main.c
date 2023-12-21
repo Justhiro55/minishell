@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 19:26:03 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/21 15:31:55 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ void	minishell(char **envp)
 	while (1)
 	{
 		line = readline("$> ");
-		if (line != NULL || strlen(line) != 0 || line[0] != '\0')
-			parse(line, &info, envp);
-		else if (line == NULL)
+		if (line == NULL)
 		{
 			free(line);
 			signal_ctrl();
 		}
+		else if (line[0] == '\0')
+			free(line);
+		else
+			parse(line, &info, envp);
 		change_signal(0);
 		check_signal(&info);
 		g_signal = 0;
@@ -64,7 +66,7 @@ void	minishell(char **envp)
 // 	ft_putstr_fd("\b\b  \b\b", STDERR);
 // }
 
-// __attribute__((destructor)) static void destructor()
-// {
-// 	system("leaks -q minishell");
-// }
+__attribute__((destructor)) static void destructor()
+{
+	system("leaks -q minishell");
+}
