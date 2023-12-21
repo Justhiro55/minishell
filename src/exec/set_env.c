@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 19:29:40 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:24:02 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	set_env(t_info *info, char **envp)
 	last = NULL;
 	info->status = 0;
 	info->env = NULL;
+	if (envp == NULL)
+		printf("no-env\n");
 	while (*envp != NULL)
 	{
 		new_node = env_lstnew(*envp);
