@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:20:55 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 15:03:34 by kotainou         ###   ########.fr       */
+/*   Updated: 2023/12/21 15:47:21 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	sigint_handler_nonl(int sig)
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay();
 		write(STDOUT_FILENO, "\n", 1);
+		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
 		;
