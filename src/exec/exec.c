@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/22 15:19:04 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:35:55 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	is_directory(char *command_path)
 {
 	struct stat	s;
 
-	if (stat(command_path, &s) == 0)
+	if (stat(command_path, &s) == 0 && (command_path[0] == '/' || command_path[0] == '.'))
 	{
 		if (S_ISDIR(s.st_mode))
 		{
