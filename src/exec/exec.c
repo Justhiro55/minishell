@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/22 14:17:49 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:19:04 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 	{
 		if (access(command[0], F_OK) == 0 && access(command[0], X_OK) == 0)
 		{
-			printf("test\n");
 			return (execute_command(command[0], command, envp));
 		}
 		else

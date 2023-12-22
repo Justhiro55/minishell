@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:15:46 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/14 19:43:49 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:33:07 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ int	arg_check(char *token)
 	return (SUCCESS);
 }
 
+void	unset_free(t_env *current)
+{
+	free(current->key);
+	free(current->value);
+	free(current);
+}
+
 void	unset_process(char *token, t_info *info)
 {
 	t_env	*prev;
@@ -51,10 +58,11 @@ void	unset_process(char *token, t_info *info)
 		{
 			if (prev == NULL)
 			{
-				free(info->env);
+				unset_free(current);
 				info->env = current->next;
 				return ;
 			}
+			unset_free(current);
 			prev->next = current->next;
 		}
 		prev = current;
