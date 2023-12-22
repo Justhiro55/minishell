@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:29:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/22 14:13:04 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:52:52 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,35 @@ int	execute_command(char *command_path, char **tokens, char **envp)
 		waitpid(parent, &status, 0);
 		return (status);
 	}
+}
+
+int	is_directory(char *command_path)
+{
+	struct stat	s;
+
+	if (stat(command_path, &s) == 0 && (command_path[0] == '/'
+			|| command_path[0] == '.'))
+	{
+		if (S_ISDIR(s.st_mode))
+		{
+			printf("%s: is a directory\n", command_path);
+			return (ERROR);
+		}
+	}
+	return (SUCCESS);
+}
+
+int	check_permission(char *command_path)
+{
+	struct stat	s;
+
+	if (stat(command_path, &s) == 0)
+	{
+		if ((s.st_mode & S_IRUSR) == 0)
+		{
+			printf(" Permission denied\n");
+			return (ERROR);
+		}
+	}
+	return (SUCCESS);
 }

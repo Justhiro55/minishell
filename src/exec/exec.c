@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/22 15:35:55 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:52:29 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	remove_quotes(char *str);
 void	env_lstclear(t_env **lst);
+int		check_permission(char *command_path);
+int		is_directory(char *command_path);
 
 int	execute_from_path(char *command_name, char **tokens, char **envp,
 		char **path)
@@ -100,21 +102,6 @@ int	execute_command_from_path(char **command, char **envp, t_info *info,
 	return (result);
 }
 
-int	is_directory(char *command_path)
-{
-	struct stat	s;
-
-	if (stat(command_path, &s) == 0 && (command_path[0] == '/' || command_path[0] == '.'))
-	{
-		if (S_ISDIR(s.st_mode))
-		{
-			printf("%s: is a directory\n", command_path);
-			return (ERROR);
-		}
-	}
-	return (SUCCESS);
-}
-
 int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 {
 	int	status;
@@ -123,6 +110,8 @@ int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 	if (command == NULL || command[0] == NULL || (int)command[0][0] == 0)
 		return (1);
 	if (is_directory(command[0]) == ERROR)
+		return (126);
+	else if (check_permission(command[0]) == ERROR)
 		return (126);
 	else if (command[0][0] == '/' || command[0][0] == '.')
 	{
