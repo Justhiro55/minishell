@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:22:43 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 18:05:34 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:48:49 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,22 @@ char	*ft_strndup(const char *s, size_t n)
 	}
 	copy[i] = '\0';
 	return (copy);
+}
+
+void	set_env(t_info *info, char **envp);
+
+void	set_no_env(t_info *info)
+{
+	char	**envp;
+	char 	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	envp = (char **)malloc(sizeof(char *) * 4);
+	envp[0] = ft_strjoin("PWD=", cwd);
+	envp[1] = ft_strjoin("SHLVL=1", cwd);
+	envp[2] = ft_strjoin("_=", cwd);
+	envp[3] = NULL;
+	set_env(info, envp);
+	ft_free_array(envp);
+	free(cwd);
 }

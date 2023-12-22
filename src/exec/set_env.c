@@ -6,13 +6,14 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:26:57 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/21 20:24:02 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:24:45 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
 char	*ft_strndup(const char *s, size_t n);
+void	set_no_env(t_info *info);
 
 void	remove_quotes(char *str)
 {
@@ -95,8 +96,6 @@ void	set_env(t_info *info, char **envp)
 	last = NULL;
 	info->status = 0;
 	info->env = NULL;
-	if (envp == NULL)
-		printf("no-env\n");
 	while (*envp != NULL)
 	{
 		new_node = env_lstnew(*envp);
@@ -112,4 +111,6 @@ void	set_env(t_info *info, char **envp)
 		last = new_node;
 		envp++;
 	}
+	if (info->env == NULL)
+		set_no_env(info);
 }

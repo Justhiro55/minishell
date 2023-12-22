@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/21 20:33:53 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:17:49 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,6 @@ int	execute_from_path(char *command_name, char **tokens, char **envp,
 		i++;
 	}
 	return (result);
-}
-
-int	execute_no_env_util(char **command, char **envp, t_info *info)
-{
-	ft_strlcpy(new_command, "/bin/", ft_strlen("/bin/") + ft_strlen(command[0])
-		+ 1);
-	ft_strlcat(new_command, command[0], ft_strlen("/bin/")
-		+ ft_strlen(command[0]) + 1);
-	if (access((const char *)new_command, F_OK) == 0
-		&& access((const char *)new_command, X_OK) == 0)
-	{
-		free(command[0]);
-		command[0] = new_command;
-		return (execute_command(command[0], command, envp));
-	}
-	else
-		free(new_command);
 }
 
 int	execute_no_env(char **command, char **envp, t_info *info)
@@ -144,7 +127,10 @@ int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 	else if (command[0][0] == '/' || command[0][0] == '.')
 	{
 		if (access(command[0], F_OK) == 0 && access(command[0], X_OK) == 0)
+		{
+			printf("test\n");
 			return (execute_command(command[0], command, envp));
+		}
 		else
 		{
 			printf("No such file or directory\n");

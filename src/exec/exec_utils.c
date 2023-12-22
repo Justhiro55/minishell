@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:29:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 19:21:14 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:13:04 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,22 @@ int	builtin_command(char **command, t_info *info, t_node *node)
 {
 	remove_quotes(command[0]);
 	if (ft_strcmp(command[0], "exit") == 0)
-		info->status = command_exit(command, info, node) % 255;
+		info->status = command_exit(command, info, node);
 	else if (ft_strcmp(command[0], "echo") == 0)
-		info->status = command_echo(command) % 255;
+		info->status = command_echo(command);
 	else if (ft_strcmp(command[0], "pwd") == 0)
-		info->status = command_pwd(command) % 255;
+		info->status = command_pwd(command);
 	else if (ft_strcmp(command[0], "cd") == 0)
-		info->status = command_cd(command, info) % 255;
+		info->status = command_cd(command, info);
 	else if (ft_strcmp(command[0], "env") == 0)
-		info->status = command_env(command, *info) % 255;
+		info->status = command_env(command, *info);
 	else if (ft_strcmp(command[0], "export") == 0)
-		info->status = command_export(command, info) % 255;
+		info->status = command_export(command, info);
 	else if (ft_strcmp(command[0], "unset") == 0)
-		info->status = command_unset(command, info) % 255;
+		info->status = command_unset(command, info);
 	else
 		return (1);
-	return (0);
+	return (info->status);
 }
 
 int	execute_command(char *command_path, char **tokens, char **envp)
@@ -54,6 +54,6 @@ int	execute_command(char *command_path, char **tokens, char **envp)
 	else
 	{
 		waitpid(parent, &status, 0);
-		return (status != 0);
+		return (status);
 	}
 }
