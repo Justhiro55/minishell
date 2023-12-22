@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/22 15:10:18 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:02:01 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ int	export_one_arg(t_info *info)
 	tmp = info->env;
 	while (tmp != NULL)
 	{
-		if (tmp->value != NULL && tmp->value[0] != '\0')
+		if (tmp->value != NULL && tmp->value[0] != '\0' && tmp->key[0] != '_')
 			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
-		else
+		else if(tmp->key[0] != '_')
 			printf("declare -x %s=\"\"\n", tmp->key);
 		tmp = tmp->next;
 	}
