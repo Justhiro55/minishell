@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/22 15:52:29 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/23 15:51:49 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int	execute_from_path(char *command_name, char **tokens, char **envp,
 	i = 0;
 	while (tokens[i] != NULL && tokens[i][0] != '\0')
 		remove_quotes(tokens[i++]);
+	i = 0;
 	while (path[i])
 	{
+		printf("path:%s\n", path[i]);
 		command_path = set_command_path(path[i], command_name);
 		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
 		{
