@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:22:43 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/22 14:48:49 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/23 15:53:01 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	set_env(t_info *info, char **envp);
 void	set_no_env(t_info *info)
 {
 	char	**envp;
-	char 	*cwd;
+	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
 	envp = (char **)malloc(sizeof(char *) * 4);
