@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:29 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 19:29:35 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/26 10:08:49 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	n_option(char **token)
 	j = 2;
 	while (token[i])
 	{
-		remove_quotes(token[i]);
 		if (!(token[i][0] == '-' && token[i][1] == 'n'))
 			break ;
 		j = 2;
@@ -38,7 +37,7 @@ int	n_option(char **token)
 
 int	is_metacharacter(char c)
 {
-	return (c && ft_strchr("|&;()<> \t\n", c));
+	return (c && ft_strchr("|&;()<>\t\n", c));
 }
 
 int	check_arg(char **str)
@@ -78,13 +77,10 @@ int	command_echo(char **token)
 		ft_putstr_fd("\n", STDOUT);
 		return (0);
 	}
-	if (check_arg(token) == ERROR)
-		return (258);
 	n_set = n_option(token);
 	i = n_set;
 	while (token[i])
 	{
-		remove_quotes(token[i]);
 		ft_putstr_fd(token[i], STDOUT);
 		if (token[i + 1])
 			ft_putstr_fd(" ", STDOUT);

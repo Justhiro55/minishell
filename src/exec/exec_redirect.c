@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/20 14:43:13 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/26 10:09:00 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	handle_redirections_for_child(t_node *node, t_redirects *redirects)
 			heredoc_flag = here_doc(redirects->filename, pipefd);
 		}
 		redirects = redirects->next;
-		if (g_signal == SIGINT)
+		if (g_signal == SIGINT || stdin_backup == -1 || stdout_backup == -1)
 			return (1);
 	}
 	return (set_redirects(stdin_backup, stdout_backup, pipefd, heredoc_flag));

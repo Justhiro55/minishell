@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/23 15:51:49 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/26 09:56:42 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,9 @@ int	execute_from_path(char *command_name, char **tokens, char **envp,
 	result = -2;
 	command_path = NULL;
 	i = 0;
-	while (tokens[i] != NULL && tokens[i][0] != '\0')
-		remove_quotes(tokens[i++]);
 	i = 0;
 	while (path[i])
 	{
-		printf("path:%s\n", path[i]);
 		command_path = set_command_path(path[i], command_name);
 		if (access(command_path, F_OK) == 0 && access(command_path, X_OK) == 0)
 		{
@@ -104,13 +101,23 @@ int	execute_command_from_path(char **command, char **envp, t_info *info,
 	return (result);
 }
 
+int	error_msg_no_file(void)
+{
+	printf("No such file or directory\n");
+	return (127);
+}
+
 int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 {
 	int	status;
+	int	i;
 
+	i = 0;
 	status = 0;
 	if (command == NULL || command[0] == NULL || (int)command[0][0] == 0)
 		return (1);
+	while (command[i] != NULL && command[i][0] != '\0')
+		remove_quotes(command[i++]);
 	if (is_directory(command[0]) == ERROR)
 		return (126);
 	else if (check_permission(command[0]) == ERROR)
@@ -118,14 +125,9 @@ int	ft_exec(char **command, char **envp, t_info *info, t_node *node)
 	else if (command[0][0] == '/' || command[0][0] == '.')
 	{
 		if (access(command[0], F_OK) == 0 && access(command[0], X_OK) == 0)
-		{
 			return (execute_command(command[0], command, envp));
-		}
 		else
-		{
-			printf("No such file or directory\n");
-			return (127);
-		}
+			return (error_msg_no_file());
 	}
 	else
 		status = execute_command_from_path(command, envp, info, node);
