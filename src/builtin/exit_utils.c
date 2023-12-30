@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 15:24:26 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/18 18:14:42 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:33:45 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	free_node(t_node *node)
 	i = 0;
 	if (node)
 	{
-		while (node->data[i] != NULL && i < (int)node->row_size)
+		while (node->data[i] != NULL)
 		{
 			free(node->data[i]);
 			i++;

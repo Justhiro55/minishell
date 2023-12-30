@@ -6,11 +6,13 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:53:36 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 17:17:21 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/21 14:55:32 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+char	*get_env(char *key, t_env *env);
 
 int	command_cd(char **token, t_info *info)
 {
@@ -22,7 +24,7 @@ int	command_cd(char **token, t_info *info)
 			return (ERROR);
 		}
 		else
-			chdir(getenv("HOME"));
+			chdir(get_env("HOME", info->env));
 		return (SUCCESS);
 	}
 	if (chdir(token[1]) == -1)

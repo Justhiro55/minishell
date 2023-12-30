@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/19 18:05:34 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2023/12/26 10:08:41 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,20 @@ int	export_error(char *token)
 	return (0);
 }
 
-int	export_node(t_info *info, t_env new_node)
+int	export_node(t_info *info, t_env *new_node)
 {
 	t_env	*tmp;
 
 	tmp = info->env;
 	while (tmp != NULL)
 	{
-		if (ft_strcmp(tmp->key, new_node.key) == 0)
+		if (ft_strcmp(tmp->key, new_node->key) == 0)
 		{
-			tmp->value = new_node.value;
+			free(tmp->value);
+			tmp->value = ft_strdup(new_node->value);
+			free(new_node->key);
+			free(new_node->value);
+			free(new_node);
 			return (ERROR);
 		}
 		tmp = tmp->next;
@@ -62,17 +66,12 @@ int	export_one_arg(t_info *info)
 	t_env	*tmp;
 
 	tmp = info->env;
-	if (tmp == NULL)
-	{
-		printf("declare -x PWD=\"%s\"\n", getcwd(NULL, 0));
-		printf("declare -x SHLVL=\"1\"\n");
-	}
 	while (tmp != NULL)
 	{
-		if (tmp->value != NULL && tmp->value[0] != '\0')
+		if (tmp->value != NULL && tmp->value[0] != '\0' && tmp->key[0] != '_')
 			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
-		else
-			printf("declare -x %s=\"\"\n", tmp->key);
+		else if (tmp->key[0] != '_')
+			printf("declare -x %s\n", tmp->key);
 		tmp = tmp->next;
 	}
 	return (SUCCESS);
@@ -97,7 +96,7 @@ int	command_export(char **token, t_info *info)
 		else
 		{
 			new_node = env_lstnew(token[i - 1]);
-			if (new_node && export_node(info, *new_node) == SUCCESS)
+			if (new_node && export_node(info, new_node) == SUCCESS)
 				env_add_back(info, new_node);
 		}
 	}
