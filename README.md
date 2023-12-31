@@ -1,6 +1,9 @@
 # minishell
 In the 42 project, we are redeveloping our own version of a compact bash. It's a program designed to interpret prompts and initiate executables with arguments, incorporating several built-in functionalities.
 
+https://github.com/Justhiro55/minishell/assets/77094170/39613192-1082-48ec-9c7e-b3382ed63875
+
+
 ## How to use it
 
 Using ``make`` will create the ``minishell`` executable.
