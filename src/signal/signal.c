@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:20:55 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/21 15:47:21 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/07 15:20:02 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@ void	error_signal(void)
 	exit(EXIT_FAILURE);
 }
 
-void	signal_ctrl(void)
+void	signal_ctrl(t_info *info)
 {
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
-	exit(0);
+	exit(info->status);
 }
 
 void	sigint_handler_nonl(int sig)
 {
 	if (sig == SIGINT)
 	{
+		g_signal = 1;
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		write(STDOUT_FILENO, "\n", 1);
@@ -62,6 +63,17 @@ void	change_signal(int flag)
 			error_signal();
 		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 			error_signal();
+	}
+	if (flag == 2)
+	{
+		if (signal(SIGINT, sigint_handler_cat) == SIG_ERR)
+		{
+			error_signal();
+		}
+		if (signal(SIGQUIT, sigint_handler_cat) == SIG_ERR)
+		{
+			error_signal();
+		}
 	}
 }
 

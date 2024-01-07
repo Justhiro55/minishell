@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:29:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/26 11:51:36 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/07 15:22:05 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,13 @@ int	execute_command(char *command_path, char **tokens, char **envp)
 	i = 0;
 	parent = ft_fork();
 	if (!parent)
+	{
+		change_signal(0);
 		exit(execve(command_path, tokens, envp));
+	}
 	else
 	{
+		change_signal(2);
 		wait(&status);
 		if (WIFEXITED(status))
 			return (WEXITSTATUS(status));
