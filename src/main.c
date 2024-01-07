@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 16:36:39 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/30 19:06:31 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/07 15:02:37 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,23 @@ void	minishell(char **envp)
 
 	line = NULL;
 	set_env(&info, envp);
-	change_signal(0);
 	while (1)
 	{
+		change_signal(0);
+		check_signal(&info);
 		line = readline("$> ");
 		if (line == NULL)
 		{
 			free(line);
-			signal_ctrl();
+			signal_ctrl(&info);
 		}
 		else if (line[0] == '\0')
 			free(line);
 		else
+		{
+			check_signal(&info);
 			parse(line, &info, envp);
-		change_signal(0);
-		check_signal(&info);
-		g_signal = 0;
+		}
 	}
 }
 
