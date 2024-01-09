@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/26 10:08:41 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/09 16:23:49 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	export_one_arg(t_info *info)
 		if (tmp->value != NULL && tmp->value[0] != '\0' && tmp->key[0] != '_')
 			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		else if (tmp->key[0] != '_')
-			printf("declare -x %s\n", tmp->key);
+			printf("declare -x %s=\"\"\n", tmp->key);
 		tmp = tmp->next;
 	}
 	return (SUCCESS);
