@@ -3,21 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/07 14:56:04 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:07:15 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
+int		restore_fd(int stdin_backup, int stdout_backup);
+
 int	here_doc(char *delimiter, int pipefd[2])
 {
 	char	*line;
 	int		stdout_backup;
+	int		stdin_backup;
 
 	stdout_backup = ft_dup(STDOUT_FILENO);
+	stdin_backup = ft_dup(STDIN_FILENO);
 	while (1)
 	{
 		ft_dup2(STDIN_FILENO, STDOUT_FILENO);
@@ -34,9 +38,8 @@ int	here_doc(char *delimiter, int pipefd[2])
 		write(pipefd[PIPE_WRITE], "\n", 1);
 		free(line);
 	}
-	if (ft_dup2(stdout_backup, STDOUT_FILENO) == 1)
-		return (1);
-	wait(NULL);
+	if (restore_fd(stdin_backup, stdout_backup) == 1)
+		return (0);
 	return (1);
 }
 

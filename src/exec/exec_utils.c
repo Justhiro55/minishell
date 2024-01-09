@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:29:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/07 15:22:05 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:10:44 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,18 @@ int	check_permission(char *command_path)
 		}
 	}
 	return (SUCCESS);
+}
+
+int	restore_fd(int stdin_backup, int stdout_backup)
+{
+	int	status;
+
+	status = 0;
+	if (ft_dup2(stdout_backup, STDOUT_FILENO) == 1)
+		status = 1;
+	if (ft_dup2(stdin_backup, STDIN_FILENO) == 1)
+		status = 1;
+	close(stdout_backup);
+	close(stdin_backup);
+	return (status);
 }
