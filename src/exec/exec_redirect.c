@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/10 11:49:35 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/10 13:17:02 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	here_doc(char *delimiter, int pipefd[2])
 	}
 	if (restore_fd(stdin_backup, stdout_backup) == 1)
 		return (0);
+	wait(NULL);
 	return (1);
 }
 
