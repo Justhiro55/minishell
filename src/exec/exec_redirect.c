@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/09 17:07:15 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:29:19 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	here_doc(char *delimiter, int pipefd[2])
 		change_signal(1);
 		line = readline("> ");
 		if (!line)
-			break ;
+			return (2);
 		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
@@ -52,6 +52,8 @@ int	update_stdin(int *stdin_backup, t_redirects *redirects)
 int	set_redirects(int stdin_backup, int stdout_backup, int pipefd[2],
 		int heredoc_flag)
 {
+	if (heredoc_flag == 2)
+		return (2);
 	if (heredoc_flag == 0)
 	{
 		if (ft_dup2(stdin_backup, STDIN_FILENO) == 1)

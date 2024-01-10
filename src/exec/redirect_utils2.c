@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:45:07 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/12 17:38:06 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:35:24 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
 void	here_doc(char *delimiter);
+void	expand_variable(t_node *node, t_info *info);
+int		exec_left_node(t_info *info, char **envp, t_node *node, int *pipefd);
+int		exec_right_node(t_info *info, char **envp, t_node *node, int *pipefd);
 
 void	here_doc_mock(char *delimiter)
 {
@@ -35,7 +38,7 @@ void	here_doc_mock(char *delimiter)
 
 void	here_doc_fork(t_redirects *redirects)
 {
-	pid_t		parent;
+	pid_t	parent;
 
 	parent = fork();
 	if (!parent)
@@ -51,4 +54,33 @@ void	restore_stdin_stdout(int stdin_backup, int stdout_backup)
 		ft_dup2(stdin_backup, STDIN_FILENO);
 	if (stdout_backup != STDOUT_FILENO)
 		ft_dup2(stdout_backup, STDOUT_FILENO);
+}
+
+int	exec_pipe(t_info *info, char **envp, t_node *node)
+{
+	int		pipefd[2];
+	pid_t	parent1;
+	pid_t	parent2;
+	int		status;
+
+	ft_pipe(pipefd);
+	parent1 = ft_fork();
+	if (parent1 == 0)
+	{
+		exec_left_node(info, envp, node->left, pipefd);
+		exit(1);
+	}
+	parent2 = ft_fork();
+	if (parent2 == 0)
+	{
+		wait(NULL);
+		if (exec_right_node(info, envp, node->right, pipefd) == 1)
+			exit(1);
+		exit(0);
+	}
+	close(pipefd[PIPE_READ]);
+	close(pipefd[PIPE_WRITE]);
+	waitpid(parent1, NULL, 0);
+	waitpid(parent2, &status, 0);
+	return (status);
 }

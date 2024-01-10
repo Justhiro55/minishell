@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 20:20:55 by kotainou          #+#    #+#             */
-/*   Updated: 2024/01/07 17:09:40 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:39:38 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	change_signal(int flag)
 	{
 		if (signal(SIGINT, sigint_handler_nonl) == SIG_ERR)
 			error_signal();
-		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+		if (signal(SIGQUIT, sigint_handler_nonl) == SIG_ERR)
 			error_signal();
 	}
 	if (flag == 1)

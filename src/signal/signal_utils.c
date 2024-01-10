@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:47:25 by kotainou          #+#    #+#             */
-/*   Updated: 2024/01/07 17:16:34 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:39:17 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ void	sigint_handler_cat(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write (STDIN_FILENO, "\n", 1);
+		write(STDIN_FILENO, "\n", 1);
 		g_signal = 130;
 	}
 	if (sig == SIGQUIT)
+	{
+		write(STDIN_FILENO, "QUIT: 3\n", 9);
 		g_signal = 131;
+	}
 }
