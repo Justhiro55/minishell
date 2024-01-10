@@ -6,22 +6,21 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/10 13:17:02 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/10 13:22:31 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int		restore_fd(int stdin_backup, int stdout_backup);
+int		restore_fd(int std_backup[2]);
 
 int	here_doc(char *delimiter, int pipefd[2])
 {
 	char	*line;
-	int		stdout_backup;
-	int		stdin_backup;
+	int		std_backup[2];
 
-	stdout_backup = ft_dup(STDOUT_FILENO);
-	stdin_backup = ft_dup(STDIN_FILENO);
+	std_backup[0] = ft_dup(STDIN_FILENO);
+	std_backup[1] = ft_dup(STDOUT_FILENO);
 	while (1)
 	{
 		ft_dup2(STDIN_FILENO, STDOUT_FILENO);
@@ -38,7 +37,7 @@ int	here_doc(char *delimiter, int pipefd[2])
 		write(pipefd[PIPE_WRITE], "\n", 1);
 		free(line);
 	}
-	if (restore_fd(stdin_backup, stdout_backup) == 1)
+	if (restore_fd(std_backup) == 1)
 		return (0);
 	wait(NULL);
 	return (1);
