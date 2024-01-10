@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/10 11:34:52 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:49:36 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void	process_exec(t_info *info, char **envp, t_node *node)
 	expand_variable(node, info);
 	status = handle_redirections_for_child(node, node->redirects);
 	if (status == 1)
+	{
 		info->status = 1;
+		return ;
+	}
 	else if (status == 2)
 		info->status = 0;
 	if (g_signal != SIGINT && status != 2)
