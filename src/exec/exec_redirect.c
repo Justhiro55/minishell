@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 18:42:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/10 13:22:31 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/10 14:12:11 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ int	here_doc(char *delimiter, int pipefd[2])
 	}
 	if (restore_fd(std_backup) == 1)
 		return (0);
-	wait(NULL);
 	return (1);
 }
 
 int	update_stdin(int *stdin_backup, t_redirects *redirects)
 {
+	if (*stdin_backup != STDIN_FILENO || *stdin_backup != STDOUT_FILENO)
+		close(*stdin_backup);
 	*stdin_backup = open_file(redirects);
 	return (0);
 }

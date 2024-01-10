@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:45:07 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/10 11:35:24 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/10 13:29:46 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	exec_pipe(t_info *info, char **envp, t_node *node)
 	parent2 = ft_fork();
 	if (parent2 == 0)
 	{
-		wait(NULL);
 		if (exec_right_node(info, envp, node->right, pipefd) == 1)
 			exit(1);
 		exit(0);
