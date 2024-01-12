@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/10 11:49:36 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:16:13 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	parse(char *line, t_info *info, char **envp)
 		return ;
 	}
 	node = parser(token, info);
-	add_history(line);
 	free(line);
 	info->status = child_process(info, envp, node);
 	free_node(node);

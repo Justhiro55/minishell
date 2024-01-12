@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:50:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 18:08:35 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/10 15:39:36 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ void					clear_tokeniser(t_tokeniser *tk);
 //token_utils.c
 t_token					*init_token(void);
 int						syntax_error(t_info *info);
+int						check_meta_line(t_tokeniser *tk, char *line);
 
 #endif
