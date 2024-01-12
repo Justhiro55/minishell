@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/12 17:47:34 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:57:14 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,11 @@ void	parse(char *line, t_info *info, char **envp)
 	token = lexer_main(line, tokeniser, info);
 	if (token == NULL)
 	{
-		add_history(line);
 		free(line);
 		return ;
 	}
 	node = parser(token, info);
+	add_history(line);
 	free(line);
 	info->status = child_process(info, envp, node);
 	free_node(node);
