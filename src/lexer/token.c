@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 16:15:57 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 15:24:08 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:48:34 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,20 @@ t_token	*tokenadd_back(t_token *head, char *str, int type)
 	return (head);
 }
 
-// void	printtoken(t_token *token)
-// {
-// 	t_token	*p;
+void	printtoken(t_token *token)
+{
+	t_token	*p;
 
-// 	p = token;
-// 	printf("\n--print token--\n");
-// 	while (p != NULL)
-// 	{
-// 		printf("str = [%s]\n", p->str);
-// 		printf("type = [%d]\n", p->type);
-// 		p = p->next;
-// 	}
-// 	printf("\n");
-// }
+	p = token;
+	printf("\n--print token--\n");
+	while (p != NULL)
+	{
+		printf("str = [%s]\n", p->str);
+		printf("type = [%d]\n", p->type);
+		p = p->next;
+	}
+	printf("\n");
+}
 
 void	clear_list(t_token *token)
 {

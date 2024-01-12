@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:29:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2023/12/26 11:51:36 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:56:20 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,13 @@ int	execute_command(char *command_path, char **tokens, char **envp)
 	i = 0;
 	parent = ft_fork();
 	if (!parent)
+	{
+		change_signal(0);
 		exit(execve(command_path, tokens, envp));
+	}
 	else
 	{
+		change_signal(2);
 		wait(&status);
 		if (WIFEXITED(status))
 			return (WEXITSTATUS(status));
@@ -60,7 +64,8 @@ int	is_directory(char *command_path)
 	struct stat	s;
 
 	if (stat(command_path, &s) == 0 && (command_path[0] == '/'
-			|| command_path[0] == '.'))
+			|| command_path[0] == '.'
+			|| command_path[ft_strlen(command_path) - 1] == '/'))
 	{
 		if (S_ISDIR(s.st_mode))
 		{
@@ -84,4 +89,18 @@ int	check_permission(char *command_path)
 		}
 	}
 	return (SUCCESS);
+}
+
+int	restore_fd(int std_backup[2])
+{
+	int	status;
+
+	status = 0;
+	if (ft_dup2(std_backup[1], STDOUT_FILENO) == 1)
+		status = 1;
+	if (ft_dup2(std_backup[0], STDIN_FILENO) == 1)
+		status = 1;
+	close(std_backup[1]);
+	close(std_backup[0]);
+	return (status);
 }

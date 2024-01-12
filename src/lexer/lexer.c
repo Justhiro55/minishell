@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:20:47 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 18:08:06 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:26:17 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ void	cre_tokeniser(t_tokeniser *tk, char *line)
 		if (c == ' ' && !check_space(tk, line))
 			break ;
 		switch_quote_state(tk, c);
-		if (tk->str_len == 0 && (c == '|' || c == '>' || c == '<'))
+		if (check_meta_line(tk, line))
+			break ;
+		if ((c == '|' || c == '>' || c == '<'))
 		{
 			tk->quoted = REDIRECT;
 			if (c == '|')
-			{
 				tk->quoted = PIPE;
-			}
 			tk->str_len += redi_size(tk, line);
 			break ;
 		}

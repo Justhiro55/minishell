@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:13:00 by kotainou          #+#    #+#             */
-/*   Updated: 2023/12/18 15:28:24 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:35:00 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_node	*redirect_add_cmd(t_now_token *ntk, t_node *node)
 	size_t	i;
 
 	i = 0;
-	if (ntk->now != NULL && node->data[0] == NULL)
+	if (ntk->now != NULL && node->data[0] == NULL
+		&& ft_strncmp("|", ntk->now->str, 1) != 0)
 	{
 		node->data[i] = ft_strdup(ntk->now->str);
 		ntk->now = ntk->now->next;
