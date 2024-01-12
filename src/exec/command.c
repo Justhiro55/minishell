@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:59:42 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/11 18:16:13 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:47:34 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	child_process(t_info *info, char **envp, t_node *node)
 	if (node == NULL)
 		return (1);
 	if (node->type == NODE_PIPE)
-		info->status = exec_pipe(info, envp, node) % 256;
+		info->status = exec_pipe(info, envp, node) % 255;
 	else
 		process_exec(info, envp, node);
 	ft_dup2(stdin_backup, STDIN_FILENO);

@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:29:25 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/09 17:10:44 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/10 14:26:07 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int	is_directory(char *command_path)
 	struct stat	s;
 
 	if (stat(command_path, &s) == 0 && (command_path[0] == '/'
-			|| command_path[0] == '.'))
+			|| command_path[0] == '.' || command_path[ft_strlen(command_path)
+			- 1] == '/'))
 	{
 		if (S_ISDIR(s.st_mode))
 		{
@@ -90,16 +91,16 @@ int	check_permission(char *command_path)
 	return (SUCCESS);
 }
 
-int	restore_fd(int stdin_backup, int stdout_backup)
+int	restore_fd(int std_backup[2])
 {
 	int	status;
 
 	status = 0;
-	if (ft_dup2(stdout_backup, STDOUT_FILENO) == 1)
+	if (ft_dup2(std_backup[1], STDOUT_FILENO) == 1)
 		status = 1;
-	if (ft_dup2(stdin_backup, STDIN_FILENO) == 1)
+	if (ft_dup2(std_backup[0], STDIN_FILENO) == 1)
 		status = 1;
-	close(stdout_backup);
-	close(stdin_backup);
+	close(std_backup[1]);
+	close(std_backup[0]);
 	return (status);
 }
