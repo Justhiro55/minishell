@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:20:47 by kotainou          #+#    #+#             */
-/*   Updated: 2024/01/12 17:26:17 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/13 20:34:47 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	cre_tokeniser(t_tokeniser *tk, char *line)
 	while (line[tk->str_i + tk->str_len] != '\0')
 	{
 		c = line[tk->str_i + tk->str_len];
-		if (c == ' ' && !check_space(tk, line))
+		if ((c == ' ' || c == '	') && !check_space(tk, line))
 			break ;
 		switch_quote_state(tk, c);
 		if (check_meta_line(tk, line))
@@ -92,3 +92,5 @@ t_token	*lexer_main(char *line, t_tokeniser	*tokeniser, t_info *info)
 	free(tokeniser);
 	return (token);
 }
+	
+	
