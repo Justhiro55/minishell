@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 19:08:11 by kotainou          #+#    #+#             */
-/*   Updated: 2024/01/13 20:19:43 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/13 21:18:25 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	check_rd(t_token *head, int rd_flag)
 	(void)head;
 	if (rd_flag > 0)
 		output_syntax_error(1);
+	if (head->next == NULL)
+		output_syntax_error(2);
 }
 
 void	check_meta(t_token *head, int *meta_flag, int *rd_flag)

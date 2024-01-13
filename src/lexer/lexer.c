@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 17:20:47 by kotainou          #+#    #+#             */
-/*   Updated: 2024/01/13 20:34:47 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/13 21:19:52 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,3 @@ t_token	*lexer_main(char *line, t_tokeniser	*tokeniser, t_info *info)
 	free(tokeniser);
 	return (token);
 }
-	
-	
