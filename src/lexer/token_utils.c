@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 00:12:19 by kotainou          #+#    #+#             */
-/*   Updated: 2024/01/13 21:19:03 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/13 21:37:55 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_meta_line(t_tokeniser *tk, char *line)
 	now_c = line[tk->str_len + tk->str_i];
 	if (line[tk->str_len + tk->str_i + 1] != '\0')
 		next_c = line[tk->str_len + tk->str_i + 1];
-	if (next_c == '|' || next_c == '>' || next_c == '<')
+	if ((next_c == '|' || next_c == '>' || next_c == '<') && tk->quoted == 0)
 	{
 		if (now_c == next_c && now_c != '|')
 		{
