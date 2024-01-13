@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:40:00 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/09 16:23:49 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/13 20:46:10 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ int	ft_strchr_export(const char *s, int c);
 
 int	error_export_msg(char *str)
 {
+	if (str[0] == '-' && str[1] != '\0')
+	{
+		ft_putstr_fd("bash: export:\'", STDERR);
+		ft_putstr_fd(str, STDERR);
+		ft_putstr_fd("\': invalid option\n", STDERR);
+		return (2);
+	}
 	ft_putstr_fd("bash: export:\'", STDERR);
 	ft_putstr_fd(str, STDERR);
 	ft_putstr_fd("\': not a valid identifier\n", STDERR);
