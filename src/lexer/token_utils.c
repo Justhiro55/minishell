@@ -6,7 +6,7 @@
 /*   By: kotainou <kotainou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 00:12:19 by kotainou          #+#    #+#             */
-/*   Updated: 2024/01/13 21:37:55 by kotainou         ###   ########.fr       */
+/*   Updated: 2024/01/18 20:28:18 by kotainou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	syntax_error(t_info *info)
 
 int	check_meta_char(char now_c, char next_c)
 {
-	int type;
+	int	type;
 
 	type = 0;
 	(void)next_c;
@@ -54,7 +54,7 @@ int	check_meta_line(t_tokeniser *tk, char *line)
 		next_c = line[tk->str_len + tk->str_i + 1];
 	if ((next_c == '|' || next_c == '>' || next_c == '<') && tk->quoted == 0)
 	{
-		if (now_c == next_c && now_c != '|')
+		if (now_c != '|' && next_c == now_c)
 		{
 			tk->quoted = REDIRECT;
 			tk->str_len += 2;
@@ -62,6 +62,8 @@ int	check_meta_line(t_tokeniser *tk, char *line)
 		}
 		if (now_c == '|')
 			tk->quoted = PIPE;
+		else if (now_c == '<' || now_c == '>')
+			tk->quoted = REDIRECT;
 		tk->str_len++;
 		return (1);
 	}
