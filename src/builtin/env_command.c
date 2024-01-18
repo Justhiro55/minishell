@@ -6,7 +6,7 @@
 /*   By: hhagiwar <hhagiwar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 13:54:56 by hhagiwar          #+#    #+#             */
-/*   Updated: 2024/01/09 17:13:34 by hhagiwar         ###   ########.fr       */
+/*   Updated: 2024/01/13 20:41:48 by hhagiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	command_env(char **token, t_info info)
 	if (token[1] != NULL)
 	{
 		printf("env: %s: No such file or directory\n", token[1]);
-		return (ERROR);
+		return (127);
 	}
 	while (info.env != NULL)
 	{
